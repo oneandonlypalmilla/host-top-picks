@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-06T06:38:09.984Z",
+ "publishedAt": "2026-11-06T17:20:34.488Z",
  "activities": [
   {
    "id": "knapmj3g",
@@ -33,7 +33,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.262Z"
+   "addedAt": "2026-11-06T06:36:07.262Z",
+   "migr": 2
   },
   {
    "id": "vu8eztsh",
@@ -64,7 +65,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.262Z"
+   "addedAt": "2026-11-06T06:36:07.262Z",
+   "migr": 2
   },
   {
    "id": "y36p3m8r",
@@ -95,7 +97,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.262Z"
+   "addedAt": "2026-11-06T06:36:07.262Z",
+   "migr": 2
   },
   {
    "id": "8scrc0et",
@@ -124,7 +127,11 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.264Z"
+   "addedAt": "2026-11-06T06:36:07.264Z",
+   "migr": 2,
+   "_dates": [
+    "2026-11-07"
+   ]
   },
   {
    "id": "q90ftn51",
@@ -151,7 +158,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.265Z"
+   "addedAt": "2026-11-06T06:36:07.265Z",
+   "migr": 2
   },
   {
    "id": "c23a3edx",
@@ -178,7 +186,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.272Z"
+   "addedAt": "2026-11-06T06:36:07.272Z",
+   "migr": 2
   },
   {
    "id": "310zjzlj",
@@ -205,7 +214,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.272Z"
+   "addedAt": "2026-11-06T06:36:07.272Z",
+   "migr": 2
   },
   {
    "id": "n6fh37bx",
@@ -232,7 +242,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.273Z"
+   "addedAt": "2026-11-06T06:36:07.273Z",
+   "migr": 2
   },
   {
    "id": "7oi48axa",
@@ -263,7 +274,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.275Z"
+   "addedAt": "2026-11-06T06:36:07.275Z",
+   "migr": 2
   },
   {
    "id": "o9ne0mdg",
@@ -296,7 +308,8 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T06:36:07.276Z"
+   "addedAt": "2026-11-06T06:36:07.276Z",
+   "migr": 2
   }
  ]
 }
