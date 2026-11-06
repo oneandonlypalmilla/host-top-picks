@@ -128,10 +128,11 @@ tr:hover td{background:#fbf7f0}
 <body>
 <header>
   <div class="brand"><h1>Host Top Picks</h1><span>One&amp;Only Palmilla</span></div>
+  <div id="pub-badge" class="tiny" style="color:#cdb796;margin-left:4px"></div>
   <nav id="nav">
     <button data-view="host" class="active">WhatsApp Message<small>Host</small></button>
     <button data-view="activities">Activities<small>Marketing</small></button>
-    <button data-view="data">Data<small>Backup &amp; sharing</small></button>
+    <button data-view="data">Publish<small>Marketing</small></button>
   </nav>
 </header>
 
@@ -203,21 +204,27 @@ tr:hover td{background:#fbf7f0}
 
 <!-- ================= DATA ================= -->
 <section class="view" id="view-data">
-  <div class="section-title"><h2>Data</h2></div>
+  <div class="section-title"><h2>Publish</h2></div>
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="card">
-      <h3 style="font-size:22px;margin-bottom:8px">Share between devices</h3>
-      <p class="small muted">Data is saved in this browser only. To pass the activities to another device, download a data pack here and import it there. Importing replaces everything on the receiving device.</p>
-      <div class="row" style="margin-top:12px">
-        <button class="btn" id="d-export">Download data pack</button>
-        <button class="btn ghost" id="d-import-btn">Import data pack</button>
-        <input type="file" id="d-import" accept=".json" hidden>
-      </div>
+      <h3 style="font-size:22px;margin-bottom:8px">Publish the programme to all Hosts</h3>
+      <div id="p-status" class="note" style="margin-bottom:12px"></div>
+      <ol class="small" style="padding-left:18px;margin:0 0 12px;line-height:1.7">
+        <li>Upload and check the activities in the <b>Activities</b> tab.</li>
+        <li>Click <b>Download activities.json</b> below.</li>
+        <li>In the GitHub repository, click <b>Add file → Upload files</b>, drop <b>activities.json</b> in and click <b>Commit changes</b> (it replaces the previous one).</li>
+      </ol>
+      <div class="row"><button class="btn gold" id="d-export">Download activities.json</button></div>
+      <p class="tiny muted" style="margin:10px 0 0">Hosts receive the new programme automatically the next time they open or return to the app — usually within a few minutes of the upload.</p>
     </div>
     <div class="card">
-      <h3 style="font-size:22px;margin-bottom:8px">Clear this device</h3>
-      <p class="small muted">Deletes all activities saved in this browser.</p>
-      <div class="row" style="margin-top:12px"><button class="btn danger" id="d-clear">Clear all data</button></div>
+      <h3 style="font-size:22px;margin-bottom:8px">This device</h3>
+      <p class="small muted">Load an activities.json file by hand (e.g. when testing without GitHub), or delete everything saved in this browser.</p>
+      <div class="row" style="margin-top:12px">
+        <button class="btn ghost" id="d-import-btn">Load a file</button>
+        <input type="file" id="d-import" accept=".json" hidden>
+        <button class="btn danger" id="d-clear">Clear this device</button>
+      </div>
       <div class="note" style="margin-top:14px" id="d-storage-note"></div>
     </div>
   </div>
@@ -255,7 +262,11 @@ let S = {
   activities: Store.get("activities", []),
   settings: Object.assign({}, DEFAULT_SETTINGS, Store.get("settings", {}), FIXED_SETTINGS)
 };
-function save(which){ (which?[which]:["activities","settings"]).forEach(k=>Store.set(k,S[k])); }
+let QUIET=false;   // true while loading the published programme or tidying data (not a user edit)
+function save(which){ const keys=which?[which]:["activities","settings"];
+  if(keys.includes("activities") && !QUIET){ S.settings.dirty=true; S.settings.dirtyAt=new Date().toISOString(); if(!keys.includes("settings")) keys.push("settings"); }
+  keys.forEach(k=>Store.set(k,S[k]));
+  if(keys.includes("activities") && !QUIET && typeof renderPubStatus==="function") renderPubStatus(); }
 /* guest data is no longer used: remove anything earlier versions saved on this device */
 try{ ["guests","history"].forEach(k=>localStorage.removeItem("htp_"+k)); }catch(e){}
 if(S.settings.inHouseAsOf){ delete S.settings.inHouseAsOf; Store.set("settings",S.settings); }
@@ -965,29 +976,82 @@ function confirmDates(d, saved){
     const next=pendingDrafts.find(x=>!x._skip&&x.dateStatus==="confirm"); if(next) setTimeout(()=>confirmDates(next),150); };
 }
 
-/* ---------- Data view ---------- */
-function pack(){ return JSON.stringify({app:"host-top-picks", version:3, exportedAt:new Date().toISOString(), activities:S.activities, settings:{fx:S.settings.fx}}); }
-function importPack(d){
-  S.activities=d.activities||[];
-  const hn=S.settings.hostName; S.settings=Object.assign({},DEFAULT_SETTINGS,FIXED_SETTINGS,{fx:(d.settings||{}).fx||S.settings.fx, hostName:hn});
-  migrateActivities(); H.sel.clear();
-  save(); renderAll(); toast(`Imported ${S.activities.length} activities`);
+/* ---------- Publishing (activities.json next to index.html on GitHub Pages) ---------- */
+const PUB = { state:"unknown", data:null, checkedAt:0 };   // state: unknown | ok | none
+function pack(){
+  return JSON.stringify({app:"host-top-picks", kind:"activities", version:4, publishedAt:new Date().toISOString(),
+    activities:S.activities.map(({dateStatus,dateNote,dateSource,unknown,_skip,daysFound,...a})=>a)}, null, 1);
+}
+function fmtStamp(iso){ try{ return new Date(iso).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}); }catch(e){ return iso; } }
+function applyPublished(d, why){
+  QUIET=true;
+  S.activities = JSON.parse(JSON.stringify(d.activities||[]));   // own copy: local edits must never alter the published data held in memory
+  S.settings.pubAt = d.publishedAt||d.exportedAt||"";
+  S.settings.dirty=false; delete S.settings.dirtyAt; delete S.settings.pendingPublish;
+  migrateActivities();
+  save(); QUIET=false;
+  H.sel.clear(); renderAll(); renderPubStatus();
+  if(why) toast(why);
+}
+async function checkPublished(force){
+  if(!force && Date.now()-PUB.checkedAt < 60000) return;            // at most once a minute
+  PUB.checkedAt=Date.now();
+  let d=null;
+  try{
+    const r = await fetch(`activities.json?t=${Date.now()}`, {cache:"no-store"});
+    if(r.ok){ d = await r.json(); if(d.app!=="host-top-picks" || !Array.isArray(d.activities)) d=null; }
+  }catch(e){ d=null; }
+  if(!d){ PUB.state="none"; PUB.data=null; renderPubStatus(); return; }
+  PUB.state="ok"; PUB.data=d;
+  const pubAt = d.publishedAt||"";
+  const st=S.settings;
+  // Marketing uploaded the file they downloaded from this device → their edits are now published
+  if(st.dirty && st.pendingPublish && pubAt && pubAt >= st.pendingPublish){ applyPublished(d); return; }
+  if(st.dirty){ renderPubStatus(); return; }                         // keep unpublished local edits
+  if(pubAt !== st.pubAt || !S.activities.length) applyPublished(d, st.pubAt ? "Programme updated" : "");
+  else renderPubStatus();
+}
+function renderPubStatus(){
+  const st=S.settings, d=PUB.data;
+  const badge=$("#pub-badge"), box=$("#p-status");
+  let b="", html="";
+  if(st.dirty){
+    b = "● Unpublished changes on this device";
+    html = `<b>This device has changes that aren't published yet</b>${st.dirtyAt?` (last edit ${esc(fmtStamp(st.dirtyAt))})`:""}. Hosts still see ${PUB.state==="ok"?`the programme published ${esc(fmtStamp(d.publishedAt))}`:"the previous programme"}.
+      ${st.pendingPublish?`<div class="tiny" style="margin-top:6px">activities.json downloaded ${esc(fmtStamp(st.pendingPublish))} — waiting for it to appear on GitHub (upload it, then allow a few minutes).</div>`:""}
+      ${PUB.state==="ok"?`<div style="margin-top:8px"><button class="btn ghost small" id="p-discard">Discard my changes and load the published programme</button></div>`:""}`;
+  } else if(PUB.state==="ok"){
+    b = `Programme published ${fmtStamp(d.publishedAt)}`;
+    html = `<b>Up to date.</b> This device shows the programme published ${esc(fmtStamp(d.publishedAt))} (${d.activities.length} activities).`;
+  } else if(PUB.state==="none"){
+    b = S.activities.length ? "Local programme (not published)" : "";
+    html = `No published programme found next to the app${location.protocol==="file:"?" (the app is opened as a local file)":""}. Activities live on this device only until activities.json is uploaded to GitHub.`;
+  } else { html = "Checking for a published programme…"; }
+  if(badge) badge.textContent=b;
+  if(box){ box.innerHTML=html; $("#p-discard")?.addEventListener("click",()=>{ openModal(`<h2>Discard local changes?</h2><p class="small muted">Your edits on this device will be replaced by the published programme (${PUB.data.activities.length} activities).</p><div class="row" style="justify-content:flex-end"><button class="btn ghost" id="pd-no">Cancel</button><button class="btn danger" id="pd-yes">Discard and load</button></div>`); $("#pd-no").onclick=closeModal; $("#pd-yes").onclick=()=>{ closeModal(); applyPublished(PUB.data,"Published programme loaded"); }; }); }
 }
 function bindData(){
-  $("#d-export").onclick=async()=>{ const name=`host-top-picks-${todayISO()}.json`, data=pack();
-    if(window.claude?.use){ try{ const dl=await Promise.race([window.claude.use("downloads"), new Promise(r=>setTimeout(()=>r(null),3000))]); if(dl){ await dl.save({filename:name, data}); toast("Data pack saved"); return; } }catch(e){ toast("Download declined"); return; } }
-    if(!download(name, data)) toast("Download blocked by this browser"); };
+  $("#d-export").onclick=async()=>{
+    if(!S.activities.length){ toast("No activities to publish"); return; }
+    if(S.activities.some(a=>a.dateCheck)){ toast("Confirm the pending dates in Activities first"); show("activities"); return; }
+    const data=pack(); const at=JSON.parse(data).publishedAt;
+    let ok=false;
+    if(window.claude?.use){ try{ const dl=await Promise.race([window.claude.use("downloads"), new Promise(r=>setTimeout(()=>r(null),3000))]); if(dl){ await dl.save({filename:"activities.json", data}); ok=true; } }catch(e){ toast("Download declined"); return; } }
+    if(!ok) ok=download("activities.json", data);
+    if(!ok){ toast("Download blocked by this browser"); return; }
+    S.settings.pendingPublish=at; if(!S.settings.dirty){ S.settings.dirty=true; S.settings.dirtyAt=at; }   // stays "unpublished" until GitHub serves this file
+    Store.set("settings",S.settings); renderPubStatus(); toast("activities.json downloaded — now upload it to GitHub");
+  };
   $("#d-import-btn").onclick=()=>$("#d-import").click();
   $("#d-import").onchange=async e=>{ const f=e.target.files[0]; e.target.value=""; if(!f) return;
-    let d; try{ d=JSON.parse(await f.text()); }catch(err){ toast("That isn't a valid data pack"); return; }
-    if(d.app!=="host-top-picks"){ toast("That isn't a Host Top Picks data pack"); return; }
-    openModal(`<h2>Import data pack?</h2><p class="small">${esc(f.name)} — <b>${(d.activities||[]).length}</b> activities.</p>
-      <p class="small muted">Everything currently on this device will be replaced.</p>
-      <div class="row" style="justify-content:flex-end"><button class="btn ghost" id="im-no">Cancel</button><button class="btn" id="im-yes">Replace and import</button></div>`);
-    $("#im-no").onclick=closeModal; $("#im-yes").onclick=()=>{ closeModal(); importPack(d); }; };
-  $("#d-clear").onclick=()=>{ openModal(`<h2>Clear all data?</h2><p class="muted">This removes every activity on this device. Download a data pack first if you need it.</p><div class="row" style="justify-content:flex-end"><button class="btn ghost" id="c-no">Cancel</button><button class="btn danger" id="c-yes">Clear everything</button></div>`);
-    $("#c-no").onclick=closeModal; $("#c-yes").onclick=()=>{ S.activities=[]; H.sel.clear(); save(); closeModal(); renderAll(); toast("All data cleared"); }; };
-  $("#d-storage-note").innerHTML = Store.ok() ? "Data is saved in this browser on this device." : "<b>This browser isn't saving data</b> — it will be lost on reload. Download a data pack before closing.";
+    let d; try{ d=JSON.parse(await f.text()); }catch(err){ toast("That isn't a valid activities file"); return; }
+    if(d.app!=="host-top-picks"||!Array.isArray(d.activities)){ toast("That isn't a Host Top Picks activities file"); return; }
+    openModal(`<h2>Load ${esc(f.name)}?</h2><p class="small"><b>${d.activities.length}</b> activities. Everything currently on this device will be replaced.</p>
+      <div class="row" style="justify-content:flex-end"><button class="btn ghost" id="im-no">Cancel</button><button class="btn" id="im-yes">Replace and load</button></div>`);
+    $("#im-no").onclick=closeModal; $("#im-yes").onclick=()=>{ closeModal(); S.activities=JSON.parse(JSON.stringify(d.activities)); QUIET=true; migrateActivities(); QUIET=false; H.sel.clear(); save("activities"); renderAll(); renderPubStatus(); toast(`Loaded ${S.activities.length} activities`); }; };
+  $("#d-clear").onclick=()=>{ openModal(`<h2>Clear this device?</h2><p class="muted">This removes every activity saved in this browser. If a programme is published on GitHub, it will load again next time.</p><div class="row" style="justify-content:flex-end"><button class="btn ghost" id="c-no">Cancel</button><button class="btn danger" id="c-yes">Clear</button></div>`);
+    $("#c-no").onclick=closeModal; $("#c-yes").onclick=()=>{ QUIET=true; S.activities=[]; S.settings.dirty=false; delete S.settings.pendingPublish; delete S.settings.pubAt; save(); QUIET=false; H.sel.clear(); closeModal(); renderAll(); toast("Device cleared"); checkPublished(true); }; };
+  $("#d-storage-note").innerHTML = Store.ok() ? "Data is saved in this browser on this device." : "<b>This browser isn't saving data</b> — it will be lost on reload.";
 }
 
 /* ---------- shell ---------- */
@@ -1006,7 +1070,7 @@ document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
 const VIEWS=["host","activities","data"];
 function show(v){ if(!VIEWS.includes(v)) v="host"; $$(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v)); $$("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
   if(location.hash!=="#"+v) try{ history.replaceState(null,"","#"+v);}catch(e){ }
-  ({host:renderHost,activities:renderActivities,data:()=>{}})[v](); }
+  ({host:renderHost,activities:renderActivities,data:renderPubStatus})[v](); }
 function renderAll(){ renderHost(); renderActivities(); }
 $("#nav").addEventListener("click",e=>{ const b=e.target.closest("button"); if(b) show(b.dataset.view); });
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
@@ -1032,9 +1096,12 @@ function migrateActivities(){
   });
   if(changed) save("activities");
 }
-migrateActivities();
+QUIET=true; migrateActivities(); QUIET=false;
 bindHost(); bindActivities(); bindData();
 show(location.hash.slice(1)||"host");
+renderPubStatus(); checkPublished(true);
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") checkPublished(false); });
+window.addEventListener("focus",()=>checkPublished(false));
 </script>
 </body>
 </html>
