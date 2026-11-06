@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Host Top Picks · One&amp;Only Palmilla</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{
+  --sand:#f6f1ea; --paper:#fffdfa; --ink:#1d1d1b; --muted:#6f6a63; --line:#e4dccf;
+  --gold:#a8865a; --gold-d:#8a6c45; --navy:#1f2a36; --ok:#3f7a5a; --warn:#b5762b; --bad:#a3473d;
+  --romantic:#a5525f; --family:#3f7a8c; --celebration:#b08a2e; --relax:#5f7f5a;
+  --r:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--sand);color:var(--ink);font-family:Jost,system-ui,sans-serif;font-weight:400;font-size:15px;line-height:1.45}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;margin:0;letter-spacing:.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+header{background:var(--navy);color:#f3ece2;padding:14px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+header .brand{display:flex;flex-direction:column}
+header .brand h1{font-size:24px;line-height:1}
+header .brand span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#cdb796;margin-top:4px}
+nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+nav button{background:transparent;border:1px solid transparent;color:#e9e1d4;padding:8px 14px;border-radius:999px;cursor:pointer;font-size:14px;letter-spacing:.02em}
+nav button:hover{border-color:#ffffff33}
+nav button.active{background:#f3ece2;color:var(--navy)}
+nav button small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+main{max-width:1180px;margin:0 auto;padding:22px}
+.view{display:none}.view.active{display:block}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.grid{display:grid;gap:18px}
+.g-host{grid-template-columns:minmax(300px,380px) 1fr}
+@media(max-width:860px){.g-host{grid-template-columns:1fr}}
+.label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;display:block;font-weight:500}
+.field{margin-bottom:14px}
+input[type=text],input[type=date],input[type=time],input[type=number],input[type=tel],select,textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:#fff;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{resize:vertical}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--navy);background:var(--navy);color:#fff;padding:9px 16px;border-radius:8px;cursor:pointer;font-weight:500;text-decoration:none;font-size:14px}
+.btn:hover{background:#2c3a4a}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn.ghost:hover{background:#1f2a360d}
+.btn.gold{background:var(--gold);border-color:var(--gold)}
+.btn.gold:hover{background:var(--gold-d)}
+.btn.wa{background:#1f7a4d;border-color:#1f7a4d}
+.btn.small{padding:5px 10px;font-size:13px}
+.btn.danger{background:transparent;color:var(--bad);border-color:#a3473d66}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spread{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.muted{color:var(--muted)}.small{font-size:13px}.tiny{font-size:12px}
+.stay-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stay-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px 10px;cursor:pointer;text-align:left;display:flex;gap:9px;align-items:center}
+.stay-btn .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.stay-btn.active{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;background:transparent;padding:7px 14px;cursor:pointer}
+.seg button.active{background:var(--navy);color:#fff}
+.pick{border-left:3px solid var(--gold);padding-left:14px}
+.act-list{display:flex;flex-direction:column;gap:8px;max-height:620px;overflow:auto;padding-right:4px}
+.act{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;cursor:pointer}
+.act input[type=checkbox]{margin-top:4px;width:17px;height:17px;accent-color:var(--navy);flex:none}
+.act.on{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold);background:#fffaf2}
+.act.dis{opacity:.5;cursor:default}
+.slot{border:1px solid var(--line);background:#fff;border-radius:6px;padding:2px 8px;font-size:12.5px;cursor:pointer}
+.slot.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.slot:disabled{text-decoration:line-through;opacity:.5;cursor:default}
+.pick h2{font-size:28px;line-height:1.1}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:#fff;white-space:nowrap}
+.chip.s-romantic{border-color:var(--romantic);color:var(--romantic)}
+.chip.s-family{border-color:var(--family);color:var(--family)}
+.chip.s-celebration{border-color:var(--celebration);color:var(--celebration)}
+.chip.s-relax{border-color:var(--relax);color:var(--relax)}
+.reasons{margin:10px 0 0;padding:0;list-style:none}
+.reasons li{font-size:13px;color:var(--muted);padding:2px 0 2px 18px;position:relative}
+.reasons li:before{content:"";position:absolute;left:4px;top:10px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.reasons li.neg:before{background:var(--bad)}
+.wa-preview{background:#e7ded3 radial-gradient(#d9cdbf 1px,transparent 1px) 0 0/14px 14px;border-radius:10px;padding:16px}
+.bubble{background:#dcf5c6;max-width:520px;margin-left:auto;padding:10px 12px 18px;border-radius:10px 2px 10px 10px;white-space:pre-wrap;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14.5px;box-shadow:0 1px 1px #0001;position:relative}
+.bubble:after{content:"✓✓";position:absolute;right:8px;bottom:3px;font-size:10px;color:#53bdeb}
+.msg-edit{width:100%;min-height:220px;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14px}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r);background:#fffdfa}
+.drop{border:1.5px dashed #c9b89c;border-radius:var(--r);padding:22px;text-align:center;background:#fffaf2;cursor:pointer;transition:.15s}
+.drop.over{background:#f3e7d4;border-color:var(--gold)}
+.drop strong{font-family:"Cormorant Garamond",serif;font-size:20px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:500;padding:8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid #efe8dd;vertical-align:top}
+tr:hover td{background:#fbf7f0}
+.fit{display:inline-flex;gap:2px}
+.fit i{display:inline-block;width:7px;height:7px;border-radius:2px;background:#e8e0d3}
+.fitcell{cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;padding:2px 0}
+.status{font-size:12px;padding:2px 8px;border-radius:999px;background:#eef3ef;color:var(--ok)}
+.status.off{background:#f6ebe9;color:var(--bad)}
+.status.warn{background:#f8efe2;color:var(--warn)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(30px);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;z-index:50;font-size:14px}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.modal-bg{position:fixed;inset:0;background:#1d1d1b66;display:none;align-items:flex-start;justify-content:center;padding:40px 14px;z-index:40;overflow:auto}
+.modal-bg.show{display:flex}
+.modal{background:var(--paper);border-radius:12px;max-width:760px;width:100%;padding:22px;border:1px solid var(--line)}
+.modal h2{font-size:26px;margin-bottom:14px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:620px){.f2,.f3{grid-template-columns:1fr}}
+.days{display:flex;gap:4px;flex-wrap:wrap}
+.days label{border:1px solid var(--line);border-radius:6px;padding:4px 8px;cursor:pointer;font-size:13px;background:#fff}
+.days input{display:none}
+.days label:has(input:checked){background:var(--navy);color:#fff;border-color:var(--navy)}
+.it-list{list-style:none;padding:0;margin:0}
+.it-list li{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid #efe8dd;font-size:14px}
+.it-list li .t{width:64px;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--muted)}
+.section-title{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+.section-title h2{font-size:30px}
+.pill-n{background:#efe6d8;border-radius:999px;padding:1px 9px;font-size:12px}
+.map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.note{background:#f8f1e5;border:1px solid #ecdcc2;border-radius:8px;padding:10px 12px;font-size:13px}
+.hidden{display:none!important}
+.scroll{overflow:auto}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:4px 0;cursor:pointer}
+.chk input{margin-top:4px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><h1>Host Top Picks</h1><span>One&amp;Only Palmilla</span></div>
+  <nav id="nav">
+    <button data-view="host" class="active">WhatsApp Message<small>Host</small></button>
+    <button data-view="activities">Activities<small>Marketing</small></button>
+    <button data-view="data">Data<small>Backup &amp; sharing</small></button>
+  </nav>
+</header>
+
+<main>
+<!-- ================= HOST ================= -->
+<section class="view active" id="view-host">
+  <div class="grid g-host">
+    <div class="card">
+      <div class="field"><span class="label">Date</span><input type="date" id="h-date"></div>
+      <div class="field">
+        <span class="label">Greeting <span class="muted" style="text-transform:none;letter-spacing:0">(optional — not saved)</span></span>
+        <div class="row" style="flex-wrap:nowrap;gap:8px">
+          <select id="h-gtitle" style="width:130px"><option value="">— title —</option></select>
+          <input type="text" id="h-gname" placeholder="Surname, e.g. Smith" autocomplete="off">
+        </div>
+        <div class="tiny muted" style="margin-top:4px" id="h-greet-hint"></div>
+      </div>
+      <div class="field"><span class="label">Message language</span>
+        <div class="seg" id="h-lang"><button data-v="en" class="active">English</button><button data-v="es">Español</button></div>
+      </div>
+      <div class="field"><span class="label">Today's FX · 1 USD = MXN</span>
+        <div class="row" style="flex-wrap:nowrap"><input type="number" id="h-fx" step="0.01" min="1" placeholder="e.g. 18.35" style="width:120px">
+          <a class="btn ghost small" href="https://www.google.com/search?q=1+USD+to+MXN" target="_blank" rel="noopener">Check Google rate ↗</a></div>
+        <div class="tiny" id="h-fx-hint" style="margin-top:4px"></div></div>
+      <div class="field"><span class="label">Signed by</span><input type="text" id="h-host" placeholder="Your name (saved on this device)"></div>
+    </div>
+
+    <div class="grid" style="align-content:start">
+      <div class="card" id="h-pick-card"></div>
+      <div class="card">
+        <div class="spread" style="margin-bottom:10px">
+          <h3 style="font-size:22px">WhatsApp message</h3>
+          <div class="row">
+            <button class="btn ghost small" id="h-edit">Edit text</button>
+            <button class="btn gold" id="h-copy">Copy message</button>
+          </div>
+        </div>
+        <div class="wa-preview"><div class="bubble" id="h-bubble"></div></div>
+        <textarea class="msg-edit hidden" id="h-msg"></textarea>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ACTIVITIES ================= -->
+<section class="view" id="view-activities">
+  <div class="section-title"><h2>Activities</h2><span class="pill-n" id="a-count">0</span></div>
+  <div class="grid">
+    <div class="card">
+      <div class="drop" id="a-drop">
+        <strong>Upload activity PDFs</strong>
+        <div class="small muted">Weekly programme, experience menu or one-pagers. The app reads each activity, the dates or days it runs, times, duration and price. Anything unclear about dates is flagged for you to confirm before saving.</div>
+        <input type="file" id="a-file" accept=".pdf" multiple hidden>
+      </div>
+      <div id="a-review" class="hidden" style="margin-top:16px"></div>
+    </div>
+    <div class="card">
+      <div class="spread" style="margin-bottom:12px">
+        <div class="row"><input type="text" id="a-search" placeholder="Search activities" style="width:220px">
+</div>
+        <button class="btn small" id="a-add">+ Add activity</button>
+      </div>
+      <div id="a-pending"></div>
+      <div id="a-bulk" class="row" style="gap:8px;margin-bottom:10px"></div>
+      <div class="scroll"><table id="a-table"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DATA ================= -->
+<section class="view" id="view-data">
+  <div class="section-title"><h2>Data</h2></div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+    <div class="card">
+      <h3 style="font-size:22px;margin-bottom:8px">Share between devices</h3>
+      <p class="small muted">Data is saved in this browser only. To pass the activities to another device, download a data pack here and import it there. Importing replaces everything on the receiving device.</p>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="d-export">Download data pack</button>
+        <button class="btn ghost" id="d-import-btn">Import data pack</button>
+        <input type="file" id="d-import" accept=".json" hidden>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:22px;margin-bottom:8px">Clear this device</h3>
+      <p class="small muted">Deletes all activities saved in this browser.</p>
+      <div class="row" style="margin-top:12px"><button class="btn danger" id="d-clear">Clear all data</button></div>
+      <div class="note" style="margin-top:14px" id="d-storage-note"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="modal-bg" id="modal"><div class="modal" id="modal-body"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   Host Top Picks — single-file app
+   Storage: localStorage (one browser). Swap `Store` for a server API
+   when hosted for the whole team.
+   ===================================================================== */
+const STAYS = {
+  romantic:   {en:"Romantic Stay",   es:"Estancia romántica",   color:"var(--romantic)"},
+  family:     {en:"Family Stay",     es:"Estancia en familia",  color:"var(--family)"},
+  celebration:{en:"Celebration Stay",es:"Estancia de celebración",color:"var(--celebration)"},
+  relax:      {en:"Relax Stay",      es:"Estancia de descanso", color:"var(--relax)"}
+};
+const STAY_KEYS = Object.keys(STAYS);
+const DAY_EN = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
+/* ---------- storage ---------- */
+const MEM = {};
+const Store = {
+  get(k, d){ try{ const v = localStorage.getItem("htp_"+k); return v==null ? (k in MEM ? MEM[k] : d) : JSON.parse(v);}catch(e){ return k in MEM ? MEM[k] : d; } },
+  set(k, v){ MEM[k]=v; try{ localStorage.setItem("htp_"+k, JSON.stringify(v)); }catch(e){} },
+  ok(){ try{ localStorage.setItem("htp__t","1"); localStorage.removeItem("htp__t"); return true;}catch(e){return false;} }
+};
+const DEFAULT_SETTINGS = {buffer:30, lead:60, noRepeat:true, dateFmt:"auto", property:"One&Only Palmilla", hostName:"", fx:{rate:0, date:""}};
+const FIXED_SETTINGS = {buffer:30, dateFmt:"auto", property:"One&Only Palmilla"};
+let S = {
+  activities: Store.get("activities", []),
+  settings: Object.assign({}, DEFAULT_SETTINGS, Store.get("settings", {}), FIXED_SETTINGS)
+};
+function save(which){ (which?[which]:["activities","settings"]).forEach(k=>Store.set(k,S[k])); }
+/* guest data is no longer used: remove anything earlier versions saved on this device */
+try{ ["guests","history"].forEach(k=>localStorage.removeItem("htp_"+k)); }catch(e){}
+if(S.settings.inHouseAsOf){ delete S.settings.inHouseAsOf; Store.set("settings",S.settings); }
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const uid = () => Math.random().toString(36).slice(2,10);
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = n => String(n).padStart(2,"0");
+const todayISO = () => { const d=new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const isoToDate = iso => { const [y,m,d]=iso.split("-").map(Number); return new Date(y,m-1,d); };
+const addDays = (iso,n) => { const d=isoToDate(iso); d.setDate(d.getDate()+n); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const dow = iso => (isoToDate(iso).getDay()+6)%7; // 0 = Monday
+const toMin = t => { if(!t) return null; const [h,m]=t.split(":").map(Number); return h*60+(m||0); };
+const fromMin = m => `${pad(Math.floor(m/60)%24)}:${pad(m%60)}`;
+const norm = s => String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+function fmtTime(t, lang){ if(!t) return ""; const m=toMin(t); if(lang==="es") return t; let h=Math.floor(m/60), mm=m%60; const ap=h>=12?"pm":"am"; h=h%12||12; return mm?`${h}:${pad(mm)} ${ap}`:`${h} ${ap}`; }
+function fmtDate(iso, lang){ const d=isoToDate(iso); return d.toLocaleDateString(lang==="es"?"es-MX":"en-US",{weekday:"long",month:"long",day:"numeric"}); }
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2200); }
+function similar(a,b){ a=norm(a); b=norm(b); if(!a||!b) return false; if(a===b||a.includes(b)||b.includes(a)) return true;
+  const A=new Set(a.split(" ").filter(w=>w.length>3)), B=new Set(b.split(" ").filter(w=>w.length>3)); if(!A.size||!B.size) return false;
+  let n=0; A.forEach(w=>B.has(w)&&n++); return n/Math.min(A.size,B.size) >= .6; }
+async function copyText(text){
+  try{ await navigator.clipboard.writeText(text); return true; }catch(e){}
+  try{ const ta=document.createElement("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); const ok=document.execCommand("copy"); ta.remove(); return ok; }catch(e){ return false; }
+}
+function download(name, text, type="application/json"){
+  try{ const b=new Blob([text],{type}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500); return true; }catch(e){ return false; }
+}
+
+/* ---------- keyword dictionaries (EN + ES) ---------- */
+const STAY_KW = {
+  romantic:["couple","couples","romantic","romance","for two","sunset","private dinner","candle","candlelit","honeymoon","stargaz","moonlight","beach dinner","pareja","parejas","romantic","atardecer","cena privada","luna de miel","velas","dos personas","intimate","intimo"],
+  family:["family","families","kids","kid","children","child","junior","juniors","teen","teens","all ages","little ones","kidsonly","kids club","familia","familias","ninos","nino","infantil","adolescentes","todas las edades","sandcastle","piñata","pinata","turtle","tortuga"],
+  celebration:["celebrat","birthday","anniversary","toast","champagne","sparkling","party","festive","tasting","mixology","cocktail","tequila","mezcal","wine","sommelier","fiesta","cumpleanos","aniversario","celebracion","brindis","cata","degustacion","coctel","vino","yacht","chef's table","chefs table"],
+  relax:["spa","massage","yoga","meditat","wellness","sound bath","sound healing","relax","stretch","pilates","breath","ritual","facial","temazcal","hammam","reiki","restor","masaje","bienestar","meditacion","relajacion","estiramiento","respiracion","tranquil","serene","calm"]
+};
+const CAT_KW = [
+  ["Wellness",["spa","massage","yoga","meditat","wellness","sound","pilates","facial","temazcal","reiki","breath","masaje","bienestar"]],
+  ["Dining",["dinner","lunch","breakfast","brunch","chef","culinary","cooking","cook","menu","cena","comida","desayuno","cocina","taco"]],
+  ["Drinks & Tastings",["tasting","mixology","cocktail","tequila","mezcal","wine","sommelier","cata","degustacion","coctel","vino","champagne"]],
+  ["Ocean",["snorkel","dive","diving","boat","yacht","sail","whale","kayak","paddle","surf","fishing","ocean","sea","mar","buceo","velero","ballena","pesca","beach","playa"]],
+  ["Adventure",["hike","hiking","atv","horse","horseback","camel","zipline","desert","bike","cycling","caminata","caballo","desierto","excursion","tour"]],
+  ["Kids & Family",["kids","children","junior","teen","family","ninos","familia","sandcastle","pinata","turtle"]],
+  ["Culture",["art","culture","history","craft","workshop","market","music","dance","arte","cultura","taller","musica","mission","todos santos"]],
+  ["Fitness",["fitness","tennis","golf","workout","hiit","training","boxing","run","entrenamiento"]]
+];
+function autoTag(text){
+  const t = " "+norm(text)+" ";
+  const fit = {};
+  STAY_KEYS.forEach(k=>{ let hits=0; STAY_KW[k].forEach(w=>{ if(t.includes(" "+norm(w))) hits++; }); fit[k] = hits>=3?3:hits; });
+  // gentle defaults so nothing ends up with zero everywhere
+  if(STAY_KEYS.every(k=>!fit[k])) STAY_KEYS.forEach(k=>fit[k]=1);
+  let cat="Experience", best=0;
+  CAT_KW.forEach(([c,ws])=>{ let h=0; ws.forEach(w=>{ if(t.includes(" "+norm(w))) h++; }); if(h>best){best=h;cat=c;} });
+  return {fit, category:cat};
+}
+
+/* ---------- field extraction from free text ---------- */
+const DAY_NAMES = [
+  [0,["monday","mon","lunes","lun"]],[1,["tuesday","tue","tues","martes","mar"]],[2,["wednesday","wed","miercoles","mie","mier"]],
+  [3,["thursday","thu","thur","thurs","jueves","jue"]],[4,["friday","fri","viernes","vie"]],[5,["saturday","sat","sabado","sab"]],[6,["sunday","sun","domingo","dom"]]
+];
+function dayIdx(w){ w=norm(w).replace(/s$/,""); for(const [i,ns] of DAY_NAMES) if(ns.includes(w)||ns.includes(w+"s")) return i; return -1; }
+function parseDays(text){
+  const set = new Set();
+  String(text).split(/\n/).forEach(line=>{ parseDaysLine(line).forEach(d=>set.add(d)); });
+  return [...set].sort();
+}
+function parseDaysLine(line){
+  const t = String(line).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[–—]/g,"-");
+  const label = /^\s*(days?|dias?|schedule|horario|when|cuando|available)\s*[:\-]/.test(t);
+  const hasTime = parseTimes(line).times.length>0;
+  const shortLine = t.trim().length <= 45;
+  const contextOK = label || hasTime || shortLine;          // abbreviations only on schedule-like lines
+  if(/\b(daily|every day|everyday|diario|diariamente|todos los dias|all week|7 days a week)\b/.test(t) && contextOK) return [0,1,2,3,4,5,6];
+  const set = new Set();
+  if(/\b(weekends?|fines? de semana)\b/.test(t)){ set.add(5); set.add(6); }
+  if(/\b(weekdays|entre semana)\b/.test(t)) [0,1,2,3,4].forEach(d=>set.add(d));
+  const full = "(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|lunes|martes|miercoles|jueves|viernes|sabado|domingo)";
+  const abbr = "(?:mon|tues?|wed|thu(?:rs?)?|fri|sat|sun|lun|mie|jue|vie|sab|dom)";
+  const dw = contextOK ? `(?:${full}|${abbr})s?\\.?` : `${full}s?`;
+  const rng = new RegExp(`\\b(${dw})\\s*(?:-|to|through|thru|a|al)\\s*(${dw})(?![a-z])`,"g");
+  let m, stripped=t;
+  while((m=rng.exec(t))){ const a=dayIdx(m[1].replace(/\./g,"")), bb=dayIdx(m[2].replace(/\./g,""));
+    if(a>=0&&bb>=0){ for(let i=a;;i=(i+1)%7){ set.add(i); if(i===bb) break; } } stripped=stripped.replace(m[0]," "); }
+  const single = new RegExp(`\\b(${dw})(?![a-z])`,"g");
+  while((m=single.exec(stripped))){ const i=dayIdx(m[1].replace(/\./g,"")); if(i>=0) set.add(i); }
+  return [...set];
+}
+function hm(h,m,ap){ h=+h; m=+(m||0); ap=(ap||"").replace(/\./g,"").toLowerCase(); if(ap==="pm"&&h<12) h+=12; if(ap==="am"&&h===12) h=0; return h*60+m; }
+function parseTimes(text){
+  const out=[]; let dur=null;
+  const T = "(\\d{1,2})(?:[:.](\\d{2}))?\\s*(a\\.?m\\.?|p\\.?m\\.?|hrs|h)?";
+  const rng = new RegExp(`\\b${T}\\s*(?:-|–|—|to|a)\\s*${T}`,"gi");
+  let s = text, m;
+  while((m=rng.exec(text))){
+    let ap1=m[3], ap2=m[6]; if(!/[ap]/i.test(ap1||"") && /[ap]/i.test(ap2||"")) ap1=ap2;
+    if(!m[2] && !m[5] && !/[ap]/i.test((ap1||"")+(ap2||"")) ) continue;      // "2-4 guests"
+    const a=hm(m[1],m[2],ap1), b=hm(m[4],m[5],ap2);
+    if(a<24*60 && b<24*60){ out.push(a); if(b>a && !dur) dur=b-a; s=s.replace(m[0]," "); }
+  }
+  const one = /\b(\d{1,2})(?:[:.](\d{2}))\s*(a\.?m\.?|p\.?m\.?|hrs|h)?|\b(\d{1,2})\s*(a\.?m\.?|p\.?m\.?)/gi;
+  while((m=one.exec(s))){
+    const v = m[4]!=null ? hm(m[4],0,m[5]) : hm(m[1],m[2],m[3]);
+    if(v<24*60) out.push(v);
+  }
+  return {times:[...new Set(out)].sort((a,b)=>a-b).map(fromMin), range:dur};
+}
+function parseDuration(text){
+  const m = /(\d+(?:[.,]\d+)?)\s*(minutes|minutos|mins?|min|hours|horas?|hrs?|hr|h)\b/i.exec(text);
+  if(!m) return null; const v=parseFloat(m[1].replace(",",".")); return /^h|^hr|^hour|^hora/i.test(m[2]) ? Math.round(v*60) : Math.round(v);
+}
+function parsePrice(text){
+  const t=text;
+  let m = /(USD|US\$|MXN|\$)\s?([\d,]+(?:\.\d{2})?)(\s*(?:USD|MXN))?((?:\s*(?:\+\s*(?:taxes|tax|service|impuestos)|per person|pp\b|por persona|per couple|por pareja))*)/i.exec(t);
+  if(m){ const cur = /MXN/i.test(m[1]+(m[3]||"")) ? "MXN" : "USD"; return `${cur} ${m[2]}${m[4]?m[4].replace(/\s+/g," "):""}`.trim(); }
+  m = /([\d,]{2,}(?:\.\d{2})?)\s?(USD|MXN|pesos|dollars)/i.exec(t);
+  if(m) return `${/mxn|peso/i.test(m[2])?"MXN":"USD"} ${m[1]}`;
+  if(/\b(complimentary|included|free of charge|cortesia|sin costo|incluido)\b/i.test(norm(t))) return "Complimentary";
+  return "";
+}
+function parseLocation(text){
+  const m = /(?:location|venue|where|lugar|ubicacion|ubicación|meeting point|punto de encuentro)\s*[:\-]\s*([^\n.|]{2,60})/i.exec(text);
+  return m ? m[1].trim() : "";
+}
+/* ---- calendar dates (EN + ES) ---- */
+const MONTHS = {january:1,jan:1,enero:1,ene:1,february:2,feb:2,febrero:2,march:3,mar:3,marzo:3,april:4,apr:4,abril:4,abr:4,may:5,mayo:5,june:6,jun:6,junio:6,july:7,jul:7,julio:7,
+  august:8,aug:8,agosto:8,ago:8,september:9,sept:9,sep:9,septiembre:9,setiembre:9,october:10,oct:10,octubre:10,november:11,nov:11,noviembre:11,december:12,dec:12,diciembre:12,dic:12};
+const MON_ALT = "january|february|march|april|june|july|august|september|setiembre|septiembre|october|november|december|enero|febrero|marzo|abril|mayo|junio|julio|agosto|octubre|noviembre|diciembre|jan|feb|mar|apr|may|jun|jul|aug|sept|sep|oct|nov|dec|ene|abr|ago|dic";
+const MON_RE = "(" + MON_ALT + ")\\.?";
+const WD_RE = "(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|lunes|martes|miercoles|jueves|viernes|sabado|domingo|mon|tue|tues|wed|thu|thurs|fri|sat|sun)\\.?";
+function normDateText(t){ return String(t).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[–—]/g,"-")
+  .replace(/(\d+)\s*(st|nd|rd|th|ro|er|°|º)\b/g,"$1").replace(/(\d+)(st|nd|rd|th)(?=\W)/g,"$1"); }
+function mkISO(y,m,d){ if(!(m>=1&&m<=12&&d>=1&&d<=31)) return ""; const dt=new Date(y,m-1,d); if(dt.getMonth()!==m-1) return ""; return `${y}-${pad(m)}-${pad(d)}`; }
+function guessYear(m,d,ctxYear){ if(ctxYear) return ctxYear; const now=new Date(); let y=now.getFullYear(); const dt=new Date(y,m-1,d); if((now-dt)/864e5 > 60) y++; return y; }
+function parseCalendar(text, ctx={}){
+  // returns {dates:[], from, to, ambiguous:[], hits:[]}
+  let t = normDateText(text); const out={dates:[], from:"", to:"", ambiguous:[], noMonth:[], hits:[]};
+  const Y = "(?:,?\\s*(?:de(?:l)?\\s+)?(20\\d{2}))?";
+  const strip = m => { out.hits.push(m.trim()); t = t.replace(m," ¦ "); };
+  const mo = w => MONTHS[w.replace(".","")];
+  let m;
+  // ISO
+  for(const x of [...t.matchAll(/\b(20\d{2})-(\d{2})-(\d{2})\b/g)]){ const iso=mkISO(+x[1],+x[2],+x[3]); if(iso){ out.dates.push(iso); strip(x[0]); } }
+  // ---- ranges ----
+  const R = [
+    // nov 1 - dec 20, 2026 | november 1 to december 20
+    [new RegExp(`(?:from\\s+|del?\\s+)?${MON_RE}\\s+(\\d{1,2})${Y}\\s*(?:-|to|through|thru|until|al|a|hasta)\\s*${MON_RE}\\s+(\\d{1,2})${Y}`,"g"), x=>[mo(x[1]),+x[2],+x[3]||0, mo(x[4]),+x[5],+x[6]||0]],
+    // 1 nov - 20 dec | del 1 de noviembre al 20 de diciembre
+    [new RegExp(`(?:from\\s+|del?\\s+)?(\\d{1,2})\\s+(?:de\\s+)?${MON_RE}${Y}\\s*(?:-|to|through|thru|until|al|a|hasta)\\s*(?:el\\s+)?(\\d{1,2})\\s+(?:de\\s+)?${MON_RE}${Y}`,"g"), x=>[mo(x[2]),+x[1],+x[3]||0, mo(x[5]),+x[4],+x[6]||0]],
+    // nov 1-15, 2026 | november 1 to 15
+    [new RegExp(`${MON_RE}\\s+(\\d{1,2})\\s*(?:-|to|through|thru|until)\\s*(\\d{1,2})(?![:\\d])${Y}`,"g"), x=>[mo(x[1]),+x[2],+x[4]||0, mo(x[1]),+x[3],+x[4]||0]],
+    // del 1 al 15 de noviembre | 1-15 november
+    [new RegExp(`(?:del?\\s+|from\\s+)?(\\d{1,2})\\s*(?:-|al|a|to)\\s*(\\d{1,2})\\s+(?:de\\s+)?${MON_RE}${Y}`,"g"), x=>[mo(x[3]),+x[1],+x[4]||0, mo(x[3]),+x[2],+x[4]||0]]
+  ];
+  for(const [re,fn] of R){ for(const x of [...t.matchAll(re)]){ const [m1,d1,y1,m2,d2,y2]=fn(x); const yb = y2||y1||ctx.year; const ya = y1||(yb && m1>m2 ? yb-1 : yb);
+      const f=mkISO(ya||guessYear(m1,d1),m1,d1), to=mkISO(yb||guessYear(m2,d2),m2,d2); if(f&&to&&f<=to&&!out.from){ out.from=f; out.to=to; strip(x[0]); } } }
+  // ---- open-ended ----
+  const DATE1 = `(?:${MON_RE}\\s+(\\d{1,2})${Y}|(\\d{1,2})\\s+(?:de\\s+)?${MON_RE}${Y})`;
+  const d1 = x => { const mm = x[1]?mo(x[1]):mo(x[5]); const dd = x[1]?+x[2]:+x[4]; const yy = x[1]?(+x[3]||ctx.year):(+x[6]||ctx.year); return mkISO(yy||guessYear(mm,dd),mm,dd); };
+  for(const x of [...t.matchAll(new RegExp(`(?:valid\\s+)?(?:until|through|thru|till|ends?|ending|hasta(?:\\s+el)?|vigente\\s+hasta(?:\\s+el)?)\\s+${DATE1}`,"g"))]){ const iso=d1(x.slice(0)); if(iso && !out.to){ out.to=iso; strip(x[0]); } }
+  for(const x of [...t.matchAll(new RegExp(`(?:from|starting|starts|beginning|begins|as of|a partir del?|desde el|desde)\\s+${DATE1}`,"g"))]){ const iso=d1(x.slice(0)); if(iso && !out.from){ out.from=iso; strip(x[0]); } }
+  // ---- lists / single dates ----
+  const NUMS = "(\\d{1,2}(?:\\s*(?:,|&|and|y|e)\\s*\\d{1,2})*)";
+  for(const x of [...t.matchAll(new RegExp(`${MON_RE}\\s+${NUMS}(?![:\\d]|\\s*(?:am|pm|a\\.m|p\\.m|hrs|h\\b|min|usd|mxn|guests|people|personas))${Y}`,"g"))]){
+    const mm=mo(x[1]); x[2].split(/\s*(?:,|&|and|y|e)\s*/).forEach(n=>{ const iso=mkISO(+x[3]||ctx.year||guessYear(mm,+n),mm,+n); if(iso) out.dates.push(iso); }); strip(x[0]); }
+  for(const x of [...t.matchAll(new RegExp(`(?<![\\d:])${NUMS}\\s+(?:de\\s+|of\\s+)?${MON_RE}${Y}`,"g"))]){
+    const mm=mo(x[2]); x[1].split(/\s*(?:,|&|and|y|e)\s*/).forEach(n=>{ const iso=mkISO(+x[3]||ctx.year||guessYear(mm,+n),mm,+n); if(iso) out.dates.push(iso); }); strip(x[0]); }
+  // numeric 14/11/2026 or 11/14
+  for(const x of [...t.matchAll(/(?<![\d:])(\d{1,2})[\/.](\d{1,2})(?:[\/.](\d{2,4}))?(?![\d:])/g)]){
+    let a=+x[1], b=+x[2], y=x[3]?(+x[3]<100?2000+ +x[3]:+x[3]):0; const fmt=S.settings.dateFmt;
+    if(a>31||b>31||(!x[3]&&a>12&&b>12)) continue;
+    let iso="", amb=false;
+    if(fmt==="dmy" || (fmt==="auto" && a>12)) iso=mkISO(y||guessYear(b,a),b,a);
+    else if(fmt==="mdy" || (fmt==="auto" && b>12)) iso=mkISO(y||guessYear(a,b),a,b);
+    else { amb=true; iso=mkISO(y||guessYear(b,a),b,a); }
+    if(iso){ (amb?out.ambiguous:out.dates).push(iso); strip(x[0]); }
+  }
+  // weekday + day number with month from document (e.g. "Saturday 14")
+  for(const x of [...t.matchAll(new RegExp(`\\b${WD_RE}\\s+(\\d{1,2})(?![:\\d]|\\s*(?:am|pm|a\\.m|p\\.m|hrs|h\\b|min))`,"g"))]){
+    const n=+x[1]; if(n<1||n>31) continue;
+    if(ctx.month){ const iso=mkISO(ctx.year||guessYear(ctx.month,n),ctx.month,n); if(iso){ out.dates.push(iso); strip(x[0]); } }
+    else out.noMonth.push(x[0]);
+  }
+  out.dates=[...new Set(out.dates)].sort();
+  return out;
+}
+function docContext(text){
+  const t=normDateText(text); const ctx={};
+  const m=new RegExp(`${MON_RE}\\s*(?:de\\s+|,\\s*)?(20\\d{2})`).exec(t); if(m){ ctx.month=MONTHS[m[1].replace(".","")]; ctx.year=+m[2]; }
+  const y=/\b(20\d{2})\b/.exec(t); if(!ctx.year && y) ctx.year=+y[1];
+  const cal=parseCalendar(text, ctx); if(cal.from&&cal.to){ ctx.from=cal.from; ctx.to=cal.to; }
+  else if(ctx.month && ctx.year){ ctx.from=mkISO(ctx.year,ctx.month,1); const last=new Date(ctx.year,ctx.month,0).getDate(); ctx.to=mkISO(ctx.year,ctx.month,last); ctx.monthOnly=true; }
+  return ctx;
+}
+const fmtShort = iso => { if(!iso) return ""; const d=isoToDate(iso); return d.toLocaleDateString("en-US",{month:"short",day:"numeric"}); };
+function datesLabel(a){
+  if(a.dates&&a.dates.length) return a.dates.map(fmtShort).join(", ");
+  const d = daysLabel(a.days).replace(/<[^>]+>/g,"");
+  const per = a.dateFrom||a.dateTo ? ` · ${a.dateFrom?fmtShort(a.dateFrom):"…"} – ${a.dateTo?fmtShort(a.dateTo):"…"}` : " · ongoing";
+  return d+per;
+}
+/* ---- named one-day occasions (EN + ES) ---- */
+function nthWeekday(y,m,wd,n){ const d=new Date(y,m-1,1); let c=0; while(true){ if(d.getDay()===wd && ++c===n) return mkISO(y,m,d.getDate()); d.setDate(d.getDate()+1); } }
+const HOLIDAYS = [
+  [/\b(day of the dead|dia de (los )?muertos|dia de muertos|noche de muertos)\b/, "Day of the Dead", y=>[mkISO(y,11,2)]],
+  [/\b(thanksgiving|accion de gracias)\b/, "Thanksgiving", y=>[nthWeekday(y,11,4,4)]],
+  [/\b(christmas eve|nochebuena|noche buena)\b/, "Christmas Eve", y=>[mkISO(y,12,24)]],
+  [/\b(christmas day|christmas lunch|christmas brunch|christmas dinner|dia de navidad|comida de navidad)\b/, "Christmas Day", y=>[mkISO(y,12,25)]],
+  [/\b(new years eve|nochevieja|fin de ano|cena de ano nuevo)\b/, "New Year's Eve", y=>[mkISO(y,12,31)]],
+  [/\b(new years day|dia de ano nuevo|brunch de ano nuevo)\b/, "New Year's Day", y=>[mkISO(y,1,1)]],
+  [/\b(valentines|valentine s|san valentin|dia del amor)\b/, "Valentine's Day", y=>[mkISO(y,2,14)]],
+  [/\bhalloween\b/, "Halloween", y=>[mkISO(y,10,31)]],
+  [/\b(mothers day|dia de las madres|dia de la madre)\b/, "Mother's Day (Mexico)", y=>[mkISO(y,5,10)]],
+  [/\bcinco de mayo\b/, "Cinco de Mayo", y=>[mkISO(y,5,5)]]
+];
+function holidayOf(text){ const t=norm(text); for(const [re,label,fn] of HOLIDAYS) if(re.test(t)) return {label,fn}; return null; }
+function nextHolidayDates(h){ const y=new Date().getFullYear(); const today=todayISO(); const a=h.fn(y); return a.every(d=>d<addDays(today,-1)) ? h.fn(y+1) : a; }
+
+/* Decide what the PDF says about when an activity runs, and whether to ask */
+function resolveSchedule(blockText, bodyLines, days, ctx){
+  const cal = parseCalendar(blockText, ctx);
+  const r = {dates:[], dateFrom:"", dateTo:"", days: days.length?days:[0,1,2,3,4,5,6], status:"ok", note:"", source:""};
+  const today=todayISO();
+  const monRe = new RegExp("\\b(?:"+MON_ALT+")(?![a-z])");
+  r.source = bodyLines.filter(l=>{ const n=normDateText(l); return parseDaysLine(l).length || /\b(daily|diario|every day|todos los dias)\b/.test(n) || (/\d/.test(n) && (monRe.test(n) || /\d{1,2}[\/.]\d{1,2}/.test(n))); }).slice(0,3).join(" / ");
+  if(cal.dates.length){
+    r.dates=cal.dates; r.days=[...new Set(cal.dates.map(dow))].sort();
+    const clash = days.length ? cal.dates.filter(d=>!days.includes(dow(d))) : [];
+    if(clash.length){ r.status="confirm"; r.note=`The weekday in the PDF doesn't match ${clash.map(fmtShort).join(", ")}.`; }
+    else if(cal.dates.every(d=>d<today)){ r.status="confirm"; r.note="These dates have already passed — check the year."; }
+    else { r.note="Specific dates found in the PDF."; }
+    if(cal.ambiguous.length){ r.status="confirm"; r.note+=" Some dates could be read two ways (day/month)."; }
+    return r;
+  }
+  if(cal.noMonth.length){ r.status="confirm"; r.note=`The PDF gives a day number (“${cal.noMonth[0]}”) but no month.`; return r; }
+  if(cal.ambiguous.length){ r.status="confirm"; r.note="A date in the PDF could be read two ways (day/month or month/day)."; r.dates=cal.ambiguous.filter(x=>/^\d{4}-/.test(x)); return r; }
+  if(cal.from||cal.to){
+    r.dateFrom=cal.from; r.dateTo=cal.to;
+    if(!days.length){ r.status="confirm"; r.note="Found the period but not which days of the week — every day assumed."; }
+    else r.note="Period and days found in the PDF.";
+    if(cal.to && cal.to<today){ r.status="confirm"; r.note="This period has already ended — check the year."; }
+    return r;
+  }
+  const hol = holidayOf(blockText);
+  if(hol){
+    r.dates = ctx.year ? hol.fn(ctx.year) : nextHolidayDates(hol); r.days=[...new Set(r.dates.map(dow))];
+    r.status="confirm"; r.note=`No date in the PDF — it looks like a ${hol.label} event, so ${r.dates.map(fmtShort).join(", ")} is suggested.`;
+    return r;
+  }
+  if(days.length && ctx.from){
+    r.dateFrom=ctx.from; r.dateTo=ctx.to; r.note=`Days found; period ${fmtShort(ctx.from)} – ${fmtShort(ctx.to)} taken from the PDF heading.`;
+    return r;
+  }
+  r.status="confirm";
+  r.note = days.length ? "Days of the week found, but no dates or validity period." : "No dates or days found in the PDF — please tell me when it runs.";
+  if(!days.length){ r.days=[]; r.unknown=true; }
+  if(ctx.from && !days.length){ r.dateFrom=ctx.from; r.dateTo=ctx.to; r.note="No days found — the PDF heading's period is suggested."; }
+  return r;
+}
+/* schedule / price / duration info — shown in the details line, so kept out of the description */
+function isScheduleText(t){
+  t=String(t||"").trim(); if(!t) return false;
+  return !!(parseTimes(t).times.length || parsePrice(t) || parseDuration(t) || parseDaysLine(t).length ||
+    /\b(daily|diario|every day|todos los dias|complimentary|cortesia)\b/i.test(norm(t)) || parseCalendar(t,{}).dates.length);
+}
+function cleanDesc(lines){
+  const meta = /^(days?|dias?|time|times|hora|horario|schedule|duration|duracion|duración|price|precio|investment|location|lugar|venue|where|ubicaci)/i;
+  return lines.filter(l=>{ const x=l.trim(); if(meta.test(x)) return false;
+      // a short line that is mostly schedule/price info (e.g. "Monday, November 2 · 7:30 pm") is not description
+      if(x.length<60 && isScheduleText(x)) return false;
+      return true; })
+    .join(" ").replace(/\s+/g," ").trim();
+}
+/* full description for the guest message: never shortened; drops a trailing schedule/price fragment left by older imports */
+function descForMessage(t){
+  t=String(t||"").replace(/\s+/g," ").trim(); if(!t) return "";
+  const m=/^(.*[.!?])\s+([^.!?]+)$/.exec(t);
+  if(m && isScheduleText(m[2])) t=m[1];
+  return t;
+}
+
+/* ---------- PDF text extraction ---------- */
+async function pdfLines(file){
+  if(!window.pdfjsLib) throw new Error("PDF reader could not load (check internet connection).");
+  try{ pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; }catch(e){}
+  const buf = await file.arrayBuffer();
+  const doc = await pdfjsLib.getDocument({data:buf, isEvalSupported:false}).promise;
+  const pages=[];
+  for(let p=1;p<=doc.numPages;p++){
+    const page = await doc.getPage(p); const tc = await page.getTextContent();
+    const items = tc.items.filter(i=>i.str && i.str.trim()).map(i=>({s:i.str, x:i.transform[4], y:i.transform[5], h:Math.abs(i.transform[3])||i.height||10, w:i.width}));
+    // group into lines by y
+    items.sort((a,b)=> b.y-a.y || a.x-b.x);
+    const lines=[];
+    for(const it of items){
+      const L = lines.find(l=>Math.abs(l.y-it.y) < Math.max(2.5, it.h*.35));
+      if(L){ L.items.push(it); L.h=Math.max(L.h,it.h); } else lines.push({y:it.y,h:it.h,items:[it]});
+    }
+    lines.forEach(l=>{ l.items.sort((a,b)=>a.x-b.x);
+      let txt=""; let prev=null;
+      l.items.forEach(it=>{ if(prev){ const gap=it.x-(prev.x+prev.w); txt += gap>1.5 ? (gap>12?"  |  ":" ") : ""; } txt+=it.s; prev=it; });
+      l.text=txt.replace(/\s+\|\s+\|\s+/g,"  |  ").trim(); l.page=p; });
+    lines.sort((a,b)=>b.y-a.y);
+    pages.push(lines);
+  }
+  return pages;
+}
+
+/* ---------- Activity PDF → drafts ---------- */
+async function parseActivityPDF(file){
+  const pages = await pdfLines(file);
+  const all = pages.flat();
+  if(!all.length) return {drafts:[], warning:"No text found — the PDF may be a scanned image. Add these activities by hand."};
+  const sizes = all.map(l=>l.h).sort((a,b)=>a-b); const med = sizes[Math.floor(sizes.length/2)];
+  const isTitle = l => { const t=l.text.replace(/\s*\|\s*/g," ").trim(); if(t.length<3||t.length>70) return false;
+    if(l.h >= med*1.18) return true;
+    const letters=t.replace(/[^A-Za-zÀ-ÿ]/g,""); return letters.length>=4 && letters===letters.toUpperCase() && !/\d{2}/.test(t) && t.split(" ").length<=8; };
+  const blocks=[]; let cur=null; const headerLines=[];
+  for(const l of all){
+    if(!cur && !isTitle(l)) headerLines.push(l.text);
+    if(isTitle(l)){
+      // consecutive title lines (wrapped titles) merge
+      if(cur && !cur.body.length && Math.abs(cur.h-l.h)<1 && cur.page===l.page) { cur.title+=" "+l.text; continue; }
+      cur={title:l.text.replace(/\s*\|\s*/g," ").trim(), h:l.h, page:l.page, body:[]}; blocks.push(cur);
+    } else if(cur){ cur.body.push(l.text.replace(/\s*\|\s*/g," · ")); }
+  }
+  // The largest-font title on page 1 with an almost empty body is usually a document header
+  const drafts=[];
+  // document heading (e.g. "Weekly Experiences · November 2026") gives the month/year context
+  const headText = headerLines.concat(blocks.filter(b=>!b.body.join("").trim()).map(b=>b.title)).join("\n") || (all[0]?.text||"");
+  const ctx = docContext(headText);
+  for(const b of blocks){
+    const body = b.body.join("\n"); const full = b.title+"\n"+body;
+    if(!body.trim() && blocks.length>1) continue;
+    const {times, range} = parseTimes(body);
+    const tag = autoTag(full);
+    const days = parseDays(body);
+    const sch = resolveSchedule(full, b.body, days, ctx);
+    const d = {
+      id:uid(), name: titleCase(b.title), category: tag.category,
+      description: cleanDesc(b.body),
+      days: sch.days, daysFound: !!days.length, dates: sch.dates,
+      times, duration: parseDuration(body) || range || 60,
+      price: parsePrice(body), location: parseLocation(body),
+      dateFrom: sch.dateFrom, dateTo: sch.dateTo, dateStatus: sch.status, dateNote: sch.note, dateSource: sch.source,
+      fit: tag.fit, active:true, source:file.name, addedAt:new Date().toISOString()
+    };
+    // skip header-like blocks with nothing useful
+    if(!d.times.length && !d.price && d.description.length<25 && !d.daysFound && !d.dates.length) continue;
+    drafts.push(d);
+  }
+  return {drafts, warning: drafts.length? "" : "No activities could be identified automatically. Add them by hand."};
+}
+function titleCase(s){ s=s.trim(); if(s!==s.toUpperCase()) return s; const small=new Set(["a","an","and","at","by","for","in","of","on","the","to","with","de","del","la","el","y","en","con","los","las"]);
+  return s.toLowerCase().split(/\s+/).map((w,i)=> (i&&small.has(w))?w:w.charAt(0).toUpperCase()+w.slice(1)).join(" ").replace(/one&only/i,"One&Only"); }
+
+const TITLES = {mr:{en:"Mr.",es:"Sr."}, mrs:{en:"Mrs.",es:"Sra."}, ms:{en:"Ms.",es:"Sra."}, miss:{en:"Miss",es:"Srta."}, dr:{en:"Dr.",es:"Dr."}, mrmrs:{en:"Mr. & Mrs.",es:"Sr. y Sra."}};
+const TITLE_KEYS = Object.keys(TITLES);
+/* ---------- Pick engine ---------- */
+function runsOn(a, iso){
+  if(!a.active) return false;
+  if(a.dateCheck) return false;                       // dates not confirmed yet -> never offered
+  if(a.dates && a.dates.length) return a.dates.includes(iso);
+  if(!a.dateFrom && !a.dateTo){ const h=holidayOf(a.name); if(h) return h.fn(+iso.slice(0,4)).includes(iso); }
+  if(a.dateFrom && iso < a.dateFrom) return false;
+  if(a.dateTo && iso > a.dateTo) return false;
+  return (a.days||[]).includes(dow(iso));
+}
+/* ---------- Message builder ---------- */
+function firstSentence(t, max=200){ if(!t) return ""; const m=/^(.{20,}?[.!?])(\s|$)/.exec(t); let s=(m?m[1]:t).trim(); if(s.length>max) s=s.slice(0,max).replace(/\s+\S*$/,"")+"…"; return s; }   // short preview in the import review only — never used in messages
+function greeting(lang){ const h=new Date().getHours(); if(lang==="es") return h<12?"Buenos días":(h<19?"Buenas tardes":"Buenas noches"); return h<12?"Good morning":(h<18?"Good afternoon":"Good evening"); }
+function buildMessage({date, lang, picks, title, surname}){
+  const es = lang==="es"; const st=S.settings;
+  const host = st.hostName ? st.hostName.trim() : "";
+  const sal = title && surname ? `${TITLES[title][es?"es":"en"]} ${surname}` : "";
+  const today = date===todayISO(); const tomorrow = date===addDays(todayISO(),1);
+  const dayWord = es ? (today?"hoy":tomorrow?"mañana":`el ${fmtDate(date,"es")}`) : (today?"today":tomorrow?"tomorrow":`on ${fmtDate(date,"en")}`);
+  const L=[];
+  L.push(`${greeting(lang)}${sal?` ${sal}`:""},`);
+  L.push("");
+  picks = (picks||[]).slice().sort((x,y)=>(x.slot||"99").localeCompare(y.slot||"99"));
+  if(picks.length){
+    const many = picks.length>1;
+    if(es) L.push(`Pensamos que podría disfrutar de ${many?"estas experiencias":"esta experiencia"} ${dayWord}:`);
+    else   L.push(`We thought you might enjoy ${many?"these experiences":"this experience"} ${dayWord}:`);
+    let fxNote=false;
+    picks.forEach(({a,slot})=>{
+      L.push("");
+      L.push(`*${a.name}*${slot?" "+timeSpan(slot, a.duration||60, lang, false):""}`);
+      const desc = es ? (a.descriptionEs||"") : a.description;
+      if(desc) L.push(descForMessage(desc));
+      const det=[]; if(a.duration) det.push(`${a.duration} min`); if(a.location) det.push(a.location);
+      if(a.price){ const cp=convertPrice(a.price); if(cp.converted) fxNote=true; det.push(es?priceEs(cp.text):priceEn(cp.text)); }
+      if(det.length) L.push(`_${det.join(" · ")}_`);
+    });
+    L.push("");
+    if(fxNote){ const r=fxToday().toFixed(2);
+      L.push(es ? `_Montos en USD informativos, calculados con el tipo de cambio del día (USD 1 = MXN ${r}). El monto final en USD puede variar según el tipo de cambio diario del hotel._`
+                : `_USD amounts are for reference only, based on today's exchange rate (USD 1 = MXN ${r}). The final USD amount may vary according to the hotel's daily exchange rate._`);
+      L.push(""); }
+    if(es) L.push(many ? "Si alguna le interesa, con gusto hago la reservación." : "Si le interesa, con gusto hago la reservación.");
+    else   L.push(many ? "If any of these appeal, I would be delighted to reserve them for you." : "If it appeals, I would be delighted to reserve it for you.");
+  } else {
+    L.push(es ? "Estoy a su disposición para cualquier cosa que necesite durante su estancia." : "I remain at your disposal for anything you may need during your stay.");
+  }
+  L.push("");
+  L.push(es ? "Saludos cordiales," : "Warm regards,");
+  if(host) L.push(host);
+  L.push(st.property||"One&Only Palmilla");
+  return L.join("\n").replace(/\n{3,}/g,"\n\n");
+}
+function fxToday(){ const f=S.settings.fx||{}; return (f.rate>0 && f.date===todayISO()) ? +f.rate : 0; }
+function convertPrice(p){
+  const rate=fxToday(); if(!p||!rate) return {text:p, converted:false};
+  const m=/MXN\s?([\d,]+(?:\.\d+)?)|([\d,]+(?:\.\d+)?)\s?(?:MXN|pesos)/i.exec(p); if(!m) return {text:p, converted:false};
+  const orig=m[1]||m[2]; const n=parseFloat(orig.replace(/,/g,"")); if(!n) return {text:p, converted:false};
+  const usd=Math.round(n/rate).toLocaleString("en-US");
+  return {text:p.replace(m[0],`USD ${usd} (MXN ${orig})`), converted:true};
+}
+function priceEn(p){ return p.replace(/^Cortes[ií]a$/i,"Complimentary").replace(/por pareja/i,"per couple").replace(/por persona/i,"per person").replace(/\+\s*impuestos/i,"+ tax"); }
+function priceEs(p){ return p.replace(/^Complimentary$/i,"Cortesía").replace(/per couple/i,"por pareja").replace(/per person|pp\b/i,"por persona").replace(/\+\s*tax(es)?/i,"+ impuestos").replace(/service( charge)?/i,"servicio"); }
+/* "from 5:30 PM to 7:30 PM" / "de 17:30 a 19:30 h" ; single time when there is no duration (e.g. transfers) */
+function clock(m, lang){ m=((m%1440)+1440)%1440; const h=Math.floor(m/60), mm=m%60;
+  if(lang==="es") return `${pad(h)}:${pad(mm)}`; return `${h%12||12}:${pad(mm)} ${h>=12?"PM":"AM"}`; }
+function timeSpan(t, dur, lang, capital){
+  const s=toMin(t); if(s==null) return "";
+  if(!dur){ const w = lang==="es" ? `a las ${clock(s,lang)} h` : `at ${clock(s,lang)}`; return capital ? cap(w) : w; }
+  const e=s+dur; const w = lang==="es" ? `de ${clock(s,lang)} a ${clock(e,lang)} h` : `from ${clock(s,lang)} to ${clock(e,lang)}`;
+  return capital ? cap(w) : w;
+}
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+function waRender(text){ return esc(text).replace(/\*([^*\n]+)\*/g,"<b>$1</b>").replace(/(^|\s)_([^_\n]+)_/g,"$1<i>$2</i>"); }
+
+/* =====================================================================
+   VIEWS
+   ===================================================================== */
+const H = { date: todayISO(), lang:"en", sel:new Map(), edited:false, q:"", title:"", surname:"" };
+
+/* every activity that runs on the date, with which start times have already passed */
+function activitiesOn(date){
+  const now=new Date(); const isToday = date===todayISO(); const nowMin=now.getHours()*60+now.getMinutes();
+  return S.activities.filter(a=>runsOn(a,date)).map(a=>{
+    const slots=((a.times&&a.times.length)?a.times:[""]).map(t=>{ const m=t?toMin(t):null; return {t, past: m!=null && isToday && m<=nowMin}; });
+    const open = slots.filter(x=>!x.past);
+    return {a, slots, open, first: open[0]?.t || slots[0]?.t || "99:99"};
+  }).sort((x,y)=>(!x.open.length)-(!y.open.length) || String(x.first||"99").localeCompare(String(y.first||"99")) || x.a.name.localeCompare(y.a.name));
+}
+function renderHost(){
+  $("#h-date").value=H.date;
+  $$("#h-lang button").forEach(b=>b.classList.toggle("active",b.dataset.v===H.lang));
+  $("#h-host").value = S.settings.hostName||"";
+  const tsel=$("#h-gtitle"); if(tsel.options.length<2) tsel.insertAdjacentHTML("beforeend", TITLE_KEYS.map(k=>`<option value="${k}">${TITLES[k].en}</option>`).join(""));
+  tsel.value=H.title; if(document.activeElement!==$("#h-gname")) $("#h-gname").value=H.surname;
+  $("#h-greet-hint").textContent = H.title&&H.surname ? `Message opens with “${greeting(H.lang)} ${TITLES[H.title][H.lang==="es"?"es":"en"]} ${H.surname},”` : (H.title||H.surname) ? "Add both title and surname to greet the guest by name." : "Leave empty for a greeting without a name.";
+  const fx=S.settings.fx||{}; if(document.activeElement!==$("#h-fx")) $("#h-fx").value = fx.rate||"";
+  $("#h-fx-hint").innerHTML = fxToday() ? `<span class="muted">Set for today (${esc(fmtDate(todayISO(),"en"))}). MXN prices are shown in USD.</span>`
+    : `<span style="color:var(--warn)">${fx.rate?"Last rate is from "+esc(fx.date)+" — update it for today.":"Enter today's Google rate to show MXN prices in USD."}</span>`;
+
+  const list = activitiesOn(H.date);
+  for(const [id,slot] of [...H.sel]){ const r=list.find(x=>x.a.id===id); if(!r || !r.open.some(x=>x.t===slot)) H.sel.delete(id); }
+  const q=norm(H.q); const shown = q ? list.filter(r=>norm(r.a.name+" "+r.a.category+" "+(r.a.location||"")).includes(q)) : list;
+  const card=$("#h-pick-card");
+  const pending = S.activities.filter(a=>a.dateCheck).length;
+  if(!S.activities.length){
+    card.innerHTML = `<div class="empty"><h3 style="font-size:22px;margin-bottom:6px">No activities yet</h3>Marketing can upload the activity PDFs in the <b>Activities</b> tab.</div>`;
+  } else if(!list.length){
+    card.innerHTML = `<div class="empty"><h3 style="font-size:22px;margin-bottom:6px">Nothing scheduled</h3>No activities take place on ${esc(fmtDate(H.date,"en"))}.${pending?`<div class="tiny" style="margin-top:8px">${pending} activities are waiting for Marketing to confirm their dates.</div>`:""}</div>`;
+  } else {
+    card.innerHTML = `
+      <div class="spread" style="margin-bottom:10px">
+        <div><span class="label" style="margin:0">Taking place on ${esc(fmtDate(H.date,"en"))}</span>
+          <div class="small muted">${list.length} activit${list.length>1?"ies":"y"} · <b style="color:var(--ink)">${H.sel.size} selected</b>${pending?` · <span style="color:var(--warn)">${pending} awaiting date confirmation</span>`:""}</div></div>
+        <div class="row"><input type="text" id="h-q" placeholder="Search" value="${esc(H.q)}" style="width:160px;padding:6px 10px">${H.sel.size?`<button class="btn ghost small" id="h-clear">Clear selection</button>`:""}</div>
+      </div>
+      <div class="act-list">${shown.map(r=>{
+        const a=r.a, on=H.sel.has(a.id), cur=H.sel.get(a.id), disabled=!r.open.length;
+        const flags=[];
+        if(disabled) flags.push(`<span class="status off">already started</span>`);
+        if(H.lang==="es" && !a.descriptionEs) flags.push(`<span class="tiny muted">no Spanish description</span>`);
+        return `<div class="act ${on?"on":""} ${disabled?"dis":""}" data-id="${a.id}">
+          <input type="checkbox" ${on?"checked":""} ${disabled?"disabled":""} data-pick="${a.id}">
+          <div style="flex:1;min-width:0">
+            <div class="spread" style="align-items:flex-start"><b style="font-weight:500;font-size:15.5px">${esc(a.name)}</b>
+              <span class="tiny muted" style="white-space:nowrap">${a.duration||60} min${a.price?" · "+esc(a.price):""}</span></div>
+            <div class="row" style="gap:6px;margin:5px 0">${r.slots.map(x=> x.t ? `<button class="slot ${(on?cur:"")===x.t?"on":""}" data-slot="${a.id}|${x.t}" ${x.past?"disabled":""}>${esc(fmtTime(x.t,"en"))}</button>` : `<span class="tiny muted">time on request</span>`).join("")}
+              ${a.location?`<span class="tiny muted">· ${esc(a.location)}</span>`:""}<span class="chip" style="font-size:11px">${esc(a.category)}</span></div>
+            <div class="tiny muted">${esc(descForMessage(a.description))}</div>
+            ${flags.length?`<div class="row" style="gap:6px;margin-top:5px">${flags.join("")}</div>`:""}
+          </div></div>`; }).join("") || `<div class="tiny muted">No match for “${esc(H.q)}”.</div>`}</div>`;
+    const qi=$("#h-q"); qi.oninput=()=>{ H.q=qi.value; const pos=qi.selectionStart; renderHost(); const n=$("#h-q"); n.focus(); n.setSelectionRange(pos,pos); };
+    $("#h-clear")?.addEventListener("click",()=>{ H.sel.clear(); H.edited=false; renderHost(); });
+    card.querySelectorAll("[data-pick]").forEach(c=>c.onchange=()=>{ const r=list.find(x=>x.a.id===c.dataset.pick);
+      if(c.checked) H.sel.set(r.a.id, r.open[0]?r.open[0].t:""); else H.sel.delete(r.a.id);
+      H.edited=false; renderHost(); });
+    card.querySelectorAll(".act:not(.dis)").forEach(row=>row.addEventListener("click",e=>{ if(e.target.closest("input,button,a")) return; const c=row.querySelector("[data-pick]"); c.checked=!c.checked; c.onchange(); }));
+    card.querySelectorAll("[data-slot]").forEach(bt=>bt.onclick=()=>{ const [id,t]=bt.dataset.slot.split("|"); if(H.sel.get(id)===t) H.sel.delete(id); else H.sel.set(id,t); H.edited=false; renderHost(); });
+  }
+  const picks = [...H.sel].map(([id,slot])=>({a:S.activities.find(x=>x.id===id), slot})).filter(p=>p.a && runsOn(p.a,H.date));
+  if(!H.edited) $("#h-msg").value = buildMessage({date:H.date, lang:H.lang, picks, title:H.title, surname:H.surname.trim()});
+  $("#h-bubble").innerHTML = waRender($("#h-msg").value);
+}
+function bindHost(){
+  $("#h-date").addEventListener("change",e=>{ H.date=e.target.value||todayISO(); H.sel.clear(); H.edited=false; renderHost(); });
+  $("#h-gtitle").addEventListener("change",e=>{ H.title=e.target.value; H.edited=false; renderHost(); });
+  $("#h-gname").addEventListener("input",e=>{ H.surname=e.target.value; H.edited=false; renderHost(); });
+  $("#h-lang").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; H.lang=b.dataset.v; H.edited=false; renderHost(); });
+  $("#h-fx").addEventListener("input",e=>{ const v=parseFloat(e.target.value); S.settings.fx={rate:v>0?v:0, date:todayISO()}; save("settings"); H.edited=false; renderHost(); });
+  $("#h-host").addEventListener("input",e=>{ S.settings.hostName=e.target.value; save("settings"); if(!H.edited) renderHost(); });
+  $("#h-edit").addEventListener("click",()=>{ const t=$("#h-msg"); const show=t.classList.toggle("hidden"); $("#h-edit").textContent = show? "Edit text":"Done editing"; if(!show) t.focus(); });
+  $("#h-msg").addEventListener("input",()=>{ H.edited=true; $("#h-bubble").innerHTML = waRender($("#h-msg").value); });
+  $("#h-copy").addEventListener("click",async()=>{ const ok=await copyText($("#h-msg").value); toast(ok?"Message copied — paste it into WhatsApp":"Copy failed — select the text and copy manually");
+    if(ok){ H.title=""; H.surname=""; H.edited=false; renderHost(); } });   // greeting is cleared after copying, so no name lingers
+}
+
+/* ---------- Activities view ---------- */
+let pendingDrafts=[], lastWarns=[];
+function renderActivities(){
+  $("#a-count").textContent=S.activities.length;
+  const q=norm($("#a-search").value);
+  const list=S.activities.filter(a=>(!q||norm(a.name+" "+a.category+" "+(a.location||"")+" "+a.description).includes(q)));
+  const tbl=$("#a-table");
+  const pend=S.activities.filter(a=>a.dateCheck).length;
+  $("#a-pending").innerHTML = pend ? `<div class="note" style="margin-bottom:12px"><b>${pend} activit${pend>1?"ies need":"y needs"} date confirmation.</b> They were saved before the app checked dates, so they won't be recommended until you confirm when they run. <button class="btn gold small" id="a-pend-go" style="margin-left:6px">Review now</button></div>` : "";
+  $("#a-pend-go")?.addEventListener("click",()=>{ const a=S.activities.find(x=>x.dateCheck); if(a) confirmDates(a, true); });
+  // forget selections of activities that no longer exist
+  for(const id of [...ASel]) if(!S.activities.some(a=>a.id===id)) ASel.delete(id);
+  const ended=S.activities.filter(isEnded);
+  const allShown = list.length && list.every(a=>ASel.has(a.id));
+  $("#a-bulk").innerHTML = !S.activities.length ? "" : ASel.size
+    ? `<b class="small">${ASel.size} selected</b>
+       <button class="btn danger small" id="ab-del">Delete selected</button>
+       <button class="btn ghost small" id="ab-pause">Pause</button>
+       <button class="btn ghost small" id="ab-act">Activate</button>
+       <button class="btn ghost small" id="ab-clear">Clear selection</button>`
+    : `<span class="tiny muted">Tick activities to delete or pause several at once.</span>${ended.length?` <button class="btn ghost small" id="ab-ended">Select ${ended.length} ended</button>`:""}`;
+  if(!S.activities.length){ tbl.innerHTML=`<tr><td><div class="empty">No activities yet. Upload a PDF above or add one by hand.</div></td></tr>`; return; }
+  tbl.innerHTML = `<thead><tr><th style="width:30px"><input type="checkbox" id="a-all" ${allShown?"checked":""} title="Select all shown"></th><th>Activity</th><th>When</th><th>Times</th><th>Price</th><th>Status</th><th></th></tr></thead><tbody>`+
+  list.map(a=>`<tr data-id="${a.id}" style="${ASel.has(a.id)?"background:#fbf3e6":""}">
+    <td><input type="checkbox" data-asel="${a.id}" ${ASel.has(a.id)?"checked":""}></td>
+    <td><b style="font-weight:500">${esc(a.name)}</b><div class="tiny muted">${esc(a.category)} · ${a.duration||60} min${a.location?" · "+esc(a.location):""}</div></td>
+    <td class="small">${a.dateCheck?`<div style="color:var(--warn)">${esc(datesLabel(a))}</div><button class="btn gold small" data-dconf="1" style="margin-top:4px">Confirm dates</button>`:esc(datesLabel(a))}${isEnded(a)?` <span class="status off">ended</span>`:""}</td>
+    <td class="small">${(a.times||[]).map(t=>fmtTime(t,"en")).join(", ")||"<span class='muted'>on request</span>"}</td>
+    <td class="small">${esc(a.price||"—")}</td>
+    <td><span class="status ${a.active?"":"off"}" data-toggle="1" style="cursor:pointer">${a.active?"Active":"Paused"}</span></td>
+    <td style="white-space:nowrap"><button class="btn ghost small" data-edit="1">Edit</button></td></tr>`).join("")+`</tbody>`;
+}
+const ASel = new Set();
+function bulkDelete(){
+  const names=S.activities.filter(a=>ASel.has(a.id)).map(a=>a.name);
+  openModal(`<h2>Delete ${names.length} activit${names.length>1?"ies":"y"}?</h2>
+    <p class="small muted" style="margin-top:0">They will no longer appear in the Host's list. This can't be undone (re-upload the PDF to add them back).</p>
+    <ul class="small" style="max-height:240px;overflow:auto;margin:0 0 14px;padding-left:18px">${names.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>
+    <div class="row" style="justify-content:flex-end"><button class="btn ghost" id="bd-no">Cancel</button><button class="btn danger" id="bd-yes">Delete ${names.length}</button></div>`);
+  $("#bd-no").onclick=closeModal;
+  $("#bd-yes").onclick=()=>{ const n=ASel.size; S.activities=S.activities.filter(a=>!ASel.has(a.id)); ASel.forEach(id=>H.sel.delete(id)); ASel.clear(); save("activities"); closeModal(); renderActivities(); renderHost(); toast(`${n} activit${n>1?"ies":"y"} deleted`); };
+}
+function isEnded(a){ const t=todayISO(); if(a.dates&&a.dates.length) return a.dates.every(d=>d<t); return !!(a.dateTo && a.dateTo<t); }
+function daysLabel(d){ d=d||[]; if(d.length===7) return "Daily"; if(!d.length) return "<span class='muted'>—</span>"; if(d.join()==="0,1,2,3,4") return "Mon–Fri"; if(d.join()==="5,6") return "Weekends"; return d.map(i=>DAY_EN[i]).join(", "); }
+function bindActivities(){
+  setupDrop("#a-drop","#a-file", handleActivityFiles);
+  $("#a-search").addEventListener("input",renderActivities);
+  $("#a-add").addEventListener("click",()=>editActivity(null));
+  $("#a-table").addEventListener("change",e=>{
+    if(e.target.id==="a-all"){ const q=norm($("#a-search").value); S.activities.filter(a=>(!q||norm(a.name+" "+a.category+" "+(a.location||"")+" "+a.description).includes(q))).forEach(a=> e.target.checked?ASel.add(a.id):ASel.delete(a.id)); renderActivities(); return; }
+    const id=e.target.dataset.asel; if(id){ e.target.checked?ASel.add(id):ASel.delete(id); renderActivities(); }
+  });
+  $("#a-bulk").addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b) return;
+    if(b.id==="ab-del") bulkDelete();
+    if(b.id==="ab-pause"||b.id==="ab-act"){ S.activities.forEach(a=>{ if(ASel.has(a.id)) a.active = b.id==="ab-act"; }); save("activities"); renderActivities(); renderHost(); toast(b.id==="ab-act"?"Activated":"Paused"); }
+    if(b.id==="ab-clear"){ ASel.clear(); renderActivities(); }
+    if(b.id==="ab-ended"){ S.activities.filter(isEnded).forEach(a=>ASel.add(a.id)); renderActivities(); }
+  });
+  $("#a-table").addEventListener("click",e=>{
+    if(e.target.matches("input[type=checkbox]")) return;
+    const tr=e.target.closest("tr[data-id]"); if(!tr) return; const a=S.activities.find(x=>x.id===tr.dataset.id); if(!a) return;
+    const fc=e.target.closest(".fitcell"); if(fc){ a.fit=a.fit||{}; a.fit[fc.dataset.k]=((a.fit[fc.dataset.k]||0)+1)%4; save("activities"); renderActivities(); return; }
+    if(e.target.closest("[data-toggle]")){ a.active=!a.active; save("activities"); renderActivities(); return; }
+    if(e.target.closest("[data-edit]")) editActivity(a);
+    if(e.target.closest("[data-dconf]")) confirmDates(a, true);
+  });
+}
+async function handleActivityFiles(files){
+  const box=$("#a-review"); box.classList.remove("hidden"); box.innerHTML=`<div class="small muted">Reading ${files.length} PDF${files.length>1?"s":""}…</div>`;
+  pendingDrafts=[]; const warns=[];
+  for(const f of files){
+    try{ const {drafts,warning}=await parseActivityPDF(f); pendingDrafts.push(...drafts); if(warning) warns.push(`${f.name}: ${warning}`); }
+    catch(err){ warns.push(`${f.name}: ${err.message}`); }
+  }
+  renderReview(warns);
+}
+function renderReview(warns=[]){
+  const box=$("#a-review");
+  if(!pendingDrafts.length){ box.innerHTML = `<div class="note">${warns.map(esc).join("<br>")||"Nothing found."}</div>`; return; }
+  box.innerHTML = `
+    <div class="spread" style="margin-bottom:8px"><h3 style="font-size:22px">Review ${pendingDrafts.length} activit${pendingDrafts.length>1?"ies":"y"} found</h3>
+      <div class="row"><button class="btn ghost small" id="r-cancel">Discard</button><button class="btn gold" id="r-save">${(()=>{const n=pendingDrafts.filter(d=>!d._skip&&d.dateStatus==="confirm").length; return n?`Confirm ${n} date${n>1?"s":""} to save`:"Save selected";})()}</button></div></div>
+    ${warns.length?`<div class="note" style="margin-bottom:10px">${warns.map(esc).join("<br>")}</div>`:""}
+    <div class="tiny muted" style="margin-bottom:8px">Check names, dates and times. Where the PDF wasn't clear about <b>when</b> an activity runs, it's highlighted with <b>Confirm dates</b> — these need your confirmation before saving. Times marked <span class="status warn">check</span> weren't found.</div>
+    <div class="scroll"><table><thead><tr><th></th><th>Activity</th><th>When it runs</th><th>Times</th><th>Duration</th><th>Price</th><th></th></tr></thead><tbody>
+    ${pendingDrafts.map((d,i)=>{ const dup=S.activities.find(a=>similar(a.name,d.name)); return `<tr data-i="${i}">
+      <td><input type="checkbox" ${d._skip?"":"checked"} data-sel="${i}"></td>
+      <td><b style="font-weight:500">${esc(d.name)}</b>${dup?` <span class="status warn">updates existing</span>`:""}<div class="tiny muted">${esc(d.category)} · ${esc(firstSentence(d.description,90))}</div></td>
+      <td class="small" style="min-width:190px">${d.dateStatus==="confirm"
+          ? `<div style="color:var(--warn);font-weight:500">${esc(d.unknown?"Not stated":datesLabel(d))}</div><div class="tiny muted">${esc(d.dateNote)}</div><div class="row" style="margin-top:4px"><button class="btn gold small" data-conf="${i}">Confirm dates</button>${d.unknown?"":`<button class="btn ghost small" data-ok="${i}">Looks right</button>`}</div>`
+          : `<div>${esc(datesLabel(d))} <span class="status">✓</span></div><div class="tiny muted">${esc(d.dateNote||"")}</div>`}</td>
+      <td class="small">${d.times.map(t=>fmtTime(t,"en")).join(", ")||`<span class="status warn">check</span>`}</td>
+      <td class="small">${d.duration} min</td><td class="small">${esc(d.price||"—")}</td>
+      <td><button class="btn ghost small" data-redit="${i}">Edit</button></td></tr>`;}).join("")}
+    </tbody></table></div>`;
+  $("#r-cancel").onclick=()=>{ pendingDrafts=[]; box.classList.add("hidden"); };
+  $("#r-save").onclick=()=>{
+    const firstOpen = pendingDrafts.findIndex(d=>!d._skip&&d.dateStatus==="confirm");
+    if(firstOpen>=0){ confirmDates(pendingDrafts[firstOpen]); return; }
+    let n=0;
+    pendingDrafts.filter(d=>!d._skip).forEach(d=>{ const {daysFound,_skip,dateStatus,dateNote,dateSource,unknown,...clean}=d; const ex=S.activities.find(a=>similar(a.name,d.name));
+      if(ex) Object.assign(ex, clean, {id:ex.id}); else S.activities.push(clean); n++; });
+    save("activities"); pendingDrafts=[]; box.classList.add("hidden"); renderActivities(); toast(`${n} activit${n===1?"y":"ies"} saved`);
+  };
+  box.querySelectorAll("[data-sel]").forEach(c=>c.onchange=()=>{ pendingDrafts[+c.dataset.sel]._skip=!c.checked; renderReview(warns); });
+  box.querySelectorAll("[data-conf]").forEach(b=>b.onclick=()=>confirmDates(pendingDrafts[+b.dataset.conf]));
+  box.querySelectorAll("[data-ok]").forEach(b=>b.onclick=()=>{ const d=pendingDrafts[+b.dataset.ok]; d.dateStatus="ok"; d.dateNote="Confirmed by you."; renderReview(warns); });
+  lastWarns=warns;
+  box.querySelectorAll("[data-redit]").forEach(b=>b.onclick=()=>editActivity(pendingDrafts[+b.dataset.redit], true));
+}
+function editActivity(a, isDraft=false){
+  const isNew=!a; a = a || {id:uid(), name:"", category:"Experience", description:"", days:[0,1,2,3,4,5,6], times:[], duration:60, price:"", location:"", dateFrom:"", dateTo:"", fit:{romantic:1,family:1,celebration:1,relax:1}, active:true, source:"manual"};
+  openModal(`
+    <h2>${isNew?"Add activity":"Edit activity"}</h2>
+    <div class="f2"><div class="field"><span class="label">Name</span><input type="text" id="m-name" value="${esc(a.name)}"></div>
+      <div class="field"><span class="label">Category</span><input type="text" id="m-cat" value="${esc(a.category)}" list="cats"><datalist id="cats">${CAT_KW.map(c=>`<option value="${c[0]}">`).join("")}<option value="Experience"></datalist></div></div>
+    <div class="field"><span class="label">Description (English)</span><textarea id="m-desc" rows="3">${esc(a.description)}</textarea></div>
+    <div class="field"><span class="label">Description (Español) — optional</span><textarea id="m-desc-es" rows="2">${esc(a.descriptionEs||"")}</textarea></div>
+    ${datesEditorHTML(a)}
+    <div class="f3">
+      <div class="field"><span class="label">Start times (comma separated, 24h)</span><input type="text" id="m-times" value="${esc((a.times||[]).join(", "))}" placeholder="09:00, 17:30"></div>
+      <div class="field"><span class="label">Duration (min)</span><input type="number" id="m-dur" value="${a.duration||60}"></div>
+      <div class="field"><span class="label">Price</span><input type="text" id="m-price" value="${esc(a.price)}" placeholder="USD 250 per couple"></div>
+    </div>
+    <div class="f2">
+      <div class="field"><span class="label">Location</span><input type="text" id="m-loc" value="${esc(a.location)}"></div>
+    </div>
+    <div class="spread" style="margin-top:16px">
+      <div>${!isNew&&!isDraft?`<button class="btn danger" id="m-del">Delete</button>`:""}</div>
+      <div class="row"><button class="btn ghost" id="m-cancel">Cancel</button><button class="btn" id="m-ok">Save</button></div></div>`);
+  $("#m-cancel").onclick=closeModal; bindDatesEditor(a);
+  $("#m-del")?.addEventListener("click",()=>{ S.activities=S.activities.filter(x=>x.id!==a.id); save("activities"); closeModal(); renderActivities(); toast("Activity deleted"); });
+  $("#m-ok").onclick=()=>{
+    const times = $("#m-times").value.split(/[,;]+/).map(s=>parseTimes(s.trim()).times[0] || (/^\d{1,2}$/.test(s.trim())?fromMin(+s.trim()*60):"")).filter(Boolean);
+    Object.assign(a,{name:$("#m-name").value.trim()||"Untitled", category:$("#m-cat").value.trim()||"Experience", description:$("#m-desc").value.trim(), descriptionEs:$("#m-desc-es").value.trim(),
+      times:[...new Set(times)].sort(), duration:+$("#m-dur").value||60, price:$("#m-price").value.trim(), location:$("#m-loc").value.trim()});
+    readDatesEditor(a);
+    if(isDraft){ a.daysFound=true; a.dateStatus="ok"; a.dateNote="Confirmed by you."; closeModal(); renderReview(lastWarns); return; }
+    delete a.dateCheck; if(isNew) S.activities.push(a); save("activities"); closeModal(); renderActivities(); toast("Activity saved");
+  };
+}
+
+/* ---------- dates editor (shared by edit + confirm) ---------- */
+function datesEditorHTML(a, compact){
+  const specific = a.dates && a.dates.length;
+  return `<div class="field"><span class="label">When it runs</span>
+    <div class="seg" id="dm-mode" style="margin-bottom:10px"><button type="button" data-v="weekly" class="${specific?"":"active"}">Every week</button><button type="button" data-v="dates" class="${specific?"active":""}">Specific dates</button></div>
+    <div id="dm-weekly" class="${specific?"hidden":""}">
+      <div class="days" id="m-days">${DAY_EN.map((d,i)=>`<label><input type="checkbox" value="${i}" ${(a.days||[]).includes(i)?"checked":""}>${d}</label>`).join("")}</div>
+      <div class="f2" style="margin-top:10px"><label><span class="label">From</span><input type="date" id="m-from" value="${esc(a.dateFrom||"")}"></label>
+        <label><span class="label">Until (blank = ongoing)</span><input type="date" id="m-to" value="${esc(a.dateTo||"")}"></label></div>
+    </div>
+    <div id="dm-dates" class="${specific?"":"hidden"}">
+      <div class="chips" id="dm-list" style="margin-bottom:8px"></div>
+      <div class="row"><input type="date" id="dm-new" style="width:170px"><button type="button" class="btn small" id="dm-add">Add date</button></div>
+    </div></div>`;
+}
+function bindDatesEditor(a){
+  a._dates = [...(a.dates||[])];
+  const draw=()=>{ $("#dm-list").innerHTML = a._dates.length ? a._dates.map(d=>`<span class="chip">${esc(fmtDate(d,"en"))} <a href="#" data-x="${d}" style="color:var(--bad);text-decoration:none;margin-left:4px">×</a></span>`).join("") : `<span class="tiny muted">No dates yet.</span>`;
+    $$("#dm-list [data-x]").forEach(x=>x.onclick=e=>{ e.preventDefault(); a._dates=a._dates.filter(d=>d!==x.dataset.x); draw(); }); };
+  draw();
+  $("#dm-add").onclick=()=>{ const v=$("#dm-new").value; if(v && !a._dates.includes(v)){ a._dates.push(v); a._dates.sort(); draw(); } };
+  $("#dm-mode").onclick=e=>{ const b=e.target.closest("button"); if(!b) return; $$("#dm-mode button").forEach(x=>x.classList.toggle("active",x===b));
+    $("#dm-weekly").classList.toggle("hidden", b.dataset.v!=="weekly"); $("#dm-dates").classList.toggle("hidden", b.dataset.v!=="dates"); };
+}
+function readDatesEditor(a){
+  const mode = $("#dm-mode .active")?.dataset.v || "weekly";
+  if(mode==="dates" && a._dates.length){ a.dates=[...a._dates]; a.days=[...new Set(a.dates.map(dow))].sort(); a.dateFrom=""; a.dateTo=""; }
+  else { a.dates=[]; a.days=$$("#m-days input:checked").map(i=>+i.value); a.dateFrom=$("#m-from").value; a.dateTo=$("#m-to").value; }
+  delete a._dates;
+}
+function confirmDates(d, saved){
+  openModal(`<h2>When does “${esc(d.name)}” take place?</h2>
+    <div class="note" style="margin-bottom:14px"><b>Why I'm asking:</b> ${esc(saved?"This activity was saved before the app checked dates.":d.dateNote)}${d.dateSource?`<div style="margin-top:6px" class="tiny">The PDF says: “${esc(d.dateSource)}”</div>`:(saved&&d.description?`<div style="margin-top:6px" class="tiny">Description on file: “${esc(d.description.slice(0,220))}”</div>`:"")}</div>
+    <p class="small muted" style="margin-top:0">My best reading is filled in below — correct it if needed, then confirm.</p>
+    ${datesEditorHTML(d)}
+    <div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn ghost" id="cd-skip">${saved?"Pause this activity":"Don't import this one"}</button><button class="btn" id="cd-ok">Confirm dates</button></div>`);
+  bindDatesEditor(d);
+  $("#cd-skip").onclick=()=>{
+    if(saved){ d.active=false; delete d.dateCheck; save("activities"); closeModal(); renderActivities(); const n=S.activities.find(x=>x.dateCheck); if(n) setTimeout(()=>confirmDates(n,true),150); return; }
+    d._skip=true; closeModal(); renderReview(lastWarns); const next=pendingDrafts.find(x=>!x._skip&&x.dateStatus==="confirm"); if(next) setTimeout(()=>confirmDates(next),150); };
+  $("#cd-ok").onclick=()=>{ const mode=$("#dm-mode .active").dataset.v;
+    if(mode==="dates" && !d._dates.length){ toast("Add at least one date"); return; }
+    if(mode==="weekly" && !$$("#m-days input:checked").length){ toast("Pick at least one day"); return; }
+    readDatesEditor(d); delete d.unknown;
+    if(saved){ delete d.dateCheck; save("activities"); closeModal(); renderActivities(); toast("Dates confirmed"); const n=S.activities.find(x=>x.dateCheck); if(n) setTimeout(()=>confirmDates(n,true),150); return; }
+    d.dateStatus="ok"; d.dateNote="Confirmed by you."; closeModal(); renderReview(lastWarns);
+    const next=pendingDrafts.find(x=>!x._skip&&x.dateStatus==="confirm"); if(next) setTimeout(()=>confirmDates(next),150); };
+}
+
+/* ---------- Data view ---------- */
+function pack(){ return JSON.stringify({app:"host-top-picks", version:3, exportedAt:new Date().toISOString(), activities:S.activities, settings:{fx:S.settings.fx}}); }
+function importPack(d){
+  S.activities=d.activities||[];
+  const hn=S.settings.hostName; S.settings=Object.assign({},DEFAULT_SETTINGS,FIXED_SETTINGS,{fx:(d.settings||{}).fx||S.settings.fx, hostName:hn});
+  migrateActivities(); H.sel.clear();
+  save(); renderAll(); toast(`Imported ${S.activities.length} activities`);
+}
+function bindData(){
+  $("#d-export").onclick=async()=>{ const name=`host-top-picks-${todayISO()}.json`, data=pack();
+    if(window.claude?.use){ try{ const dl=await Promise.race([window.claude.use("downloads"), new Promise(r=>setTimeout(()=>r(null),3000))]); if(dl){ await dl.save({filename:name, data}); toast("Data pack saved"); return; } }catch(e){ toast("Download declined"); return; } }
+    if(!download(name, data)) toast("Download blocked by this browser"); };
+  $("#d-import-btn").onclick=()=>$("#d-import").click();
+  $("#d-import").onchange=async e=>{ const f=e.target.files[0]; e.target.value=""; if(!f) return;
+    let d; try{ d=JSON.parse(await f.text()); }catch(err){ toast("That isn't a valid data pack"); return; }
+    if(d.app!=="host-top-picks"){ toast("That isn't a Host Top Picks data pack"); return; }
+    openModal(`<h2>Import data pack?</h2><p class="small">${esc(f.name)} — <b>${(d.activities||[]).length}</b> activities.</p>
+      <p class="small muted">Everything currently on this device will be replaced.</p>
+      <div class="row" style="justify-content:flex-end"><button class="btn ghost" id="im-no">Cancel</button><button class="btn" id="im-yes">Replace and import</button></div>`);
+    $("#im-no").onclick=closeModal; $("#im-yes").onclick=()=>{ closeModal(); importPack(d); }; };
+  $("#d-clear").onclick=()=>{ openModal(`<h2>Clear all data?</h2><p class="muted">This removes every activity on this device. Download a data pack first if you need it.</p><div class="row" style="justify-content:flex-end"><button class="btn ghost" id="c-no">Cancel</button><button class="btn danger" id="c-yes">Clear everything</button></div>`);
+    $("#c-no").onclick=closeModal; $("#c-yes").onclick=()=>{ S.activities=[]; H.sel.clear(); save(); closeModal(); renderAll(); toast("All data cleared"); }; };
+  $("#d-storage-note").innerHTML = Store.ok() ? "Data is saved in this browser on this device." : "<b>This browser isn't saving data</b> — it will be lost on reload. Download a data pack before closing.";
+}
+
+/* ---------- shell ---------- */
+function setupDrop(dropSel, inputSel, cb){
+  const d=$(dropSel), inp=$(inputSel);
+  d.addEventListener("click",()=>inp.click());
+  inp.addEventListener("change",()=>{ if(inp.files.length) cb([...inp.files]); inp.value=""; });
+  d.addEventListener("dragover",e=>{e.preventDefault(); d.classList.add("over");});
+  d.addEventListener("dragleave",()=>d.classList.remove("over"));
+  d.addEventListener("drop",e=>{e.preventDefault(); d.classList.remove("over"); if(e.dataTransfer.files.length) cb([...e.dataTransfer.files]);});
+}
+function openModal(html){ $("#modal-body").innerHTML=html; $("#modal").classList.add("show"); }
+function closeModal(){ $("#modal").classList.remove("show"); }
+$("#modal").addEventListener("click",e=>{ if(e.target.id==="modal") closeModal(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+const VIEWS=["host","activities","data"];
+function show(v){ if(!VIEWS.includes(v)) v="host"; $$(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v)); $$("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
+  if(location.hash!=="#"+v) try{ history.replaceState(null,"","#"+v);}catch(e){ }
+  ({host:renderHost,activities:renderActivities,data:()=>{}})[v](); }
+function renderAll(){ renderHost(); renderActivities(); }
+$("#nav").addEventListener("click",e=>{ const b=e.target.closest("button"); if(b) show(b.dataset.view); });
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+function migrateActivities(){
+  let changed=0;
+  S.activities.forEach(a=>{
+    if("dates" in a) return;                          // already has date info from the new importer
+    changed++;
+    if(a.source==="manual"||a.source==="sample"){ a.dates=[]; return; }
+    const cal = parseCalendar((a.name||"")+"\n"+(a.description||""), {});
+    if(cal.dates.length){ a.dates=cal.dates; a.days=[...new Set(cal.dates.map(dow))].sort(); a.dateFrom=""; a.dateTo=""; }
+    else if(cal.from||cal.to){ a.dates=[]; a.dateFrom=cal.from||a.dateFrom||""; a.dateTo=cal.to||a.dateTo||""; }
+    else a.dates=[];
+    a.dateCheck = true;                               // ask Marketing to confirm before it can be picked again
+  });
+  S.activities.forEach(a=>{
+    if(a.migr>=2) return; a.migr=2; changed++;
+    if((a.dates&&a.dates.length) || a.dateFrom || a.dateTo || a.source==="sample") return;
+    const cal = parseCalendar((a.name||"")+"\n"+(a.description||""), {});
+    if(cal.dates.length){ a.dates=cal.dates; a.days=[...new Set(cal.dates.map(dow))].sort(); return; }
+    if(cal.from||cal.to){ a.dateFrom=cal.from; a.dateTo=cal.to; return; }
+    const h = holidayOf(a.name+" "+(a.description||"")); if(h){ a.dates=nextHolidayDates(h); a.days=[...new Set(a.dates.map(dow))]; }
+  });
+  if(changed) save("activities");
+}
+migrateActivities();
+bindHost(); bindActivities(); bindData();
+show(location.hash.slice(1)||"host");
+</script>
+</body>
+</html>
