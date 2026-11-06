@@ -1,0 +1,302 @@
+{
+ "app": "host-top-picks",
+ "kind": "activities",
+ "version": 4,
+ "publishedAt": "2026-11-06T06:38:09.984Z",
+ "activities": [
+  {
+   "id": "knapmj3g",
+   "name": "Water Healing with Mayumi Yonamine",
+   "category": "Wellness",
+   "description": "In-Residence: through December 7 One&Only Spa Guided by renowned wellness practitioner Mayumi Yonamine, this immersive WATSU® hydrotherapy experience combines gentle stretches and therapeutic touch in warm water. Designed to reduce stress, improve mobility, and restore balance, Water Healing promotes deep relaxation and a renewed sense of well-being. Please contact your Host or Guest Experiences to book.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "dates": [],
+   "times": [],
+   "duration": 60,
+   "price": "USD 450",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "2026-12-07",
+   "fit": {
+    "romantic": 0,
+    "family": 0,
+    "celebration": 0,
+    "relax": 3
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.262Z"
+  },
+  {
+   "id": "vu8eztsh",
+   "name": "Master of Podiatry, Bastien Gonzalez",
+   "category": "Wellness",
+   "description": "November 13-15 One&Only Spa Acclaimed podiatrist Bastien Gonzalez returns for three days of exclusive treatments at his PEDI:MANI:CURE studio. Performed in tandem with our resident specialists, the signature four- hand experience revives dull skin, alleviates aches, and restores vitality to your hands and feet. treatment) Please contact your Host or Guest Experiences to book.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "dates": [],
+   "times": [],
+   "duration": 60,
+   "price": "USD 500",
+   "location": "",
+   "dateFrom": "2026-11-13",
+   "dateTo": "2026-11-15",
+   "fit": {
+    "romantic": 0,
+    "family": 0,
+    "celebration": 0,
+    "relax": 2
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.262Z"
+  },
+  {
+   "id": "y36p3m8r",
+   "name": "Rest & Restore with Gyde Von Wlassack",
+   "category": "Wellness",
+   "description": "In Residence: November 13 - December 4 One&Only Spa Restore balance and resilience with renowned German therapist Gyde von Wlassack. Combining advanced neurophysiology with osteopathic techniques, her transformative approach helps regulate the nervous system, guiding the body from stress and fatigue into a deeper state of rest, recovery, and renewal. Please contact your Host or Guest Experiences to book.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "dates": [],
+   "times": [],
+   "duration": 60,
+   "price": "USD 450",
+   "location": "",
+   "dateFrom": "2026-11-13",
+   "dateTo": "2026-12-04",
+   "fit": {
+    "romantic": 0,
+    "family": 0,
+    "celebration": 0,
+    "relax": 2
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.262Z"
+  },
+  {
+   "id": "8scrc0et",
+   "name": "Corazon Playero Pop Up",
+   "category": "Culture",
+   "description": "Discover “Wearable Art” by Corazón Playero, one-of-a-kind, handcrafted hats and accessories made by local artisans. Visit our exclusive pop-up to explore the latest collection or design your own bespoke headware.",
+   "days": [
+    5
+   ],
+   "dates": [
+    "2026-11-07"
+   ],
+   "times": [
+    "09:00"
+   ],
+   "duration": 300,
+   "price": "",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.264Z"
+  },
+  {
+   "id": "q90ftn51",
+   "name": "Golf Range Clinic",
+   "category": "Fitness",
+   "description": "",
+   "days": [
+    1
+   ],
+   "dates": [],
+   "times": [
+    "10:00"
+   ],
+   "duration": 60,
+   "price": "USD 50",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.265Z"
+  },
+  {
+   "id": "c23a3edx",
+   "name": "Social Brunch",
+   "category": "Culture",
+   "description": "Palmilla Social Club Embark on a journey of flavors through Palmilla Social Club’s restaurants at Social Brunch. From Lucille’s Kitchen specialties to desserts from Lucille’s Café and cocktails at Sala 56, enjoy live music, family activities, interactive culinary stations, artisan products from Market del Tezal, and exclusive cocktails by Handshake, part of The World’s 50 Best Bars. Free-Flow Add-On Please contact your Host to learn more.",
+   "days": [
+    6
+   ],
+   "dates": [],
+   "times": [
+    "12:00"
+   ],
+   "duration": 1440,
+   "price": "USD 88 per person",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 0,
+    "family": 3,
+    "celebration": 1,
+    "relax": 0
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.272Z"
+  },
+  {
+   "id": "310zjzlj",
+   "name": "Entre Tacos",
+   "category": "Culture",
+   "description": "Sala 56 Satiate your palette with an unlimited selection of gourmet tacos, salsas and garnishes. The mouthwatering experience is accentuated by the star-lit Baja skies paired with an acoustic musical performance and a selection of the best cocktails this side of the Sea of Cortez. Please contact your Host to learn more.",
+   "days": [
+    1
+   ],
+   "dates": [],
+   "times": [
+    "17:30"
+   ],
+   "duration": 1440,
+   "price": "USD 50 per person",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 0,
+    "family": 2,
+    "celebration": 1,
+    "relax": 0
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.272Z"
+  },
+  {
+   "id": "n6fh37bx",
+   "name": "Peninsula Nights",
+   "category": "Dining",
+   "description": "Lucille’s Kitchen The rhythm of the night meets the flavors of Baja at Lucille’s Kitchen. Live music pairs perfectly with savory starters, premium cuts and the freshest Sea of Cortez flavors grilled to perfection and served family-style by Chef Carlos Grande, just as Lucille Bremmer did 70 years ago. Please contact your Host to learn more.",
+   "days": [
+    4
+   ],
+   "dates": [],
+   "times": [
+    "17:30"
+   ],
+   "duration": 1440,
+   "price": "USD 130 per person",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 0,
+    "family": 1,
+    "celebration": 0,
+    "relax": 0
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.273Z"
+  },
+  {
+   "id": "7oi48axa",
+   "name": "Pelican Beach Cabanas",
+   "category": "Ocean",
+   "description": "Mediterranean-inspired beachfront cabanas at our swimmable beach featuring a curated mezze selection, Veuve Clicquot Brut Champagne, personalized service, and views of the Sea of Cortez for a refined seaside escape.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "dates": [],
+   "times": [],
+   "duration": 60,
+   "price": "USD 267",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 0,
+    "family": 0,
+    "celebration": 1,
+    "relax": 0
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.275Z"
+  },
+  {
+   "id": "o9ne0mdg",
+   "name": "Kidsonly",
+   "category": "Kids & Family",
+   "description": "Step into a vibrant space curated for children ages 4-11 to engage in creativity, play and discovery with and outdoor experiences. activities, kids are invited to partake in special weekly classes, including: Please contact your Host to learn more.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "dates": [],
+   "times": [
+    "09:00"
+   ],
+   "duration": 1440,
+   "price": "USD 50",
+   "location": "",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 0,
+    "family": 3,
+    "celebration": 0,
+    "relax": 1
+   },
+   "active": true,
+   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
+   "addedAt": "2026-11-06T06:36:07.276Z"
+  }
+ ]
+}
