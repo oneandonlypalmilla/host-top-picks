@@ -2,13 +2,13 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-06T22:27:49.749Z",
+ "publishedAt": "2026-11-18T20:52:23.727Z",
  "activities": [
   {
    "id": "rg0tw3r3",
    "name": "Water Healing with Mayumi Yonamine",
    "category": "Wellness",
-   "description": "In-Residence: through December 7 One&Only Spa Guided by renowned wellness practitioner Mayumi Yonamine, this immersive WATSU® hydrotherapy experience combines gentle stretches and therapeutic touch in warm water. Designed to reduce stress, improve mobility, and restore balance, Water Healing promotes deep relaxation and a renewed sense of well-being. Please contact your Host or Guest Experiences to book.",
+   "description": "Guided by renowned wellness practitioner Mayumi Yonamine, this immersive WATSU® hydrotherapy experience combines gentle stretches and therapeutic touch in warm water. Designed to reduce stress, improve mobility, and restore balance, Water Healing promotes deep relaxation and a renewed sense of well-being.\nPrice: $450 USD (60 minutes) // $580 USD (90 minutes)",
    "days": [
     0,
     1,
@@ -21,8 +21,8 @@
    "dates": [],
    "times": [],
    "duration": 60,
-   "price": "USD 450",
-   "location": "",
+   "price": "",
+   "location": "One&Only Spa",
    "dateFrom": "",
    "dateTo": "2026-12-07",
    "fit": {
@@ -34,44 +34,14 @@
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
    "addedAt": "2026-11-06T22:25:28.950Z",
-   "descriptionEs": ""
-  },
-  {
-   "id": "7i6vwu9c",
-   "name": "Master of Podiatry, Bastien Gonzalez",
-   "category": "Wellness",
-   "description": "November 13-15 One&Only Spa Acclaimed podiatrist Bastien Gonzalez returns for three days of exclusive treatments at his PEDI:MANI:CURE studio. Performed in tandem with our resident specialists, the signature four- hand experience revives dull skin, alleviates aches, and restores vitality to your hands and feet. treatment) Please contact your Host or Guest Experiences to book.",
-   "days": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
-   ],
-   "dates": [],
-   "times": [],
-   "duration": 60,
-   "price": "USD 500",
-   "location": "",
-   "dateFrom": "2026-11-13",
-   "dateTo": "2026-11-15",
-   "fit": {
-    "romantic": 0,
-    "family": 0,
-    "celebration": 0,
-    "relax": 2
-   },
-   "active": true,
-   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.951Z"
+   "descriptionEs": "",
+   "migr": 2
   },
   {
    "id": "qhdxwa4w",
    "name": "Rest & Restore with Gyde Von Wlassack",
    "category": "Wellness",
-   "description": "In Residence: November 13 - December 4 One&Only Spa Restore balance and resilience with renowned German therapist Gyde von Wlassack. Combining advanced neurophysiology with osteopathic techniques, her transformative approach helps regulate the nervous system, guiding the body from stress and fatigue into a deeper state of rest, recovery, and renewal. Please contact your Host or Guest Experiences to book.",
+   "description": "Restore balance and resilience with renowned German therapist Gyde von Wlassack. Combining advanced neurophysiology with osteopathic techniques, her transformative approach helps regulate the nervous system, guiding the body from stress and fatigue into a deeper state of rest, recovery, and renewal.\nPrice: $450 USD (60 min) // $580 USD (90 min)",
    "days": [
     0,
     1,
@@ -84,8 +54,8 @@
    "dates": [],
    "times": [],
    "duration": 60,
-   "price": "USD 450",
-   "location": "",
+   "price": "",
+   "location": "One&Only Spa",
    "dateFrom": "2026-11-13",
    "dateTo": "2026-12-04",
    "fit": {
@@ -96,52 +66,26 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.952Z"
-  },
-  {
-   "id": "085dw8zt",
-   "name": "Corazon Playero Pop Up",
-   "category": "Culture",
-   "description": "Discover “Wearable Art” by Corazón Playero, one-of-a-kind, handcrafted hats and accessories made by local artisans. Visit our exclusive pop-up to explore the latest collection or design your own bespoke headware.",
-   "days": [
-    5
-   ],
-   "dates": [
-    "2026-11-07"
-   ],
-   "times": [
-    "09:00"
-   ],
-   "duration": 300,
-   "price": "",
-   "location": "",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.956Z"
+   "addedAt": "2026-11-06T22:25:28.952Z",
+   "migr": 2,
+   "descriptionEs": ""
   },
   {
    "id": "nd05z2oq",
    "name": "Entre Tacos",
-   "category": "Culture",
-   "description": "Sala 56 Satiate your palette with an unlimited selection of gourmet tacos, salsas and garnishes. The mouthwatering experience is accentuated by the star-lit Baja skies paired with an acoustic musical performance and a selection of the best cocktails this side of the Sea of Cortez. Please contact your Host to learn more.",
+   "category": "Dining",
+   "description": "Satiate your palette with an unlimited selection of gourmet tacos, salsas and garnishes. The mouthwatering experience is accentuated by the star-lit Baja skies paired with an acoustic musical performance and a selection of the best cocktails this side of the Sea of Cortez.\n\nPrice: $50 USD per person - Children (4-12): $25 USD",
    "days": [
     1
    ],
    "dates": [],
    "times": [
-    "17:30"
+    "17:30",
+    "22:00"
    ],
-   "duration": 1440,
-   "price": "USD 50 per person",
-   "location": "",
+   "duration": 60,
+   "price": "",
+   "location": "Sala 56",
    "dateFrom": "",
    "dateTo": "",
    "fit": {
@@ -152,23 +96,26 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.964Z"
+   "addedAt": "2026-11-06T22:25:28.964Z",
+   "migr": 2,
+   "descriptionEs": ""
   },
   {
    "id": "ltkd87ln",
    "name": "Peninsula Nights",
    "category": "Dining",
-   "description": "Lucille’s Kitchen The rhythm of the night meets the flavors of Baja at Lucille’s Kitchen. Live music pairs perfectly with savory starters, premium cuts and the freshest Sea of Cortez flavors grilled to perfection and served family-style by Chef Carlos Grande, just as Lucille Bremmer did 70 years ago. Please contact your Host to learn more.",
+   "description": "The rhythm of the night meets the flavors of Baja at Lucille’s Kitchen. Live music pairs perfectly with savory starters, premium cuts and the freshest Sea of Cortez flavors grilled to perfection and served family-style by Chef Carlos Grande, just as Lucille Bremmer did 70 years ago.\n\nPrice: $130 USD per person",
    "days": [
     4
    ],
    "dates": [],
    "times": [
-    "17:30"
+    "17:30",
+    "21:00"
    ],
-   "duration": 1440,
-   "price": "USD 130 per person",
-   "location": "",
+   "duration": 60,
+   "price": "",
+   "location": "Lucille's Kitchen",
    "dateFrom": "",
    "dateTo": "",
    "fit": {
@@ -179,7 +126,9 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.964Z"
+   "addedAt": "2026-11-06T22:25:28.964Z",
+   "migr": 2,
+   "descriptionEs": ""
   },
   {
    "id": "zoeumjyn",
@@ -210,13 +159,14 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.968Z"
+   "addedAt": "2026-11-06T22:25:28.968Z",
+   "migr": 2
   },
   {
    "id": "kgl8zt9k",
-   "name": "Kidsonly",
+   "name": "KidsOnly",
    "category": "Kids & Family",
-   "description": "Step into a vibrant space curated for children ages 4-11 to engage in creativity, play and discovery with and outdoor experiences. activities, kids are invited to partake in special weekly classes, including: Please contact your Host to learn more.",
+   "description": "Step into a vibrant space curated for children ages 4-11 to engage in creativity, play and discovery with and outdoor experiences. activities, kids are invited to partake in special weekly classes, including: \nSlime Making | $50+ USD\nHuichol Art Class | $150+ USD \nChocolate Workshop | $50+ USD\nMeet Your Inner Artist | $150+ USD",
    "days": [
     0,
     1,
@@ -228,11 +178,12 @@
    ],
    "dates": [],
    "times": [
-    "09:00"
+    "09:00",
+    "19:00"
    ],
-   "duration": 1440,
-   "price": "USD 50",
-   "location": "",
+   "duration": 60,
+   "price": "",
+   "location": "Kids Only",
    "dateFrom": "",
    "dateTo": "",
    "fit": {
@@ -243,7 +194,200 @@
    },
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.969Z"
+   "addedAt": "2026-11-06T22:25:28.969Z",
+   "migr": 2,
+   "descriptionEs": ""
+  },
+  {
+   "id": "v5unqoyb",
+   "name": "The Arroyo Course at Palmilla Golf Club (9 Holes)",
+   "category": "Experience",
+   "description": "Twisting its way through a calming desert landscape, this acclaimed ‘nine’, which can be looped for 18,\nwinds past giant centuries-old cardón cacti, juxtaposed against the sweeping Sea of Cortez vistas below. \n\nThe course is home to native quails, roadrunners, and hawks, along with formidable doglegs and lengthy\nforced carries, all which converge to create the most thrill-inducing 2.5 hours on the greens in all of Los Cabos.\n\nStarting from: $240 USD per person",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "times": [
+    "07:30",
+    "17:00"
+   ],
+   "duration": 60,
+   "price": "",
+   "location": "Palmilla Golf Club",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "descriptionEs": "",
+   "dates": []
+  },
+  {
+   "id": "udq8t74r",
+   "name": "Golf Pro Private Lessons",
+   "category": "Experience",
+   "description": "Range Lesson:\n45-minute lesson focused on the short game, long game, or a combination of both.\nPrice: $200 USD + tax per person\n\nCourse Lesson:\n2-hour playing lesson covering 9 holes, with a focus on course management, strategy, and on-course decision-making.\nPrice: $400 USD + tax per person",
+   "days": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "times": [
+    "07:30",
+    "17:00"
+   ],
+   "duration": 60,
+   "price": "",
+   "location": "Palmilla Golf Club",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "descriptionEs": "",
+   "dates": [],
+   "_dates": []
+  },
+  {
+   "id": "hdc058l3",
+   "name": "Golf Play with a Pro",
+   "category": "Experience",
+   "description": "Designed for those who prefer to pair up rather than take a lesson, this unique experience offers the opportunity to discover the course through the eyes of an expert who knows every fairway, green, and hidden gem along the way.\n\n9-Holes: $225+ USD per person",
+   "days": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "times": [
+    "07:30",
+    "17:00"
+   ],
+   "duration": 60,
+   "price": "",
+   "location": "Palmilla Golf Club",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "descriptionEs": "",
+   "dates": []
+  },
+  {
+   "id": "99898drn",
+   "name": "Palmilla Social Brunch",
+   "category": "Experience",
+   "description": "Embark on a journey of flavors through Palmilla Social Club’s restaurants at Social Brunch. From Lucille’s Kitchen specialties to desserts from Lucille’s Café and cocktails at Sala 56, enjoy live music, family activities, interactive culinary stations, artisan products from Market del Tezal, and exclusive cocktails by Handshake, part of The World’s 50 Best Bars.\n\nPrice: $88 USD per person - Children (4-12): $44 USD - Children under 4 complimentary",
+   "days": [
+    6
+   ],
+   "times": [
+    "12:00",
+    "16:00"
+   ],
+   "duration": 60,
+   "price": "",
+   "location": "Lucille's Kitchen",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "descriptionEs": "",
+   "dates": []
+  },
+  {
+   "id": "ew3sbkch",
+   "name": "Mexico Magico",
+   "category": "Dining",
+   "description": "Immerse yourself in the spirit of Mexico through live entertainment, artisanal treasures, and authentic flavors. Celebrate culture and tradition beneath the Baja sky with regional specialties and handcrafted creations.\n\nPrice: Adults: $120 USD - Children (4-12): $60 USD",
+   "days": [
+    2
+   ],
+   "times": [
+    "17:30",
+    "21:00"
+   ],
+   "duration": 60,
+   "price": "",
+   "location": "Agua Restaurant",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "descriptionEs": "",
+   "dates": []
+  },
+  {
+   "id": "v8lcxm90",
+   "name": "Migrante Residency at Agua",
+   "category": "Dining",
+   "description": "Agua welcomes Migrante, the MICHELIN-recommended restaurant from Mexico City, led by Chef Fernando Martínez, Mexico’s Chef of the Year 2014 and coach of the Mexican national team at Bocuse d’Or Lyon 2023.\n\nThis distinctive culinary journey brings together Mexican heritage and global influences in an exceptional dining experience.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "times": [
+    "18:00",
+    "22:00"
+   ],
+   "duration": 60,
+   "price": "",
+   "location": "Agua Restaurant",
+   "dateFrom": "2026-11-23",
+   "dateTo": "2027-02-28",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "descriptionEs": "",
+   "dates": []
   }
  ]
 }
