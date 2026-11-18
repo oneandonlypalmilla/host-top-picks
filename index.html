@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache">
 <title>Host Top Picks · One&amp;Only Palmilla</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -220,6 +221,7 @@ tr:hover td{background:#fbf7f0}
         <button class="btn danger" id="d-clear">Clear this device</button>
       </div>
       <div class="note" style="margin-top:14px" id="d-storage-note"></div>
+      <p class="tiny muted" style="margin:10px 0 0">App version <span id="app-ver"></span> · <a href="#" id="upd-check" style="color:inherit">check for updates</a></p>
     </div>
   </div>
 </section>
@@ -227,8 +229,13 @@ tr:hover td{background:#fbf7f0}
 
 <div class="modal-bg" id="modal"><div class="modal" id="modal-body"></div></div>
 <div class="toast" id="toast"></div>
+<div id="upd-bar" class="hidden" style="position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--gold);color:#fff;padding:12px 18px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:14px">
+  <span>A new version of the app is available.</span><button class="btn small" id="upd-go" style="background:#fff;color:var(--navy);border-color:#fff">Update now</button>
+</div>
 
 <script>
+/* App version — change it with every release; phones compare it with the copy on GitHub and update themselves */
+const APP_VERSION = "2026-11-18.4";
 /* =====================================================================
    Host Top Picks — single-file app
    Storage: localStorage (one browser). Swap `Store` for a server API
@@ -558,16 +565,22 @@ function renderRuns(runs){
     return lead+o+core+c+trail; }).join("");
 }
 function buildDescription(lines){
-  const meta = /^(days?|dias?|time|times|hora|horario|schedule|duration|duracion|duración|price|precio|investment|location|lugar|venue|where|ubicaci)\s*[:\-]/i;
+  // left out: day/time schedule lines (already on the From/To line) and Location lines (shown separately)
+  const meta = /^(days?|dias?|time|times|hora|horario|schedule|when|location|lugar|venue|where|ubicaci)\s*[:\-]/i;
   if(!lines||!lines.length) return "";
   // typical line spacing in this block → a bigger gap means a new paragraph
   const gaps=[]; for(let k=1;k<lines.length;k++) if(lines[k].page===lines[k-1].page){ const g=lines[k-1].y-lines[k].y; if(g>0) gaps.push(g); }
   gaps.sort((a,b)=>a-b); const lineGap = gaps.length ? gaps[Math.floor(gaps.length/2)] : 14;
+  // right edge of each line: a line that stops well before the block's right margin ended on purpose (real line break),
+  // a line that reaches the margin just wrapped and continues on the next line
+  const right = l => Math.max(...l.items.map(i=>i.x+(i.w||0)));
+  const maxRight = Math.max(...lines.map(right)), minX = Math.min(...lines.map(l=>l.x));
+  const slack = Math.max(25, (maxRight-minX)*0.12);
   const paras=[]; let para=null, item=null, prevLine=null, bulletX=null;
   for(const l of lines){
     const plain=l.text.replace(/\s*\|\s*/g," ").trim();
     if(!plain) continue;
-    if(meta.test(plain) || scheduleOnly(plain)){ continue; }          // schedule/price lines are not description
+    if(meta.test(plain) || (scheduleOnly(plain) && !parsePrice(plain) && !parseDuration(plain))){ continue; }
     const gap = prevLine && prevLine.page===l.page ? prevLine.y-l.y : lineGap*3;
     const newPara = !para || gap > lineGap*1.45;
     const bullet = BULLET_RE.test(plain);
@@ -575,9 +588,10 @@ function buildDescription(lines){
     if(bullet){ // strip the bullet symbol from the first run
       const f=runs.find(r=>r.t.trim()); if(f) f.t=f.t.replace(BULLET_RE,""); }
     if(newPara){ para={items:[]}; paras.push(para); item=null; }
+    const hardBreak = !!prevLine && (right(prevLine) < maxRight - slack || /[:]\s*$/.test(prevLine.text));
     if(bullet){ item={bullet:true, runs}; para.items.push(item); bulletX=l.x; }
     else if(item && item.bullet && !newPara && l.x > (bulletX??0)+3){ item.runs.push({t:" ",sp:true}, ...runs); }   // wrapped bullet text
-    else if(item && !item.bullet && !newPara){ item.runs.push({t:" ",sp:true}, ...runs); }
+    else if(item && !item.bullet && !newPara && !hardBreak){ item.runs.push({t:" ",sp:true}, ...runs); }                          // wrapped sentence
     else { item={bullet:false, runs}; para.items.push(item); }
     prevLine=l;
   }
@@ -585,13 +599,8 @@ function buildDescription(lines){
 }
 /* full description for the guest message: never shortened; drops a trailing schedule/price fragment left by older imports */
 function descForMessage(t){
-  // full description, never shortened; keeps paragraph breaks and WhatsApp formatting
-  let lines=String(t||"").replace(/\r/g,"").split("\n").map(x=>x.replace(/[ \t]+/g," ").trim());
-  while(lines.length && !lines[lines.length-1]) lines.pop();
-  // older imports stored everything on one line with schedule/price details at the end: drop that tail only
-  if(lines.length===1){ const m=/^(.*[.!?])\s+([^.!?]+)$/.exec(lines[0]); if(m && scheduleOnly(m[2])) lines[0]=m[1]; }
-  else if(lines.length>1 && scheduleOnly(lines[lines.length-1])) lines.pop();
-  return lines.join("\n").replace(/\n{3,}/g,"\n\n").trim();
+  // the description exactly as saved: every line kept, paragraph breaks and WhatsApp formatting respected
+  return String(t||"").replace(/\r/g,"").split("\n").map(x=>x.replace(/[ \t]+/g," ").trim()).join("\n").replace(/\n{3,}/g,"\n\n").trim();
 }
 /* ---------- PDF text extraction ---------- */
 async function pdfLines(file){
@@ -719,7 +728,7 @@ function buildMessage({date, picks, title, surname}){
       if(a.start) L.push(fromTo(a.start, a.end));
       const desc = descForMessage(a.description);
       if(desc){ L.push(""); L.push(desc); }
-      if(a.location){ L.push(""); L.push(`_${a.location}_`); }
+      if(a.location){ L.push(""); L.push(`Location: ${a.location}`); }
     });
     L.push("");
     L.push(many ? "If any of these appeal, I would be delighted to reserve them for you." : "If it appeals, I would be delighted to reserve it for you.");
@@ -1127,12 +1136,42 @@ function migrateActivities(){
   });
   if(changed) save("activities");
 }
+/* ---------- keep the installed app up to date ---------- */
+const UPD = { checkedAt:0, latest:null };
+function reloadTo(v){
+  try{ sessionStorage.setItem("htp_upd_try", v+"|"+Date.now()); }catch(e){}
+  // a new address (…?v=version) makes the phone fetch the page again instead of reusing its stored copy
+  location.replace(location.pathname + "?v=" + encodeURIComponent(v) + location.hash);
+}
+async function checkAppUpdate(force){
+  if(location.protocol==="file:") return;
+  if(!force && Date.now()-UPD.checkedAt < 60000) return;
+  UPD.checkedAt=Date.now();
+  let v=null;
+  try{ const r=await fetch(`${location.pathname}?appcheck=${Date.now()}`, {cache:"no-store"});
+    if(r.ok){ const m=/const APP_VERSION = "([^"]+)"/.exec(await r.text()); if(m) v=m[1]; } }catch(e){}
+  if(force==="manual") toast(!v ? "Couldn't check for updates" : v===APP_VERSION ? "You have the latest version" : "New version found — updating");
+  if(!v || v===APP_VERSION) return;
+  UPD.latest=v;
+  // avoid a reload loop if the server still serves the old copy for a few minutes
+  let tried=""; try{ tried=sessionStorage.getItem("htp_upd_try")||""; }catch(e){}
+  const [tv,tt]=tried.split("|"); const recentlyTried = tv===v && Date.now()-(+tt||0) < 5*60000;
+  // don't interrupt a Host who is in the middle of a message or Marketing editing
+  const busy = H.sel.size || H.edited || H.surname || $("#modal").classList.contains("show") || pendingDrafts.length;
+  if(!busy && !recentlyTried || force==="manual") reloadTo(v);
+  else $("#upd-bar").classList.remove("hidden");
+}
+$("#upd-go").addEventListener("click",()=>reloadTo(UPD.latest||APP_VERSION));
+
 QUIET=true; migrateActivities(); QUIET=false;
 bindHost(); bindActivities(); bindData();
+$("#app-ver").textContent=APP_VERSION;
+$("#upd-check").addEventListener("click",e=>{ e.preventDefault(); checkAppUpdate("manual"); });
 show(location.hash.slice(1)||"host");
-renderPubStatus(); checkPublished(true);
-document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") checkPublished(false); });
-window.addEventListener("focus",()=>checkPublished(false));
+renderPubStatus(); checkPublished(true); checkAppUpdate(true);
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible"){ checkPublished(false); checkAppUpdate(false); } });
+window.addEventListener("focus",()=>{ checkPublished(false); checkAppUpdate(false); });
+setInterval(()=>{ if(document.visibilityState==="visible") checkAppUpdate(false); }, 30*60000);
 </script>
 </body>
 </html>

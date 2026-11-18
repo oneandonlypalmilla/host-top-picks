@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-18T22:07:57.328Z",
+ "publishedAt": "2026-11-18T22:22:59.488Z",
  "activities": [
   {
    "id": "rg0tw3r3",
@@ -35,7 +35,8 @@
    "descriptionEs": "",
    "migr": 2,
    "start": "09:00",
-   "end": "17:00"
+   "end": "17:00",
+   "_dates": []
   },
   {
    "id": "qhdxwa4w",
@@ -219,7 +220,8 @@
    "dates": [],
    "start": "07:30",
    "end": "17:00",
-   "migr": 2
+   "migr": 2,
+   "_dates": []
   },
   {
    "id": "udq8t74r",
@@ -250,7 +252,8 @@
    "dates": [],
    "start": "07:30",
    "end": "17:00",
-   "migr": 2
+   "migr": 2,
+   "_dates": []
   },
   {
    "id": "hdc058l3",
@@ -281,7 +284,8 @@
    "dates": [],
    "start": "07:30",
    "end": "17:00",
-   "migr": 2
+   "migr": 2,
+   "_dates": []
   },
   {
    "id": "99898drn",
