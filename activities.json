@@ -2,13 +2,13 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-18T20:52:23.727Z",
+ "publishedAt": "2026-11-18T22:07:57.328Z",
  "activities": [
   {
    "id": "rg0tw3r3",
    "name": "Water Healing with Mayumi Yonamine",
    "category": "Wellness",
-   "description": "Guided by renowned wellness practitioner Mayumi Yonamine, this immersive WATSU® hydrotherapy experience combines gentle stretches and therapeutic touch in warm water. Designed to reduce stress, improve mobility, and restore balance, Water Healing promotes deep relaxation and a renewed sense of well-being.\nPrice: $450 USD (60 minutes) // $580 USD (90 minutes)",
+   "description": "Guided by renowned wellness practitioner Mayumi Yonamine, this immersive WATSU® hydrotherapy experience combines gentle stretches and therapeutic touch in warm water. Designed to reduce stress, improve mobility, and restore balance, Water Healing promotes deep relaxation and a renewed sense of well-being.\n\nPrice: $450 USD (60 minutes) // $580 USD (90 minutes)",
    "days": [
     0,
     1,
@@ -19,8 +19,6 @@
     6
    ],
    "dates": [],
-   "times": [],
-   "duration": 60,
    "price": "",
    "location": "One&Only Spa",
    "dateFrom": "",
@@ -35,13 +33,15 @@
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
    "addedAt": "2026-11-06T22:25:28.950Z",
    "descriptionEs": "",
-   "migr": 2
+   "migr": 2,
+   "start": "09:00",
+   "end": "17:00"
   },
   {
    "id": "qhdxwa4w",
    "name": "Rest & Restore with Gyde Von Wlassack",
    "category": "Wellness",
-   "description": "Restore balance and resilience with renowned German therapist Gyde von Wlassack. Combining advanced neurophysiology with osteopathic techniques, her transformative approach helps regulate the nervous system, guiding the body from stress and fatigue into a deeper state of rest, recovery, and renewal.\nPrice: $450 USD (60 min) // $580 USD (90 min)",
+   "description": "Restore balance and resilience with renowned German therapist Gyde von Wlassack. Combining advanced neurophysiology with osteopathic techniques, her transformative approach helps regulate the nervous system, guiding the body from stress and fatigue into a deeper state of rest, recovery, and renewal.\n\nPrice: $450 USD (60 min) // $580 USD (90 min)",
    "days": [
     0,
     1,
@@ -52,8 +52,6 @@
     6
    ],
    "dates": [],
-   "times": [],
-   "duration": 60,
    "price": "",
    "location": "One&Only Spa",
    "dateFrom": "2026-11-13",
@@ -68,7 +66,9 @@
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
    "addedAt": "2026-11-06T22:25:28.952Z",
    "migr": 2,
-   "descriptionEs": ""
+   "descriptionEs": "",
+   "start": "09:00",
+   "end": "17:00"
   },
   {
    "id": "nd05z2oq",
@@ -79,11 +79,6 @@
     1
    ],
    "dates": [],
-   "times": [
-    "17:30",
-    "22:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Sala 56",
    "dateFrom": "",
@@ -98,7 +93,9 @@
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
    "addedAt": "2026-11-06T22:25:28.964Z",
    "migr": 2,
-   "descriptionEs": ""
+   "descriptionEs": "",
+   "start": "17:30",
+   "end": "22:00"
   },
   {
    "id": "ltkd87ln",
@@ -109,11 +106,6 @@
     4
    ],
    "dates": [],
-   "times": [
-    "17:30",
-    "21:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Lucille's Kitchen",
    "dateFrom": "",
@@ -128,7 +120,9 @@
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
    "addedAt": "2026-11-06T22:25:28.964Z",
    "migr": 2,
-   "descriptionEs": ""
+   "descriptionEs": "",
+   "start": "17:30",
+   "end": "21:30"
   },
   {
    "id": "zoeumjyn",
@@ -145,10 +139,8 @@
     6
    ],
    "dates": [],
-   "times": [],
-   "duration": 60,
    "price": "USD 267",
-   "location": "",
+   "location": "Pelican Beach",
    "dateFrom": "",
    "dateTo": "",
    "fit": {
@@ -160,7 +152,9 @@
    "active": true,
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
    "addedAt": "2026-11-06T22:25:28.968Z",
-   "migr": 2
+   "migr": 2,
+   "start": "09:00",
+   "end": "17:00"
   },
   {
    "id": "kgl8zt9k",
@@ -177,11 +171,6 @@
     6
    ],
    "dates": [],
-   "times": [
-    "09:00",
-    "19:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Kids Only",
    "dateFrom": "",
@@ -196,7 +185,9 @@
    "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
    "addedAt": "2026-11-06T22:25:28.969Z",
    "migr": 2,
-   "descriptionEs": ""
+   "descriptionEs": "",
+   "start": "09:00",
+   "end": "19:00"
   },
   {
    "id": "v5unqoyb",
@@ -212,44 +203,6 @@
     5,
     6
    ],
-   "times": [
-    "07:30",
-    "17:00"
-   ],
-   "duration": 60,
-   "price": "",
-   "location": "Palmilla Golf Club",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "descriptionEs": "",
-   "dates": []
-  },
-  {
-   "id": "udq8t74r",
-   "name": "Golf Pro Private Lessons",
-   "category": "Experience",
-   "description": "Range Lesson:\n45-minute lesson focused on the short game, long game, or a combination of both.\nPrice: $200 USD + tax per person\n\nCourse Lesson:\n2-hour playing lesson covering 9 holes, with a focus on course management, strategy, and on-course decision-making.\nPrice: $400 USD + tax per person",
-   "days": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
-   ],
-   "times": [
-    "07:30",
-    "17:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Palmilla Golf Club",
    "dateFrom": "",
@@ -264,7 +217,40 @@
    "source": "manual",
    "descriptionEs": "",
    "dates": [],
-   "_dates": []
+   "start": "07:30",
+   "end": "17:00",
+   "migr": 2
+  },
+  {
+   "id": "udq8t74r",
+   "name": "Golf Pro Private Lessons",
+   "category": "Experience",
+   "description": "Range Lesson:\n45-minute lesson focused on the short game, long game, or a combination of both.\nPrice: $200 USD + tax per person\n\nCourse Lesson:\n2-hour playing lesson covering 9 holes, with a focus on course management, strategy, and on-course decision-making.\nPrice: $400 USD + tax per person",
+   "days": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "price": "",
+   "location": "Palmilla Golf Club",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "descriptionEs": "",
+   "dates": [],
+   "start": "07:30",
+   "end": "17:00",
+   "migr": 2
   },
   {
    "id": "hdc058l3",
@@ -279,11 +265,6 @@
     5,
     6
    ],
-   "times": [
-    "07:30",
-    "17:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Palmilla Golf Club",
    "dateFrom": "",
@@ -297,7 +278,10 @@
    "active": true,
    "source": "manual",
    "descriptionEs": "",
-   "dates": []
+   "dates": [],
+   "start": "07:30",
+   "end": "17:00",
+   "migr": 2
   },
   {
    "id": "99898drn",
@@ -307,11 +291,6 @@
    "days": [
     6
    ],
-   "times": [
-    "12:00",
-    "16:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Lucille's Kitchen",
    "dateFrom": "",
@@ -325,7 +304,10 @@
    "active": true,
    "source": "manual",
    "descriptionEs": "",
-   "dates": []
+   "dates": [],
+   "start": "12:00",
+   "end": "16:00",
+   "migr": 2
   },
   {
    "id": "ew3sbkch",
@@ -335,11 +317,6 @@
    "days": [
     2
    ],
-   "times": [
-    "17:30",
-    "21:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Agua Restaurant",
    "dateFrom": "",
@@ -353,7 +330,10 @@
    "active": true,
    "source": "manual",
    "descriptionEs": "",
-   "dates": []
+   "dates": [],
+   "start": "17:30",
+   "end": "21:00",
+   "migr": 2
   },
   {
    "id": "v8lcxm90",
@@ -369,11 +349,6 @@
     5,
     6
    ],
-   "times": [
-    "18:00",
-    "22:00"
-   ],
-   "duration": 60,
    "price": "",
    "location": "Agua Restaurant",
    "dateFrom": "2026-11-23",
@@ -387,7 +362,10 @@
    "active": true,
    "source": "manual",
    "descriptionEs": "",
-   "dates": []
+   "dates": [],
+   "start": "18:00",
+   "end": "22:00",
+   "migr": 2
   }
  ]
 }
