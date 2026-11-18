@@ -235,7 +235,7 @@ tr:hover td{background:#fbf7f0}
 
 <script>
 /* App version — change it with every release; phones compare it with the copy on GitHub and update themselves */
-const APP_VERSION = "2026-11-18.4";
+const APP_VERSION = "2026-11-18.5";
 /* =====================================================================
    Host Top Picks — single-file app
    Storage: localStorage (one browser). Swap `Store` for a server API
@@ -756,8 +756,11 @@ const H = { date: todayISO(), sel:new Map(), edited:false, q:"", title:"", surna
 function activitiesOn(date){
   const now=new Date(); const isToday = date===todayISO(); const nowMin=now.getHours()*60+now.getMinutes();
   return S.activities.filter(a=>runsOn(a,date)).map(a=>{
-    const t=a.start||""; const m=t?toMin(t):null;
-    const slots=[{t, past: m!=null && isToday && m<=nowMin}];
+    const t=a.start||""; const m=t?toMin(t):null; const e=a.end?toMin(a.end):null;
+    // selectable until the activity is over (end time); without an end time, until it starts
+    const over = isToday && m!=null && (e!=null ? e<=nowMin : m<=nowMin);
+    const live = isToday && m!=null && !over && m<=nowMin;
+    const slots=[{t, past: over, live}];
     const open = slots.filter(x=>!x.past);
     return {a, slots, open, first: open[0]?.t || slots[0]?.t || "99:99"};
   }).sort((x,y)=>(!x.open.length)-(!y.open.length) || String(x.first||"99").localeCompare(String(y.first||"99")) || x.a.name.localeCompare(y.a.name));
@@ -788,7 +791,8 @@ function renderHost(){
       <div class="act-list">${shown.map(r=>{
         const a=r.a, on=H.sel.has(a.id), cur=H.sel.get(a.id), disabled=!r.open.length;
         const flags=[];
-        if(disabled) flags.push(`<span class="status off">already started</span>`);
+        if(disabled) flags.push(`<span class="status off">${a.end?"already over":"already started — no end time set"}</span>`);
+        else if(r.slots[0].live) flags.push(`<span class="status warn">in progress until ${esc(fmtTime(a.end,"en"))}</span>`);
         return `<div class="act ${on?"on":""} ${disabled?"dis":""}" data-id="${a.id}">
           <input type="checkbox" ${on?"checked":""} ${disabled?"disabled":""} data-pick="${a.id}">
           <div style="flex:1;min-width:0">
