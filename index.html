@@ -61,6 +61,7 @@ textarea{resize:vertical}
 .seg button{border:0;background:transparent;padding:7px 14px;cursor:pointer}
 .seg button.active{background:var(--navy);color:#fff}
 .pick{border-left:3px solid var(--gold);padding-left:14px}
+.desc{white-space:pre-wrap;color:#4a4640;line-height:1.5}
 .act-list{display:flex;flex-direction:column;gap:8px;max-height:620px;overflow:auto;padding-right:4px}
 .act{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;cursor:pointer}
 .act input[type=checkbox]{margin-top:4px;width:17px;height:17px;accent-color:var(--navy);flex:none}
@@ -150,13 +151,6 @@ tr:hover td{background:#fbf7f0}
         </div>
         <div class="tiny muted" style="margin-top:4px" id="h-greet-hint"></div>
       </div>
-      <div class="field"><span class="label">Message language</span>
-        <div class="seg" id="h-lang"><button data-v="en" class="active">English</button><button data-v="es">Español</button></div>
-      </div>
-      <div class="field"><span class="label">Today's FX · 1 USD = MXN</span>
-        <div class="row" style="flex-wrap:nowrap"><input type="number" id="h-fx" step="0.01" min="1" placeholder="e.g. 18.35" style="width:120px">
-          <a class="btn ghost small" href="https://www.google.com/search?q=1+USD+to+MXN" target="_blank" rel="noopener">Check Google rate ↗</a></div>
-        <div class="tiny" id="h-fx-hint" style="margin-top:4px"></div></div>
       <div class="field"><span class="label">Signed by</span><input type="text" id="h-host" placeholder="Your name (saved on this device)"></div>
     </div>
 
@@ -184,7 +178,7 @@ tr:hover td{background:#fbf7f0}
     <div class="card">
       <div class="drop" id="a-drop">
         <strong>Upload activity PDFs</strong>
-        <div class="small muted">Weekly programme, experience menu or one-pagers. The app reads each activity, the dates or days it runs, times, duration and price. Anything unclear about dates is flagged for you to confirm before saving.</div>
+        <div class="small muted">Weekly programme, experience menu or one-pagers. The app reads each activity, the dates or days it runs, its start and end time, and keeps the full description with its paragraphs and formatting. Anything unclear about dates is flagged for you to confirm before saving.</div>
         <input type="file" id="a-file" accept=".pdf" multiple hidden>
       </div>
       <div id="a-review" class="hidden" style="margin-top:16px"></div>
@@ -360,7 +354,7 @@ function parseDaysLine(line){
 }
 function hm(h,m,ap){ h=+h; m=+(m||0); ap=(ap||"").replace(/\./g,"").toLowerCase(); if(ap==="pm"&&h<12) h+=12; if(ap==="am"&&h===12) h=0; return h*60+m; }
 function parseTimes(text){
-  const out=[]; let dur=null;
+  const out=[]; let dur=null, rs=null, re=null;
   const T = "(\\d{1,2})(?:[:.](\\d{2}))?\\s*(a\\.?m\\.?|p\\.?m\\.?|hrs|h)?";
   const rng = new RegExp(`\\b${T}\\s*(?:-|–|—|to|a)\\s*${T}`,"gi");
   let s = text, m;
@@ -368,18 +362,24 @@ function parseTimes(text){
     let ap1=m[3], ap2=m[6]; if(!/[ap]/i.test(ap1||"") && /[ap]/i.test(ap2||"")) ap1=ap2;
     if(!m[2] && !m[5] && !/[ap]/i.test((ap1||"")+(ap2||"")) ) continue;      // "2-4 guests"
     const a=hm(m[1],m[2],ap1), b=hm(m[4],m[5],ap2);
-    if(a<24*60 && b<24*60){ out.push(a); if(b>a && !dur) dur=b-a; s=s.replace(m[0]," "); }
+    if(a<24*60 && b<24*60){ out.push(a); if(b>a && !dur){ dur=b-a; rs=a; re=b; } s=s.replace(m[0]," "); }
   }
   const one = /\b(\d{1,2})(?:[:.](\d{2}))\s*(a\.?m\.?|p\.?m\.?|hrs|h)?|\b(\d{1,2})\s*(a\.?m\.?|p\.?m\.?)/gi;
   while((m=one.exec(s))){
     const v = m[4]!=null ? hm(m[4],0,m[5]) : hm(m[1],m[2],m[3]);
     if(v<24*60) out.push(v);
   }
-  return {times:[...new Set(out)].sort((a,b)=>a-b).map(fromMin), range:dur};
+  return {times:[...new Set(out)].sort((a,b)=>a-b).map(fromMin), range:dur, rangeStart: rs==null?null:fromMin(rs), rangeEnd: re==null?null:fromMin(re)};
 }
 function parseDuration(text){
-  const m = /(\d+(?:[.,]\d+)?)\s*(minutes|minutos|mins?|min|hours|horas?|hrs?|hr|h)\b/i.exec(text);
-  if(!m) return null; const v=parseFloat(m[1].replace(",",".")); return /^h|^hr|^hour|^hora/i.test(m[2]) ? Math.round(v*60) : Math.round(v);
+  // "90 minutes", "1.5 hours", "60 min" — but not the "00 hrs" inside a clock time like "16:00 hrs"
+  const re=/(\d+(?:[.,]\d+)?)\s*(minutes|minutos|mins?|min|hours|horas?|hrs?|hr|h)\b/gi; let m;
+  while((m=re.exec(text))){
+    if(/[:.]\d*$/.test(text.slice(Math.max(0,m.index-3), m.index))) continue;
+    const v=parseFloat(m[1].replace(",",".")); if(!v) continue;
+    return /^h|^hr|^hour|^hora/i.test(m[2]) ? Math.round(v*60) : Math.round(v);
+  }
+  return null;
 }
 function parsePrice(text){
   const t=text;
@@ -535,22 +535,64 @@ function isScheduleText(t){
   return !!(parseTimes(t).times.length || parsePrice(t) || parseDuration(t) || parseDaysLine(t).length ||
     /\b(daily|diario|every day|todos los dias|complimentary|cortesia)\b/i.test(norm(t)) || parseCalendar(t,{}).dates.length);
 }
-function cleanDesc(lines){
-  const meta = /^(days?|dias?|time|times|hora|horario|schedule|duration|duracion|duración|price|precio|investment|location|lugar|venue|where|ubicaci)/i;
-  return lines.filter(l=>{ const x=l.trim(); if(meta.test(x)) return false;
-      // a short line that is mostly schedule/price info (e.g. "Monday, November 2 · 7:30 pm") is not description
-      if(x.length<60 && isScheduleText(x)) return false;
-      return true; })
-    .join(" ").replace(/\s+/g," ").trim();
+/* true when a line holds only schedule/price details (times, days, dates, prices, durations) and no real words */
+function scheduleOnly(t){
+  t=String(t||""); if(!isScheduleText(t) && !/^\s*(usd|mxn|\$)/i.test(t)) return false;
+  let x=normDateText(t)
+    .replace(/(usd|us\$|mxn|\$)\s?[\d,.]+/g," ").replace(/[\d,.]+\s?(usd|mxn|pesos|dollars)/g," ")
+    .replace(/\d{1,2}([:.]\d{2})?\s*(a\.?m\.?|p\.?m\.?|hrs?|h)\b/g," ").replace(/\d+([:.]\d+)?/g," ")
+    .replace(new RegExp("\\b("+MON_ALT+")\\b","g")," ")
+    .replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|lunes|martes|miercoles|jueves|viernes|sabado|domingo|mon|tues?|wed|thu|thurs|fri|sat|sun|weekends?|weekdays|daily|diario|diariamente|every|each|day|days|todos|cada|dias?|fines?|semana)s?\b/g," ")
+    .replace(/\b(per|por|person|persona|personas|couple|pareja|guest|guests|pp|plus|tax|taxes|service|impuestos|servicio|complimentary|cortesia|included|incluido|free|of|charge|sin|costo|price|precio|from|to|until|through|thru|at|on|and|the|de|del|al|a|y|e|el|la|los|las|desde|hasta|min|mins|minutes|minutos|hour|hours|horas?|hrs|duration|duracion|time|times|hora|horario|only|solo)\b/g," ")
+    .replace(/[^a-z]+/g," ").trim();
+  return x.split(/\s+/).filter(w=>w.length>=3).length <= 1;
+}
+const BULLET_RE = /^\s*([•·▪●◦‣○■□►▶✓✔\-–—*]|\d{1,2}[.)])\s+/;
+function renderRuns(runs){
+  // merge neighbouring runs with the same style, then wrap bold/italic in WhatsApp markers
+  const m=[]; for(const r of runs){ const last=m[m.length-1];
+    if(last && (r.sp || (last.b===r.b && last.i===r.i))){ last.t+=r.t; } else m.push({t:r.t,b:r.b,i:r.i}); }
+  return m.map(r=>{ if(!r.b && !r.i) return r.t;
+    const lead=r.t.match(/^\s*/)[0], trail=r.t.match(/\s*$/)[0], core=r.t.trim(); if(!core) return r.t;
+    const o=(r.b?"*":"")+(r.i?"_":""), c=(r.i?"_":"")+(r.b?"*":"");
+    return lead+o+core+c+trail; }).join("");
+}
+function buildDescription(lines){
+  const meta = /^(days?|dias?|time|times|hora|horario|schedule|duration|duracion|duración|price|precio|investment|location|lugar|venue|where|ubicaci)\s*[:\-]/i;
+  if(!lines||!lines.length) return "";
+  // typical line spacing in this block → a bigger gap means a new paragraph
+  const gaps=[]; for(let k=1;k<lines.length;k++) if(lines[k].page===lines[k-1].page){ const g=lines[k-1].y-lines[k].y; if(g>0) gaps.push(g); }
+  gaps.sort((a,b)=>a-b); const lineGap = gaps.length ? gaps[Math.floor(gaps.length/2)] : 14;
+  const paras=[]; let para=null, item=null, prevLine=null, bulletX=null;
+  for(const l of lines){
+    const plain=l.text.replace(/\s*\|\s*/g," ").trim();
+    if(!plain) continue;
+    if(meta.test(plain) || scheduleOnly(plain)){ continue; }          // schedule/price lines are not description
+    const gap = prevLine && prevLine.page===l.page ? prevLine.y-l.y : lineGap*3;
+    const newPara = !para || gap > lineGap*1.45;
+    const bullet = BULLET_RE.test(plain);
+    const runs = l.runs.map(r=>({...r}));
+    if(bullet){ // strip the bullet symbol from the first run
+      const f=runs.find(r=>r.t.trim()); if(f) f.t=f.t.replace(BULLET_RE,""); }
+    if(newPara){ para={items:[]}; paras.push(para); item=null; }
+    if(bullet){ item={bullet:true, runs}; para.items.push(item); bulletX=l.x; }
+    else if(item && item.bullet && !newPara && l.x > (bulletX??0)+3){ item.runs.push({t:" ",sp:true}, ...runs); }   // wrapped bullet text
+    else if(item && !item.bullet && !newPara){ item.runs.push({t:" ",sp:true}, ...runs); }
+    else { item={bullet:false, runs}; para.items.push(item); }
+    prevLine=l;
+  }
+  return paras.map(p=>p.items.map(it=>(it.bullet?"• ":"")+renderRuns(it.runs).replace(/[ \t]+/g," ").trim()).join("\n")).filter(Boolean).join("\n\n").trim();
 }
 /* full description for the guest message: never shortened; drops a trailing schedule/price fragment left by older imports */
 function descForMessage(t){
-  t=String(t||"").replace(/\s+/g," ").trim(); if(!t) return "";
-  const m=/^(.*[.!?])\s+([^.!?]+)$/.exec(t);
-  if(m && isScheduleText(m[2])) t=m[1];
-  return t;
+  // full description, never shortened; keeps paragraph breaks and WhatsApp formatting
+  let lines=String(t||"").replace(/\r/g,"").split("\n").map(x=>x.replace(/[ \t]+/g," ").trim());
+  while(lines.length && !lines[lines.length-1]) lines.pop();
+  // older imports stored everything on one line with schedule/price details at the end: drop that tail only
+  if(lines.length===1){ const m=/^(.*[.!?])\s+([^.!?]+)$/.exec(lines[0]); if(m && scheduleOnly(m[2])) lines[0]=m[1]; }
+  else if(lines.length>1 && scheduleOnly(lines[lines.length-1])) lines.pop();
+  return lines.join("\n").replace(/\n{3,}/g,"\n\n").trim();
 }
-
 /* ---------- PDF text extraction ---------- */
 async function pdfLines(file){
   if(!window.pdfjsLib) throw new Error("PDF reader could not load (check internet connection).");
@@ -560,7 +602,13 @@ async function pdfLines(file){
   const pages=[];
   for(let p=1;p<=doc.numPages;p++){
     const page = await doc.getPage(p); const tc = await page.getTextContent();
-    const items = tc.items.filter(i=>i.str && i.str.trim()).map(i=>({s:i.str, x:i.transform[4], y:i.transform[5], h:Math.abs(i.transform[3])||i.height||10, w:i.width}));
+    // font style per font id (bold / italic), read from the embedded font names
+    const style={};
+    try{ await page.getOperatorList();
+      Object.keys(tc.styles||{}).forEach(fid=>{ try{ const f=page.commonObjs.get(fid); const nm=String((f&&f.name)||"");
+        style[fid]={b: !!(f&&(f.bold||f.black)) || /bold|black|heavy|semibold|demibold|extrabold/i.test(nm), i: !!(f&&f.italic) || /italic|oblique/i.test(nm)}; }catch(e){} });
+    }catch(e){}
+    const items = tc.items.filter(i=>i.str && i.str.trim()).map(i=>({s:i.str, x:i.transform[4], y:i.transform[5], h:Math.abs(i.transform[3])||i.height||10, w:i.width, b:!!style[i.fontName]?.b, it:!!style[i.fontName]?.i}));
     // group into lines by y
     items.sort((a,b)=> b.y-a.y || a.x-b.x);
     const lines=[];
@@ -569,8 +617,10 @@ async function pdfLines(file){
       if(L){ L.items.push(it); L.h=Math.max(L.h,it.h); } else lines.push({y:it.y,h:it.h,items:[it]});
     }
     lines.forEach(l=>{ l.items.sort((a,b)=>a.x-b.x);
-      let txt=""; let prev=null;
-      l.items.forEach(it=>{ if(prev){ const gap=it.x-(prev.x+prev.w); txt += gap>1.5 ? (gap>12?"  |  ":" ") : ""; } txt+=it.s; prev=it; });
+      let txt=""; let prev=null; l.runs=[];
+      l.items.forEach(it=>{ if(prev){ const gap=it.x-(prev.x+prev.w); const sp = gap>1.5 ? (gap>12?"  |  ":" ") : ""; txt += sp; if(sp) l.runs.push({t:" ",b:false,i:false,sp:true}); }
+        txt+=it.s; l.runs.push({t:it.s,b:it.b,i:it.it}); prev=it; });
+      l.x = l.items[0]?.x||0;
       l.text=txt.replace(/\s+\|\s+\|\s+/g,"  |  ").trim(); l.page=p; });
     lines.sort((a,b)=>b.y-a.y);
     pages.push(lines);
@@ -593,8 +643,8 @@ async function parseActivityPDF(file){
     if(isTitle(l)){
       // consecutive title lines (wrapped titles) merge
       if(cur && !cur.body.length && Math.abs(cur.h-l.h)<1 && cur.page===l.page) { cur.title+=" "+l.text; continue; }
-      cur={title:l.text.replace(/\s*\|\s*/g," ").trim(), h:l.h, page:l.page, body:[]}; blocks.push(cur);
-    } else if(cur){ cur.body.push(l.text.replace(/\s*\|\s*/g," · ")); }
+      cur={title:l.text.replace(/\s*\|\s*/g," ").trim(), h:l.h, page:l.page, body:[], lines:[]}; blocks.push(cur);
+    } else if(cur){ cur.body.push(l.text.replace(/\s*\|\s*/g," · ")); cur.lines.push(l); }
   }
   // The largest-font title on page 1 with an almost empty body is usually a document header
   const drafts=[];
@@ -604,21 +654,30 @@ async function parseActivityPDF(file){
   for(const b of blocks){
     const body = b.body.join("\n"); const full = b.title+"\n"+body;
     if(!body.trim() && blocks.length>1) continue;
-    const {times, range} = parseTimes(body);
+    const pt = parseTimes(body);
+    // one start time per activity: the first time range in the PDF ("5:00 pm - 7:00 pm"), else the first time found
+    const start = pt.rangeStart || pt.times[0] || "";
+    const dur = parseDuration(body);
+    const end = pt.rangeEnd || (start && dur ? fromMin(toMin(start)+dur) : "");
+    const notes=[];
+    if(!start) notes.push("No start time in the PDF.");
+    else if(!end) notes.push("No end time in the PDF.");
+    const others = pt.times.filter(t=>t!==start && t!==pt.rangeEnd);
+    if(start && others.length) notes.push(`The PDF lists other times too (${others.map(t=>fmtTime(t,"en")).join(", ")}) — only ${fmtTime(start,"en")} was kept.`);
     const tag = autoTag(full);
     const days = parseDays(body);
     const sch = resolveSchedule(full, b.body, days, ctx);
     const d = {
       id:uid(), name: titleCase(b.title), category: tag.category,
-      description: cleanDesc(b.body),
+      description: buildDescription(b.lines),
       days: sch.days, daysFound: !!days.length, dates: sch.dates,
-      times, duration: parseDuration(body) || range || 60,
+      start, end, timeNote: notes.join(" "),
       price: parsePrice(body), location: parseLocation(body),
       dateFrom: sch.dateFrom, dateTo: sch.dateTo, dateStatus: sch.status, dateNote: sch.note, dateSource: sch.source,
       fit: tag.fit, active:true, source:file.name, addedAt:new Date().toISOString()
     };
     // skip header-like blocks with nothing useful
-    if(!d.times.length && !d.price && d.description.length<25 && !d.daysFound && !d.dates.length) continue;
+    if(!d.start && !d.price && d.description.length<25 && !d.daysFound && !d.dates.length) continue;
     drafts.push(d);
   }
   return {drafts, warning: drafts.length? "" : "No activities could be identified automatically. Add them by hand."};
@@ -640,97 +699,70 @@ function runsOn(a, iso){
 }
 /* ---------- Message builder ---------- */
 function firstSentence(t, max=200){ if(!t) return ""; const m=/^(.{20,}?[.!?])(\s|$)/.exec(t); let s=(m?m[1]:t).trim(); if(s.length>max) s=s.slice(0,max).replace(/\s+\S*$/,"")+"…"; return s; }   // short preview in the import review only — never used in messages
-function greeting(lang){ const h=new Date().getHours(); if(lang==="es") return h<12?"Buenos días":(h<19?"Buenas tardes":"Buenas noches"); return h<12?"Good morning":(h<18?"Good afternoon":"Good evening"); }
-function buildMessage({date, lang, picks, title, surname}){
-  const es = lang==="es"; const st=S.settings;
+function greeting(){ const h=new Date().getHours(); return h<12?"Good morning":(h<18?"Good afternoon":"Good evening"); }
+function buildMessage({date, picks, title, surname}){
+  const st=S.settings;
   const host = st.hostName ? st.hostName.trim() : "";
-  const sal = title && surname ? `${TITLES[title][es?"es":"en"]} ${surname}` : "";
+  const sal = title && surname ? `${TITLES[title].en} ${surname}` : "";
   const today = date===todayISO(); const tomorrow = date===addDays(todayISO(),1);
-  const dayWord = es ? (today?"hoy":tomorrow?"mañana":`el ${fmtDate(date,"es")}`) : (today?"today":tomorrow?"tomorrow":`on ${fmtDate(date,"en")}`);
+  const dayWord = today?"today":tomorrow?"tomorrow":`on ${fmtDate(date,"en")}`;
   const L=[];
-  L.push(`${greeting(lang)}${sal?` ${sal}`:""},`);
+  L.push(`${greeting()}${sal?` ${sal}`:""},`);
   L.push("");
   picks = (picks||[]).slice().sort((x,y)=>(x.slot||"99").localeCompare(y.slot||"99"));
   if(picks.length){
     const many = picks.length>1;
-    if(es) L.push(`Pensamos que podría disfrutar de ${many?"estas experiencias":"esta experiencia"} ${dayWord}:`);
-    else   L.push(`We thought you might enjoy ${many?"these experiences":"this experience"} ${dayWord}:`);
-    let fxNote=false;
+    L.push(`We thought you might enjoy ${many?"these experiences":"this experience"} ${dayWord}:`);
     picks.forEach(({a,slot})=>{
       L.push("");
-      L.push(`*${a.name}*${slot?" "+timeSpan(slot, a.duration||60, lang, false):""}`);
-      const desc = es ? (a.descriptionEs||"") : a.description;
-      if(desc) L.push(descForMessage(desc));
-      const det=[]; if(a.duration) det.push(`${a.duration} min`); if(a.location) det.push(a.location);
-      if(a.price){ const cp=convertPrice(a.price); if(cp.converted) fxNote=true; det.push(es?priceEs(cp.text):priceEn(cp.text)); }
-      if(det.length) L.push(`_${det.join(" · ")}_`);
+      L.push(`*${a.name}*`);
+      if(a.start) L.push(fromTo(a.start, a.end));
+      const desc = descForMessage(a.description);
+      if(desc){ L.push(""); L.push(desc); }
+      if(a.location){ L.push(""); L.push(`_${a.location}_`); }
     });
     L.push("");
-    if(fxNote){ const r=fxToday().toFixed(2);
-      L.push(es ? `_Montos en USD informativos, calculados con el tipo de cambio del día (USD 1 = MXN ${r}). El monto final en USD puede variar según el tipo de cambio diario del hotel._`
-                : `_USD amounts are for reference only, based on today's exchange rate (USD 1 = MXN ${r}). The final USD amount may vary according to the hotel's daily exchange rate._`);
-      L.push(""); }
-    if(es) L.push(many ? "Si alguna le interesa, con gusto hago la reservación." : "Si le interesa, con gusto hago la reservación.");
-    else   L.push(many ? "If any of these appeal, I would be delighted to reserve them for you." : "If it appeals, I would be delighted to reserve it for you.");
+    L.push(many ? "If any of these appeal, I would be delighted to reserve them for you." : "If it appeals, I would be delighted to reserve it for you.");
   } else {
-    L.push(es ? "Estoy a su disposición para cualquier cosa que necesite durante su estancia." : "I remain at your disposal for anything you may need during your stay.");
+    L.push("I remain at your disposal for anything you may need during your stay.");
   }
   L.push("");
-  L.push(es ? "Saludos cordiales," : "Warm regards,");
+  L.push("Warm regards,");
   if(host) L.push(host);
   L.push(st.property||"One&Only Palmilla");
   return L.join("\n").replace(/\n{3,}/g,"\n\n");
 }
-function fxToday(){ const f=S.settings.fx||{}; return (f.rate>0 && f.date===todayISO()) ? +f.rate : 0; }
-function convertPrice(p){
-  const rate=fxToday(); if(!p||!rate) return {text:p, converted:false};
-  const m=/MXN\s?([\d,]+(?:\.\d+)?)|([\d,]+(?:\.\d+)?)\s?(?:MXN|pesos)/i.exec(p); if(!m) return {text:p, converted:false};
-  const orig=m[1]||m[2]; const n=parseFloat(orig.replace(/,/g,"")); if(!n) return {text:p, converted:false};
-  const usd=Math.round(n/rate).toLocaleString("en-US");
-  return {text:p.replace(m[0],`USD ${usd} (MXN ${orig})`), converted:true};
-}
-function priceEn(p){ return p.replace(/^Cortes[ií]a$/i,"Complimentary").replace(/por pareja/i,"per couple").replace(/por persona/i,"per person").replace(/\+\s*impuestos/i,"+ tax"); }
-function priceEs(p){ return p.replace(/^Complimentary$/i,"Cortesía").replace(/per couple/i,"por pareja").replace(/per person|pp\b/i,"por persona").replace(/\+\s*tax(es)?/i,"+ impuestos").replace(/service( charge)?/i,"servicio"); }
-/* "from 5:30 PM to 7:30 PM" / "de 17:30 a 19:30 h" ; single time when there is no duration (e.g. transfers) */
-function clock(m, lang){ m=((m%1440)+1440)%1440; const h=Math.floor(m/60), mm=m%60;
-  if(lang==="es") return `${pad(h)}:${pad(mm)}`; return `${h%12||12}:${pad(mm)} ${h>=12?"PM":"AM"}`; }
-function timeSpan(t, dur, lang, capital){
-  const s=toMin(t); if(s==null) return "";
-  if(!dur){ const w = lang==="es" ? `a las ${clock(s,lang)} h` : `at ${clock(s,lang)}`; return capital ? cap(w) : w; }
-  const e=s+dur; const w = lang==="es" ? `de ${clock(s,lang)} a ${clock(e,lang)} h` : `from ${clock(s,lang)} to ${clock(e,lang)}`;
-  return capital ? cap(w) : w;
-}
+function clock(m){ m=((m%1440)+1440)%1440; const h=Math.floor(m/60), mm=m%60; return `${h%12||12}:${pad(mm)} ${h>=12?"PM":"AM"}`; }
+/* "From: 5:00 PM To: 7:00 PM" */
+function fromTo(start, end){ const s=toMin(start); if(s==null) return ""; const e=toMin(end); return e!=null ? `From: ${clock(s)} To: ${clock(e)}` : `From: ${clock(s)}`; }
 const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
 function waRender(text){ return esc(text).replace(/\*([^*\n]+)\*/g,"<b>$1</b>").replace(/(^|\s)_([^_\n]+)_/g,"$1<i>$2</i>"); }
 
 /* =====================================================================
    VIEWS
    ===================================================================== */
-const H = { date: todayISO(), lang:"en", sel:new Map(), edited:false, q:"", title:"", surname:"" };
+const H = { date: todayISO(), sel:new Map(), edited:false, q:"", title:"", surname:"" };
 
 /* every activity that runs on the date, with which start times have already passed */
 function activitiesOn(date){
   const now=new Date(); const isToday = date===todayISO(); const nowMin=now.getHours()*60+now.getMinutes();
   return S.activities.filter(a=>runsOn(a,date)).map(a=>{
-    const slots=((a.times&&a.times.length)?a.times:[""]).map(t=>{ const m=t?toMin(t):null; return {t, past: m!=null && isToday && m<=nowMin}; });
+    const t=a.start||""; const m=t?toMin(t):null;
+    const slots=[{t, past: m!=null && isToday && m<=nowMin}];
     const open = slots.filter(x=>!x.past);
     return {a, slots, open, first: open[0]?.t || slots[0]?.t || "99:99"};
   }).sort((x,y)=>(!x.open.length)-(!y.open.length) || String(x.first||"99").localeCompare(String(y.first||"99")) || x.a.name.localeCompare(y.a.name));
 }
 function renderHost(){
   $("#h-date").value=H.date;
-  $$("#h-lang button").forEach(b=>b.classList.toggle("active",b.dataset.v===H.lang));
   $("#h-host").value = S.settings.hostName||"";
   const tsel=$("#h-gtitle"); if(tsel.options.length<2) tsel.insertAdjacentHTML("beforeend", TITLE_KEYS.map(k=>`<option value="${k}">${TITLES[k].en}</option>`).join(""));
   tsel.value=H.title; if(document.activeElement!==$("#h-gname")) $("#h-gname").value=H.surname;
-  $("#h-greet-hint").textContent = H.title&&H.surname ? `Message opens with “${greeting(H.lang)} ${TITLES[H.title][H.lang==="es"?"es":"en"]} ${H.surname},”` : (H.title||H.surname) ? "Add both title and surname to greet the guest by name." : "Leave empty for a greeting without a name.";
-  const fx=S.settings.fx||{}; if(document.activeElement!==$("#h-fx")) $("#h-fx").value = fx.rate||"";
-  $("#h-fx-hint").innerHTML = fxToday() ? `<span class="muted">Set for today (${esc(fmtDate(todayISO(),"en"))}). MXN prices are shown in USD.</span>`
-    : `<span style="color:var(--warn)">${fx.rate?"Last rate is from "+esc(fx.date)+" — update it for today.":"Enter today's Google rate to show MXN prices in USD."}</span>`;
+  $("#h-greet-hint").textContent = H.title&&H.surname ? `Message opens with “${greeting()} ${TITLES[H.title].en} ${H.surname},”` : (H.title||H.surname) ? "Add both title and surname to greet the guest by name." : "Leave empty for a greeting without a name.";
 
   const list = activitiesOn(H.date);
   for(const [id,slot] of [...H.sel]){ const r=list.find(x=>x.a.id===id); if(!r || !r.open.some(x=>x.t===slot)) H.sel.delete(id); }
-  const q=norm(H.q); const shown = q ? list.filter(r=>norm(r.a.name+" "+r.a.category+" "+(r.a.location||"")).includes(q)) : list;
+  const q=norm(H.q); const shown = q ? list.filter(r=>norm(r.a.name+" "+(r.a.location||"")).includes(q)) : list;
   const card=$("#h-pick-card");
   const pending = S.activities.filter(a=>a.dateCheck).length;
   if(!S.activities.length){
@@ -748,15 +780,13 @@ function renderHost(){
         const a=r.a, on=H.sel.has(a.id), cur=H.sel.get(a.id), disabled=!r.open.length;
         const flags=[];
         if(disabled) flags.push(`<span class="status off">already started</span>`);
-        if(H.lang==="es" && !a.descriptionEs) flags.push(`<span class="tiny muted">no Spanish description</span>`);
         return `<div class="act ${on?"on":""} ${disabled?"dis":""}" data-id="${a.id}">
           <input type="checkbox" ${on?"checked":""} ${disabled?"disabled":""} data-pick="${a.id}">
           <div style="flex:1;min-width:0">
-            <div class="spread" style="align-items:flex-start"><b style="font-weight:500;font-size:15.5px">${esc(a.name)}</b>
-              <span class="tiny muted" style="white-space:nowrap">${a.duration||60} min${a.price?" · "+esc(a.price):""}</span></div>
-            <div class="row" style="gap:6px;margin:5px 0">${r.slots.map(x=> x.t ? `<button class="slot ${(on?cur:"")===x.t?"on":""}" data-slot="${a.id}|${x.t}" ${x.past?"disabled":""}>${esc(fmtTime(x.t,"en"))}</button>` : `<span class="tiny muted">time on request</span>`).join("")}
-              ${a.location?`<span class="tiny muted">· ${esc(a.location)}</span>`:""}<span class="chip" style="font-size:11px">${esc(a.category)}</span></div>
-            <div class="tiny muted">${esc(descForMessage(a.description))}</div>
+            <b style="font-weight:500;font-size:15.5px">${esc(a.name)}</b>
+            <div class="row" style="gap:6px;margin:5px 0">${a.start?`<span class="slot ${on?"on":""}">${esc(fromTo(a.start,a.end))}</span>`:`<span class="tiny muted">time on request</span>`}
+              ${a.location?`<span class="tiny muted">· ${esc(a.location)}</span>`:""}</div>
+            <div class="small desc">${waRender(descForMessage(a.description))}</div>
             ${flags.length?`<div class="row" style="gap:6px;margin-top:5px">${flags.join("")}</div>`:""}
           </div></div>`; }).join("") || `<div class="tiny muted">No match for “${esc(H.q)}”.</div>`}</div>`;
     const qi=$("#h-q"); qi.oninput=()=>{ H.q=qi.value; const pos=qi.selectionStart; renderHost(); const n=$("#h-q"); n.focus(); n.setSelectionRange(pos,pos); };
@@ -765,18 +795,15 @@ function renderHost(){
       if(c.checked) H.sel.set(r.a.id, r.open[0]?r.open[0].t:""); else H.sel.delete(r.a.id);
       H.edited=false; renderHost(); });
     card.querySelectorAll(".act:not(.dis)").forEach(row=>row.addEventListener("click",e=>{ if(e.target.closest("input,button,a")) return; const c=row.querySelector("[data-pick]"); c.checked=!c.checked; c.onchange(); }));
-    card.querySelectorAll("[data-slot]").forEach(bt=>bt.onclick=()=>{ const [id,t]=bt.dataset.slot.split("|"); if(H.sel.get(id)===t) H.sel.delete(id); else H.sel.set(id,t); H.edited=false; renderHost(); });
   }
   const picks = [...H.sel].map(([id,slot])=>({a:S.activities.find(x=>x.id===id), slot})).filter(p=>p.a && runsOn(p.a,H.date));
-  if(!H.edited) $("#h-msg").value = buildMessage({date:H.date, lang:H.lang, picks, title:H.title, surname:H.surname.trim()});
+  if(!H.edited) $("#h-msg").value = buildMessage({date:H.date, picks, title:H.title, surname:H.surname.trim()});
   $("#h-bubble").innerHTML = waRender($("#h-msg").value);
 }
 function bindHost(){
   $("#h-date").addEventListener("change",e=>{ H.date=e.target.value||todayISO(); H.sel.clear(); H.edited=false; renderHost(); });
   $("#h-gtitle").addEventListener("change",e=>{ H.title=e.target.value; H.edited=false; renderHost(); });
   $("#h-gname").addEventListener("input",e=>{ H.surname=e.target.value; H.edited=false; renderHost(); });
-  $("#h-lang").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; H.lang=b.dataset.v; H.edited=false; renderHost(); });
-  $("#h-fx").addEventListener("input",e=>{ const v=parseFloat(e.target.value); S.settings.fx={rate:v>0?v:0, date:todayISO()}; save("settings"); H.edited=false; renderHost(); });
   $("#h-host").addEventListener("input",e=>{ S.settings.hostName=e.target.value; save("settings"); if(!H.edited) renderHost(); });
   $("#h-edit").addEventListener("click",()=>{ const t=$("#h-msg"); const show=t.classList.toggle("hidden"); $("#h-edit").textContent = show? "Edit text":"Done editing"; if(!show) t.focus(); });
   $("#h-msg").addEventListener("input",()=>{ H.edited=true; $("#h-bubble").innerHTML = waRender($("#h-msg").value); });
@@ -789,7 +816,7 @@ let pendingDrafts=[], lastWarns=[];
 function renderActivities(){
   $("#a-count").textContent=S.activities.length;
   const q=norm($("#a-search").value);
-  const list=S.activities.filter(a=>(!q||norm(a.name+" "+a.category+" "+(a.location||"")+" "+a.description).includes(q)));
+  const list=S.activities.filter(a=>(!q||norm(a.name+" "+(a.location||"")+" "+a.description).includes(q)));
   const tbl=$("#a-table");
   const pend=S.activities.filter(a=>a.dateCheck).length;
   $("#a-pending").innerHTML = pend ? `<div class="note" style="margin-bottom:12px"><b>${pend} activit${pend>1?"ies need":"y needs"} date confirmation.</b> They were saved before the app checked dates, so they won't be recommended until you confirm when they run. <button class="btn gold small" id="a-pend-go" style="margin-left:6px">Review now</button></div>` : "";
@@ -806,13 +833,12 @@ function renderActivities(){
        <button class="btn ghost small" id="ab-clear">Clear selection</button>`
     : `<span class="tiny muted">Tick activities to delete or pause several at once.</span>${ended.length?` <button class="btn ghost small" id="ab-ended">Select ${ended.length} ended</button>`:""}`;
   if(!S.activities.length){ tbl.innerHTML=`<tr><td><div class="empty">No activities yet. Upload a PDF above or add one by hand.</div></td></tr>`; return; }
-  tbl.innerHTML = `<thead><tr><th style="width:30px"><input type="checkbox" id="a-all" ${allShown?"checked":""} title="Select all shown"></th><th>Activity</th><th>When</th><th>Times</th><th>Price</th><th>Status</th><th></th></tr></thead><tbody>`+
+  tbl.innerHTML = `<thead><tr><th style="width:30px"><input type="checkbox" id="a-all" ${allShown?"checked":""} title="Select all shown"></th><th>Activity</th><th>When</th><th>Time</th><th>Status</th><th></th></tr></thead><tbody>`+
   list.map(a=>`<tr data-id="${a.id}" style="${ASel.has(a.id)?"background:#fbf3e6":""}">
     <td><input type="checkbox" data-asel="${a.id}" ${ASel.has(a.id)?"checked":""}></td>
-    <td><b style="font-weight:500">${esc(a.name)}</b><div class="tiny muted">${esc(a.category)} · ${a.duration||60} min${a.location?" · "+esc(a.location):""}</div></td>
+    <td><b style="font-weight:500">${esc(a.name)}</b>${a.location?`<div class="tiny muted">${esc(a.location)}</div>`:""}</td>
     <td class="small">${a.dateCheck?`<div style="color:var(--warn)">${esc(datesLabel(a))}</div><button class="btn gold small" data-dconf="1" style="margin-top:4px">Confirm dates</button>`:esc(datesLabel(a))}${isEnded(a)?` <span class="status off">ended</span>`:""}</td>
-    <td class="small">${(a.times||[]).map(t=>fmtTime(t,"en")).join(", ")||"<span class='muted'>on request</span>"}</td>
-    <td class="small">${esc(a.price||"—")}</td>
+    <td class="small">${a.start?esc(fromTo(a.start,a.end)):"<span class='muted'>on request</span>"}</td>
     <td><span class="status ${a.active?"":"off"}" data-toggle="1" style="cursor:pointer">${a.active?"Active":"Paused"}</span></td>
     <td style="white-space:nowrap"><button class="btn ghost small" data-edit="1">Edit</button></td></tr>`).join("")+`</tbody>`;
 }
@@ -833,7 +859,7 @@ function bindActivities(){
   $("#a-search").addEventListener("input",renderActivities);
   $("#a-add").addEventListener("click",()=>editActivity(null));
   $("#a-table").addEventListener("change",e=>{
-    if(e.target.id==="a-all"){ const q=norm($("#a-search").value); S.activities.filter(a=>(!q||norm(a.name+" "+a.category+" "+(a.location||"")+" "+a.description).includes(q))).forEach(a=> e.target.checked?ASel.add(a.id):ASel.delete(a.id)); renderActivities(); return; }
+    if(e.target.id==="a-all"){ const q=norm($("#a-search").value); S.activities.filter(a=>(!q||norm(a.name+" "+(a.location||"")+" "+a.description).includes(q))).forEach(a=> e.target.checked?ASel.add(a.id):ASel.delete(a.id)); renderActivities(); return; }
     const id=e.target.dataset.asel; if(id){ e.target.checked?ASel.add(id):ASel.delete(id); renderActivities(); }
   });
   $("#a-bulk").addEventListener("click",e=>{
@@ -868,16 +894,15 @@ function renderReview(warns=[]){
     <div class="spread" style="margin-bottom:8px"><h3 style="font-size:22px">Review ${pendingDrafts.length} activit${pendingDrafts.length>1?"ies":"y"} found</h3>
       <div class="row"><button class="btn ghost small" id="r-cancel">Discard</button><button class="btn gold" id="r-save">${(()=>{const n=pendingDrafts.filter(d=>!d._skip&&d.dateStatus==="confirm").length; return n?`Confirm ${n} date${n>1?"s":""} to save`:"Save selected";})()}</button></div></div>
     ${warns.length?`<div class="note" style="margin-bottom:10px">${warns.map(esc).join("<br>")}</div>`:""}
-    <div class="tiny muted" style="margin-bottom:8px">Check names, dates and times. Where the PDF wasn't clear about <b>when</b> an activity runs, it's highlighted with <b>Confirm dates</b> — these need your confirmation before saving. Times marked <span class="status warn">check</span> weren't found.</div>
-    <div class="scroll"><table><thead><tr><th></th><th>Activity</th><th>When it runs</th><th>Times</th><th>Duration</th><th>Price</th><th></th></tr></thead><tbody>
+    <div class="tiny muted" style="margin-bottom:8px">Check names, dates and times. Where the PDF wasn't clear about <b>when</b> an activity runs, it's highlighted with <b>Confirm dates</b> — these need your confirmation before saving. Each activity keeps one start and one end time — notes in orange show where the PDF was unclear.</div>
+    <div class="scroll"><table><thead><tr><th></th><th>Activity</th><th>When it runs</th><th>Time</th><th></th></tr></thead><tbody>
     ${pendingDrafts.map((d,i)=>{ const dup=S.activities.find(a=>similar(a.name,d.name)); return `<tr data-i="${i}">
       <td><input type="checkbox" ${d._skip?"":"checked"} data-sel="${i}"></td>
-      <td><b style="font-weight:500">${esc(d.name)}</b>${dup?` <span class="status warn">updates existing</span>`:""}<div class="tiny muted">${esc(d.category)} · ${esc(firstSentence(d.description,90))}</div></td>
+      <td><b style="font-weight:500">${esc(d.name)}</b>${dup?` <span class="status warn">updates existing</span>`:""}<div class="tiny muted">${esc(firstSentence(d.description.replace(/[*_]/g,""),90))}</div></td>
       <td class="small" style="min-width:190px">${d.dateStatus==="confirm"
           ? `<div style="color:var(--warn);font-weight:500">${esc(d.unknown?"Not stated":datesLabel(d))}</div><div class="tiny muted">${esc(d.dateNote)}</div><div class="row" style="margin-top:4px"><button class="btn gold small" data-conf="${i}">Confirm dates</button>${d.unknown?"":`<button class="btn ghost small" data-ok="${i}">Looks right</button>`}</div>`
           : `<div>${esc(datesLabel(d))} <span class="status">✓</span></div><div class="tiny muted">${esc(d.dateNote||"")}</div>`}</td>
-      <td class="small">${d.times.map(t=>fmtTime(t,"en")).join(", ")||`<span class="status warn">check</span>`}</td>
-      <td class="small">${d.duration} min</td><td class="small">${esc(d.price||"—")}</td>
+      <td class="small" style="min-width:170px">${d.start?esc(fromTo(d.start,d.end)):`<span class="status warn">no time</span>`}${d.timeNote?`<div class="tiny" style="color:var(--warn);margin-top:3px">${esc(d.timeNote)} <a href="#" data-tedit="${i}" style="color:var(--warn)">Edit</a></div>`:""}</td>
       <td><button class="btn ghost small" data-redit="${i}">Edit</button></td></tr>`;}).join("")}
     </tbody></table></div>`;
   $("#r-cancel").onclick=()=>{ pendingDrafts=[]; box.classList.add("hidden"); };
@@ -885,7 +910,7 @@ function renderReview(warns=[]){
     const firstOpen = pendingDrafts.findIndex(d=>!d._skip&&d.dateStatus==="confirm");
     if(firstOpen>=0){ confirmDates(pendingDrafts[firstOpen]); return; }
     let n=0;
-    pendingDrafts.filter(d=>!d._skip).forEach(d=>{ const {daysFound,_skip,dateStatus,dateNote,dateSource,unknown,...clean}=d; const ex=S.activities.find(a=>similar(a.name,d.name));
+    pendingDrafts.filter(d=>!d._skip).forEach(d=>{ const {daysFound,_skip,dateStatus,dateNote,dateSource,unknown,timeNote,...clean}=d; const ex=S.activities.find(a=>similar(a.name,d.name));
       if(ex) Object.assign(ex, clean, {id:ex.id}); else S.activities.push(clean); n++; });
     save("activities"); pendingDrafts=[]; box.classList.add("hidden"); renderActivities(); toast(`${n} activit${n===1?"y":"ies"} saved`);
   };
@@ -894,22 +919,19 @@ function renderReview(warns=[]){
   box.querySelectorAll("[data-ok]").forEach(b=>b.onclick=()=>{ const d=pendingDrafts[+b.dataset.ok]; d.dateStatus="ok"; d.dateNote="Confirmed by you."; renderReview(warns); });
   lastWarns=warns;
   box.querySelectorAll("[data-redit]").forEach(b=>b.onclick=()=>editActivity(pendingDrafts[+b.dataset.redit], true));
+  box.querySelectorAll("[data-tedit]").forEach(b=>b.onclick=e=>{ e.preventDefault(); editActivity(pendingDrafts[+b.dataset.tedit], true); });
 }
 function editActivity(a, isDraft=false){
-  const isNew=!a; a = a || {id:uid(), name:"", category:"Experience", description:"", days:[0,1,2,3,4,5,6], times:[], duration:60, price:"", location:"", dateFrom:"", dateTo:"", fit:{romantic:1,family:1,celebration:1,relax:1}, active:true, source:"manual"};
+  const isNew=!a; a = a || {id:uid(), name:"", category:"Experience", description:"", days:[0,1,2,3,4,5,6], start:"", end:"", location:"", dateFrom:"", dateTo:"", fit:{romantic:1,family:1,celebration:1,relax:1}, active:true, source:"manual"};
   openModal(`
     <h2>${isNew?"Add activity":"Edit activity"}</h2>
-    <div class="f2"><div class="field"><span class="label">Name</span><input type="text" id="m-name" value="${esc(a.name)}"></div>
-      <div class="field"><span class="label">Category</span><input type="text" id="m-cat" value="${esc(a.category)}" list="cats"><datalist id="cats">${CAT_KW.map(c=>`<option value="${c[0]}">`).join("")}<option value="Experience"></datalist></div></div>
-    <div class="field"><span class="label">Description (English)</span><textarea id="m-desc" rows="3">${esc(a.description)}</textarea></div>
-    <div class="field"><span class="label">Description (Español) — optional</span><textarea id="m-desc-es" rows="2">${esc(a.descriptionEs||"")}</textarea></div>
+    <div class="field"><span class="label">Name</span><input type="text" id="m-name" value="${esc(a.name)}"></div>
+    <div class="field"><span class="label">Description</span><textarea id="m-desc" rows="8">${esc(a.description)}</textarea>
+      <div class="tiny muted" style="margin-top:4px">Sent in full. Blank line = new paragraph · *bold* · _italic_ · start a line with • for a bullet.</div></div>
     ${datesEditorHTML(a)}
     <div class="f3">
-      <div class="field"><span class="label">Start times (comma separated, 24h)</span><input type="text" id="m-times" value="${esc((a.times||[]).join(", "))}" placeholder="09:00, 17:30"></div>
-      <div class="field"><span class="label">Duration (min)</span><input type="number" id="m-dur" value="${a.duration||60}"></div>
-      <div class="field"><span class="label">Price</span><input type="text" id="m-price" value="${esc(a.price)}" placeholder="USD 250 per couple"></div>
-    </div>
-    <div class="f2">
+      <div class="field"><span class="label">Start time</span><input type="time" id="m-start" value="${esc(a.start||"")}"></div>
+      <div class="field"><span class="label">End time</span><input type="time" id="m-end" value="${esc(a.end||"")}"></div>
       <div class="field"><span class="label">Location</span><input type="text" id="m-loc" value="${esc(a.location)}"></div>
     </div>
     <div class="spread" style="margin-top:16px">
@@ -918,9 +940,12 @@ function editActivity(a, isDraft=false){
   $("#m-cancel").onclick=closeModal; bindDatesEditor(a);
   $("#m-del")?.addEventListener("click",()=>{ S.activities=S.activities.filter(x=>x.id!==a.id); save("activities"); closeModal(); renderActivities(); toast("Activity deleted"); });
   $("#m-ok").onclick=()=>{
-    const times = $("#m-times").value.split(/[,;]+/).map(s=>parseTimes(s.trim()).times[0] || (/^\d{1,2}$/.test(s.trim())?fromMin(+s.trim()*60):"")).filter(Boolean);
-    Object.assign(a,{name:$("#m-name").value.trim()||"Untitled", category:$("#m-cat").value.trim()||"Experience", description:$("#m-desc").value.trim(), descriptionEs:$("#m-desc-es").value.trim(),
-      times:[...new Set(times)].sort(), duration:+$("#m-dur").value||60, price:$("#m-price").value.trim(), location:$("#m-loc").value.trim()});
+    const st=$("#m-start").value, en=$("#m-end").value;
+    if(en && !st){ toast("Add the start time"); return; }
+    if(st && en && toMin(en)<=toMin(st)){ toast("The end time must be after the start time"); return; }
+    Object.assign(a,{name:$("#m-name").value.trim()||"Untitled", description:$("#m-desc").value.replace(/\r/g,"").replace(/\n{3,}/g,"\n\n").trim(),
+      start:st, end:en, location:$("#m-loc").value.trim()});
+    delete a.times; delete a.duration; delete a.timeNote;
     readDatesEditor(a);
     if(isDraft){ a.daysFound=true; a.dateStatus="ok"; a.dateNote="Confirmed by you."; closeModal(); renderReview(lastWarns); return; }
     delete a.dateCheck; if(isNew) S.activities.push(a); save("activities"); closeModal(); renderActivities(); toast("Activity saved");
@@ -980,7 +1005,7 @@ function confirmDates(d, saved){
 const PUB = { state:"unknown", data:null, checkedAt:0 };   // state: unknown | ok | none
 function pack(){
   return JSON.stringify({app:"host-top-picks", kind:"activities", version:4, publishedAt:new Date().toISOString(),
-    activities:S.activities.map(({dateStatus,dateNote,dateSource,unknown,_skip,daysFound,...a})=>a)}, null, 1);
+    activities:S.activities.map(({dateStatus,dateNote,dateSource,unknown,_skip,daysFound,timeNote,...a})=>a)}, null, 1);
 }
 function fmtStamp(iso){ try{ return new Date(iso).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}); }catch(e){ return iso; } }
 function applyPublished(d, why){
@@ -1076,6 +1101,12 @@ $("#nav").addEventListener("click",e=>{ const b=e.target.closest("button"); if(b
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
 function migrateActivities(){
   let changed=0;
+  S.activities.forEach(a=>{
+    if("start" in a) return; changed++;
+    a.start = (a.times&&a.times[0]) || "";
+    a.end = a.start ? fromMin(toMin(a.start)+(+a.duration||60)) : "";
+    delete a.times; delete a.duration;
+  });
   S.activities.forEach(a=>{
     if("dates" in a) return;                          // already has date info from the new importer
     changed++;
