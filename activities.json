@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-20T05:49:02.896Z",
+ "publishedAt": "2026-11-20T17:48:48.917Z",
  "activities": [
   {
    "id": "rg0tw3r3",
@@ -398,7 +398,8 @@
    },
    "active": true,
    "source": "Cinthya Navarro.pdf",
-   "addedAt": "2026-11-20T05:29:28.944Z"
+   "addedAt": "2026-11-20T05:29:28.944Z",
+   "migr": 2
   },
   {
    "id": "fsh7vkf0",
@@ -429,7 +430,8 @@
    },
    "active": true,
    "source": "Corazon Playero Noviembre.pdf",
-   "addedAt": "2026-11-20T05:31:31.669Z"
+   "addedAt": "2026-11-20T05:31:31.669Z",
+   "migr": 2
   },
   {
    "id": "dyrvizzh",
@@ -458,7 +460,8 @@
    },
    "active": true,
    "source": "Justyna Jewerly.pdf",
-   "addedAt": "2026-11-20T05:33:08.941Z"
+   "addedAt": "2026-11-20T05:33:08.941Z",
+   "migr": 2
   },
   {
    "id": "ter7cejl",
@@ -485,7 +488,8 @@
    },
    "active": true,
    "source": "Cabana Swimm Show.pdf",
-   "addedAt": "2026-11-20T05:34:12.565Z"
+   "addedAt": "2026-11-20T05:34:12.565Z",
+   "migr": 2
   },
   {
    "id": "glztc9gd",
@@ -516,7 +520,8 @@
    },
    "active": true,
    "source": "OOPA Festive Brochure_2026.pdf",
-   "addedAt": "2026-11-20T05:36:16.325Z"
+   "addedAt": "2026-11-20T05:36:16.325Z",
+   "migr": 2
   },
   {
    "id": "aqpf16c6",
@@ -545,32 +550,8 @@
    },
    "active": true,
    "source": "manual",
-   "dates": []
-  },
-  {
-   "id": "ddbhckxl",
-   "name": "Turtle Release",
-   "category": "Experience",
-   "description": "We are delighted to invite you to experience one of Los Cabos’ most cherished natural wonders. As baby sea turtles begin their journey to the sea beneath a Baja sunset, families are invited to witness this remarkable conservation effort. A meaningful opportunity to connect with nature and create lasting memories, moments from One&Only Palmilla.\n\nTo protect these delicate creatures, the release is an observation-only experience, gently guided by our specialist. We kindly ask that the turtles not be touched or handled.\n\nPrice: Complimentary",
-   "days": [
-    4
-   ],
-   "start": "17:30",
-   "end": "18:30",
-   "location": "Turtle Beach",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-20"
-   ]
+   "dates": [],
+   "migr": 2
   }
  ]
 }
