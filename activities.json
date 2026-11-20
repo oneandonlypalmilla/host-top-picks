@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-18T22:22:59.488Z",
+ "publishedAt": "2026-11-20T05:49:02.896Z",
  "activities": [
   {
    "id": "rg0tw3r3",
@@ -370,6 +370,207 @@
    "start": "18:00",
    "end": "22:00",
    "migr": 2
+  },
+  {
+   "id": "5mshy10j",
+   "name": "Cinthya Navarro Art Residence",
+   "category": "Culture",
+   "description": "Rooted in the landscapes and cultural heritage of Baja California Sur, Cinthya Navarro creates contemporary\nworks that blend painting, printmaking, and graphic arts. Through vibrant colors and expressive compositions, each piece offers a unique reflection on the connection between people, nature, and the spirit of Baja.",
+   "days": [
+    2,
+    3
+   ],
+   "dates": [
+    "2026-11-25",
+    "2026-11-26"
+   ],
+   "start": "14:00",
+   "end": "19:00",
+   "price": "",
+   "location": "Hacienda Building",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "Cinthya Navarro.pdf",
+   "addedAt": "2026-11-20T05:29:28.944Z"
+  },
+  {
+   "id": "fsh7vkf0",
+   "name": "Corazón Playero",
+   "category": "Experience",
+   "description": "Labeled as \"Wearable Art\", Isabel Andrade's Corazón Playero has become synonymous with high quality, hand crafted hats and accessories. Handwoven and produced in Los Cabos, each hat is a unique storytelling piece that can be customized for the perfect gift or keepsake.\n\nJoin us for an exclusive pop up with the local hatmakers to learn the art of the trade, peruse the latest collection or create your own unique design.",
+   "days": [
+    4,
+    5
+   ],
+   "dates": [
+    "2026-11-14",
+    "2026-11-21",
+    "2026-11-27",
+    "2026-11-28"
+   ],
+   "start": "09:00",
+   "end": "14:00",
+   "price": "",
+   "location": "Agua Pool",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "Corazon Playero Noviembre.pdf",
+   "addedAt": "2026-11-20T05:31:31.669Z"
+  },
+  {
+   "id": "dyrvizzh",
+   "name": "Justyna Jewerly Trunk Show",
+   "category": "Experience",
+   "description": "Discover the distinctive world of Justyna Kaminska, where natural stones, artisanal craftsmanship, and refined design come together in a collection inspired by travel, culture, and personal expression. Each piece tells\na unique story, designed to complement every occasion with effortless elegance.",
+   "days": [
+    2,
+    3
+   ],
+   "dates": [
+    "2026-11-25",
+    "2026-11-26"
+   ],
+   "start": "13:00",
+   "end": "18:00",
+   "price": "",
+   "location": "Neo Boutique",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "Justyna Jewerly.pdf",
+   "addedAt": "2026-11-20T05:33:08.941Z"
+  },
+  {
+   "id": "ter7cejl",
+   "name": "The Cabana Swim Show",
+   "category": "Experience",
+   "description": "Discover Cabana Swim Show, an exclusive pop-up experience featuring a curated swimwear collection\ninspired by a life by the sea. Showcasing pieces selected for their timeless design, exceptional quality, and effortless sophistication, the collection is designed to elevate every moment under the Los Cabos sun.",
+   "days": [
+    4
+   ],
+   "dates": [
+    "2026-11-27"
+   ],
+   "start": "11:00",
+   "end": "16:00",
+   "price": "",
+   "location": "Neo Boutique",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "Cabana Swimm Show.pdf",
+   "addedAt": "2026-11-20T05:34:12.565Z"
+  },
+  {
+   "id": "glztc9gd",
+   "name": "Cooking Class",
+   "category": "Dining",
+   "description": "Discover the vibrant flavors and traditional techniques of regional Mexican cuisine in a hands-on cooking class led by our expert chefs.\n\nLucille’s Kitchen\n$3,460 MXN per person",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "dates": [],
+   "start": "13:00",
+   "end": "15:00",
+   "price": "MXN 3460 per person",
+   "location": "Lucille's Kitchen",
+   "dateFrom": "2026-12-14",
+   "dateTo": "2027-01-03",
+   "fit": {
+    "romantic": 1,
+    "family": 0,
+    "celebration": 0,
+    "relax": 0
+   },
+   "active": true,
+   "source": "OOPA Festive Brochure_2026.pdf",
+   "addedAt": "2026-11-20T05:36:16.325Z"
+  },
+  {
+   "id": "aqpf16c6",
+   "name": "Chocolate & Coffee Class",
+   "category": "Experience",
+   "description": "An intimate sensory experience inspired by Mexico’s cultural richness, transforming coffee and cacao into an expression of craft, history, and hospitality.\n\nPrice: $1,297 MXN per person",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "start": "11:00",
+   "end": "12:00",
+   "location": "Vista Point",
+   "dateFrom": "2026-12-14",
+   "dateTo": "2027-01-03",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": []
+  },
+  {
+   "id": "ddbhckxl",
+   "name": "Turtle Release",
+   "category": "Experience",
+   "description": "We are delighted to invite you to experience one of Los Cabos’ most cherished natural wonders. As baby sea turtles begin their journey to the sea beneath a Baja sunset, families are invited to witness this remarkable conservation effort. A meaningful opportunity to connect with nature and create lasting memories, moments from One&Only Palmilla.\n\nTo protect these delicate creatures, the release is an observation-only experience, gently guided by our specialist. We kindly ask that the turtles not be touched or handled.\n\nPrice: Complimentary",
+   "days": [
+    4
+   ],
+   "start": "17:30",
+   "end": "18:30",
+   "location": "Turtle Beach",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-20"
+   ]
   }
  ]
 }
