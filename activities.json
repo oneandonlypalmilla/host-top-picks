@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-24T18:00:18.567Z",
+ "publishedAt": "2026-11-24T18:11:39.175Z",
  "activities": [
   {
    "id": "rg0tw3r3",
@@ -559,13 +559,7 @@
    "category": "Experience",
    "description": "When the sun sets over the Sea of Cortez, the lawn becomes a cinema. Soft blankets, plush cushions and a gentle ocean breeze set the scene beneath a sky full of stars.\n\nTonight's feature is Minions & Monsters, a mischievous adventure for little ones and grown-ups alike. A family supper of penne pomodoro, cheese and pepperoni pizza and golden French fries comes first. Then the sweet treats arrive: warm popcorn, mini donuts, cake pops, and chocolate-dipped grapes and marshmallows. Cups of hot chocolate and fresh lemonade go around as the film begins.\n\nSettle in, share a laugh, and let the evening unfold the Palmilla way.\n\nPrice: Complimentary",
    "days": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
+    1
    ],
    "start": "19:00",
    "end": "20:40",
@@ -580,7 +574,9 @@
    },
    "active": true,
    "source": "manual",
-   "dates": [],
+   "dates": [
+    "2026-11-24"
+   ],
    "migr": 2
   }
  ]
