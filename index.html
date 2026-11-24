@@ -64,6 +64,7 @@ textarea{resize:vertical}
 .pick{border-left:3px solid var(--gold);padding-left:14px}
 .desc{white-space:pre-wrap;color:#4a4640;line-height:1.5}
 .act-list{display:flex;flex-direction:column;gap:8px;max-height:620px;overflow:auto;padding-right:4px}
+@media(max-width:860px){.act-list{max-height:none;overflow:visible;padding-right:0}}   /* phones: one page scroll, no box-in-box scrolling */
 .act{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;cursor:pointer}
 .act input[type=checkbox]{margin-top:4px;width:17px;height:17px;accent-color:var(--navy);flex:none}
 .act.on{border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold);background:#fffaf2}
@@ -235,7 +236,7 @@ tr:hover td{background:#fbf7f0}
 
 <script>
 /* App version — change it with every release; phones compare it with the copy on GitHub and update themselves */
-const APP_VERSION = "2026-11-18.5";
+const APP_VERSION = "2026-11-24.1";
 /* =====================================================================
    Host Top Picks — single-file app
    Storage: localStorage (one browser). Swap `Store` for a server API
@@ -697,8 +698,35 @@ function titleCase(s){ s=s.trim(); if(s!==s.toUpperCase()) return s; const small
 const TITLES = {mr:{en:"Mr.",es:"Sr."}, mrs:{en:"Mrs.",es:"Sra."}, ms:{en:"Ms.",es:"Sra."}, miss:{en:"Miss",es:"Srta."}, dr:{en:"Dr.",es:"Dr."}, mrmrs:{en:"Mr. & Mrs.",es:"Sr. y Sra."}};
 const TITLE_KEYS = Object.keys(TITLES);
 /* ---------- Pick engine ---------- */
+/* black-out dates: [{from:"YYYY-MM-DD", to:"YYYY-MM-DD"}] — a single day has from === to */
+function inBlackout(a, iso){ return (a.blackouts||[]).some(r=>iso>=r.from && iso<=(r.to||r.from)); }
+function blackoutLabel(r){ const t=r.to||r.from; return t===r.from ? fmtShort(r.from) : `${fmtShort(r.from)} – ${fmtShort(t)}`; }
+function normBlackouts(list){   // sorted, no duplicates
+  const seen=new Set(); return (list||[]).filter(r=>r&&r.from).map(r=>({from:r.from,to:(r.to&&r.to>=r.from)?r.to:r.from}))
+    .filter(r=>{const k=r.from+"|"+r.to; if(seen.has(k)) return false; seen.add(k); return true;}).sort((x,y)=>x.from.localeCompare(y.from)); }
+function blackoutEditorHTML(){
+  return `<div class="field"><span class="label">Black-out dates <span class="muted" style="text-transform:none;letter-spacing:0">(not offered on these days)</span></span>
+    <div class="chips" id="bo-list" style="margin-bottom:8px"></div>
+    <div class="row" style="gap:8px">
+      <label class="tiny muted">From <input type="date" id="bo-from" style="width:160px"></label>
+      <label class="tiny muted">To <span>(optional)</span> <input type="date" id="bo-to" style="width:160px"></label>
+      <button type="button" class="btn small" id="bo-add" style="align-self:flex-end">Add</button>
+    </div>
+    <div class="tiny muted" style="margin-top:4px">Leave “To” empty for a single day. Add as many dates or periods as needed.</div></div>`;
+}
+function bindBlackoutEditor(list){   // list: working array, edited in place
+  const draw=()=>{ const el=$("#bo-list"); el.innerHTML = list.length ? list.map((r,i)=>`<span class="chip" style="border-color:var(--bad);color:var(--bad)">${esc(blackoutLabel(r))} <a href="#" data-bx="${i}" style="color:var(--bad);text-decoration:none;margin-left:4px">×</a></span>`).join("") : `<span class="tiny muted">No black-out dates.</span>`;
+    el.querySelectorAll("[data-bx]").forEach(x=>x.onclick=e=>{ e.preventDefault(); list.splice(+x.dataset.bx,1); draw(); }); };
+  draw();
+  $("#bo-add").onclick=()=>{ const f=$("#bo-from").value, t=$("#bo-to").value;
+    if(!f){ toast("Choose the first black-out date"); return; }
+    if(t && t<f){ toast("“To” must be on or after “From”"); return; }
+    const n=normBlackouts([...list,{from:f,to:t||f}]); list.length=0; list.push(...n);
+    $("#bo-from").value=""; $("#bo-to").value=""; draw(); };
+}
 function runsOn(a, iso){
   if(!a.active) return false;
+  if(inBlackout(a, iso)) return false;                 // black-out date -> not displayed
   if(a.dateCheck) return false;                       // dates not confirmed yet -> never offered
   if(a.dates && a.dates.length) return a.dates.includes(iso);
   if(!a.dateFrom && !a.dateTo){ const h=holidayOf(a.name); if(h) return h.fn(+iso.slice(0,4)).includes(iso); }
@@ -841,16 +869,17 @@ function renderActivities(){
   $("#a-bulk").innerHTML = !S.activities.length ? "" : ASel.size
     ? `<b class="small">${ASel.size} selected</b>
        <button class="btn danger small" id="ab-del">Delete selected</button>
+       <button class="btn ghost small" id="ab-bo">Black-out dates</button>
        <button class="btn ghost small" id="ab-pause">Pause</button>
        <button class="btn ghost small" id="ab-act">Activate</button>
        <button class="btn ghost small" id="ab-clear">Clear selection</button>`
-    : `<span class="tiny muted">Tick activities to delete or pause several at once.</span>${ended.length?` <button class="btn ghost small" id="ab-ended">Select ${ended.length} ended</button>`:""}`;
+    : `<span class="tiny muted">Tick activities to delete, pause or add black-out dates to several at once.</span>${ended.length?` <button class="btn ghost small" id="ab-ended">Select ${ended.length} ended</button>`:""}`;
   if(!S.activities.length){ tbl.innerHTML=`<tr><td><div class="empty">No activities yet. Upload a PDF above or add one by hand.</div></td></tr>`; return; }
   tbl.innerHTML = `<thead><tr><th style="width:30px"><input type="checkbox" id="a-all" ${allShown?"checked":""} title="Select all shown"></th><th>Activity</th><th>When</th><th>Time</th><th>Status</th><th></th></tr></thead><tbody>`+
   list.map(a=>`<tr data-id="${a.id}" style="${ASel.has(a.id)?"background:#fbf3e6":""}">
     <td><input type="checkbox" data-asel="${a.id}" ${ASel.has(a.id)?"checked":""}></td>
     <td><b style="font-weight:500">${esc(a.name)}</b>${a.location?`<div class="tiny muted">${esc(a.location)}</div>`:""}</td>
-    <td class="small">${a.dateCheck?`<div style="color:var(--warn)">${esc(datesLabel(a))}</div><button class="btn gold small" data-dconf="1" style="margin-top:4px">Confirm dates</button>`:esc(datesLabel(a))}${isEnded(a)?` <span class="status off">ended</span>`:""}</td>
+    <td class="small">${a.dateCheck?`<div style="color:var(--warn)">${esc(datesLabel(a))}</div><button class="btn gold small" data-dconf="1" style="margin-top:4px">Confirm dates</button>`:esc(datesLabel(a))}${isEnded(a)?` <span class="status off">ended</span>`:""}${(()=>{ const up=(a.blackouts||[]).filter(r=>(r.to||r.from)>=todayISO()); return up.length?`<div class="tiny" style="color:var(--bad);margin-top:3px">Black-out: ${up.map(r=>esc(blackoutLabel(r))).join(", ")}</div>`:""; })()}</td>
     <td class="small">${a.start?esc(fromTo(a.start,a.end)):"<span class='muted'>on request</span>"}</td>
     <td><span class="status ${a.active?"":"off"}" data-toggle="1" style="cursor:pointer">${a.active?"Active":"Paused"}</span></td>
     <td style="white-space:nowrap"><button class="btn ghost small" data-edit="1">Edit</button></td></tr>`).join("")+`</tbody>`;
@@ -865,6 +894,23 @@ function bulkDelete(){
   $("#bd-no").onclick=closeModal;
   $("#bd-yes").onclick=()=>{ const n=ASel.size; S.activities=S.activities.filter(a=>!ASel.has(a.id)); ASel.forEach(id=>H.sel.delete(id)); ASel.clear(); save("activities"); closeModal(); renderActivities(); renderHost(); toast(`${n} activit${n>1?"ies":"y"} deleted`); };
 }
+function bulkBlackout(){
+  const n=ASel.size, work=[];
+  openModal(`<h2>Black-out dates for ${n} activit${n>1?"ies":"y"}</h2>
+    <p class="small muted" style="margin-top:0">The selected activities won’t be displayed to Hosts on these dates. To apply them to every activity, tick the box at the top of the list first.</p>
+    ${blackoutEditorHTML()}
+    <div class="spread" style="margin-top:16px">
+      <button class="btn danger small" id="bb-clear">Remove all black-out dates from these</button>
+      <div class="row"><button class="btn ghost" id="bb-no">Cancel</button><button class="btn" id="bb-yes">Add to ${n} activit${n>1?"ies":"y"}</button></div></div>`);
+  bindBlackoutEditor(work);
+  $("#bb-no").onclick=closeModal;
+  $("#bb-yes").onclick=()=>{
+    if($("#bo-from").value){ toast("Click Add to keep the date you entered"); return; }
+    if(!work.length){ toast("Add at least one date or period"); return; }
+    S.activities.forEach(a=>{ if(ASel.has(a.id)) a.blackouts=normBlackouts([...(a.blackouts||[]),...work]); });
+    save("activities"); closeModal(); renderActivities(); renderHost(); toast(`Black-out dates added to ${n} activit${n>1?"ies":"y"}`); };
+  $("#bb-clear").onclick=()=>{ S.activities.forEach(a=>{ if(ASel.has(a.id)) a.blackouts=[]; }); save("activities"); closeModal(); renderActivities(); renderHost(); toast("Black-out dates removed"); };
+}
 function isEnded(a){ const t=todayISO(); if(a.dates&&a.dates.length) return a.dates.every(d=>d<t); return !!(a.dateTo && a.dateTo<t); }
 function daysLabel(d){ d=d||[]; if(d.length===7) return "Daily"; if(!d.length) return "<span class='muted'>—</span>"; if(d.join()==="0,1,2,3,4") return "Mon–Fri"; if(d.join()==="5,6") return "Weekends"; return d.map(i=>DAY_EN[i]).join(", "); }
 function bindActivities(){
@@ -878,6 +924,7 @@ function bindActivities(){
   $("#a-bulk").addEventListener("click",e=>{
     const b=e.target.closest("button"); if(!b) return;
     if(b.id==="ab-del") bulkDelete();
+    if(b.id==="ab-bo") bulkBlackout();
     if(b.id==="ab-pause"||b.id==="ab-act"){ S.activities.forEach(a=>{ if(ASel.has(a.id)) a.active = b.id==="ab-act"; }); save("activities"); renderActivities(); renderHost(); toast(b.id==="ab-act"?"Activated":"Paused"); }
     if(b.id==="ab-clear"){ ASel.clear(); renderActivities(); }
     if(b.id==="ab-ended"){ S.activities.filter(isEnded).forEach(a=>ASel.add(a.id)); renderActivities(); }
@@ -947,10 +994,12 @@ function editActivity(a, isDraft=false){
       <div class="field"><span class="label">End time</span><input type="time" id="m-end" value="${esc(a.end||"")}"></div>
       <div class="field"><span class="label">Location</span><input type="text" id="m-loc" value="${esc(a.location)}"></div>
     </div>
+    ${blackoutEditorHTML()}
     <div class="spread" style="margin-top:16px">
       <div>${!isNew&&!isDraft?`<button class="btn danger" id="m-del">Delete</button>`:""}</div>
       <div class="row"><button class="btn ghost" id="m-cancel">Cancel</button><button class="btn" id="m-ok">Save</button></div></div>`);
   $("#m-cancel").onclick=closeModal; bindDatesEditor(a);
+  const boWork = normBlackouts(a.blackouts); bindBlackoutEditor(boWork);
   $("#m-del")?.addEventListener("click",()=>{ S.activities=S.activities.filter(x=>x.id!==a.id); save("activities"); closeModal(); renderActivities(); toast("Activity deleted"); });
   $("#m-ok").onclick=()=>{
     const st=$("#m-start").value, en=$("#m-end").value;
@@ -960,6 +1009,8 @@ function editActivity(a, isDraft=false){
       start:st, end:en, location:$("#m-loc").value.trim()});
     delete a.times; delete a.duration; delete a.timeNote;
     readDatesEditor(a);
+    if($("#bo-from").value){ toast("Click Add to keep the black-out date you entered, or clear it"); return; }
+    a.blackouts = normBlackouts(boWork);
     if(isDraft){ a.daysFound=true; a.dateStatus="ok"; a.dateNote="Confirmed by you."; closeModal(); renderReview(lastWarns); return; }
     delete a.dateCheck; if(isNew) S.activities.push(a); save("activities"); closeModal(); renderActivities(); toast("Activity saved");
   };
