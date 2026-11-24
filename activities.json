@@ -2,42 +2,8 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-24T18:11:39.175Z",
+ "publishedAt": "2026-11-24T22:40:45.583Z",
  "activities": [
-  {
-   "id": "rg0tw3r3",
-   "name": "Water Healing with Mayumi Yonamine",
-   "category": "Wellness",
-   "description": "Guided by renowned wellness practitioner Mayumi Yonamine, this immersive WATSU® hydrotherapy experience combines gentle stretches and therapeutic touch in warm water. Designed to reduce stress, improve mobility, and restore balance, Water Healing promotes deep relaxation and a renewed sense of well-being.\n\nPrice: $450 USD (60 minutes) // $580 USD (90 minutes)",
-   "days": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
-   ],
-   "dates": [],
-   "price": "",
-   "location": "One&Only Spa",
-   "dateFrom": "",
-   "dateTo": "2026-12-07",
-   "fit": {
-    "romantic": 0,
-    "family": 0,
-    "celebration": 0,
-    "relax": 3
-   },
-   "active": true,
-   "source": "INTERACTIVE GUEST WEEKLY #45 ENG 2026-comprimido.pdf",
-   "addedAt": "2026-11-06T22:25:28.950Z",
-   "descriptionEs": "",
-   "migr": 2,
-   "start": "09:00",
-   "end": "17:00",
-   "_dates": []
-  },
   {
    "id": "qhdxwa4w",
    "name": "Rest & Restore with Gyde Von Wlassack",
@@ -578,6 +544,177 @@
     "2026-11-24"
    ],
    "migr": 2
+  },
+  {
+   "id": "9gx4zcee",
+   "name": "Thanksgiving Pool Party",
+   "category": "Experience",
+   "description": "Sunshine, the pool and a festive table by the sea. Celebrate Thanksgiving with us at Agua on Thursday, November 26, an afternoon of gratitude and family time.",
+   "days": [
+    3
+   ],
+   "start": "12:00",
+   "end": "16:00",
+   "location": "Agua Pool",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-26"
+   ],
+   "blackouts": [],
+   "_dates": [
+    "2026-11-26"
+   ]
+  },
+  {
+   "id": "xafnijw6",
+   "name": "Tree Lighting Ceremony",
+   "category": "Experience",
+   "description": "A countdown, a sky full of stars and the first glow of the season. Join us for our Tree Lighting Ceremony on Thursday, November 26, as we welcome the holidays together.",
+   "days": [
+    3
+   ],
+   "start": "20:00",
+   "end": "20:30",
+   "location": "Colibri Garden",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-26"
+   ],
+   "blackouts": []
+  },
+  {
+   "id": "i9bh1lbz",
+   "name": "Complimentary Fitness Class - Vinyasa Yoga",
+   "category": "Experience",
+   "description": "Move with the rhythm of the morning. In this flowing practice, breath and movement link together, building gentle warmth and focus in the calm of the One&Only Spa. All levels are welcome.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "start": "07:00",
+   "end": "08:00",
+   "location": "One&Only Spa",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [],
+   "blackouts": []
+  },
+  {
+   "id": "fpqkr3kk",
+   "name": "Complimentary Fitness Class - Core Training",
+   "category": "Experience",
+   "description": "Strength starts at the centre. This focused session builds stability, balance and posture through purposeful, energising movement, guided by our fitness team at the One&Only Spa.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "start": "07:00",
+   "end": "08:00",
+   "location": "One&Only Spa",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [],
+   "blackouts": []
+  },
+  {
+   "id": "2f2xq4zy",
+   "name": "Complimentary Fitness Class - Yin Yoga",
+   "category": "Experience",
+   "description": "Slow down and let go. Yin Yoga uses long, quiet holds to release deep tension and restore a sense of calm, an unhurried practice set in the tranquillity of the One&Only Spa.",
+   "days": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "start": "07:00",
+   "end": "08:00",
+   "location": "One&Only Spa",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [],
+   "blackouts": []
+  },
+  {
+   "id": "m6k2mpee",
+   "name": "Complimentary Fitness Class - Power Yoga",
+   "category": "Experience",
+   "description": "Find your strength in motion. This dynamic, athletic practice builds heat, endurance and focus, so you leave energized and grounded, ready for the day ahead.",
+   "days": [
+    5
+   ],
+   "start": "07:00",
+   "end": "08:00",
+   "location": "One&Only Spa",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-28"
+   ],
+   "blackouts": []
   }
  ]
 }
