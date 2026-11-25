@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-25T16:06:06.842Z",
+ "publishedAt": "2026-11-25T19:56:17.358Z",
  "activities": [
   {
    "id": "qhdxwa4w",
@@ -520,32 +520,6 @@
    "migr": 2
   },
   {
-   "id": "nj0vmyz4",
-   "name": "Movie Under the Stars",
-   "category": "Experience",
-   "description": "When the sun sets over the Sea of Cortez, the lawn becomes a cinema. Soft blankets, plush cushions and a gentle ocean breeze set the scene beneath a sky full of stars.\n\nTonight's feature is Minions & Monsters, a mischievous adventure for little ones and grown-ups alike. A family supper of penne pomodoro, cheese and pepperoni pizza and golden French fries comes first. Then the sweet treats arrive: warm popcorn, mini donuts, cake pops, and chocolate-dipped grapes and marshmallows. Cups of hot chocolate and fresh lemonade go around as the film begins.\n\nSettle in, share a laugh, and let the evening unfold the Palmilla way.\n\nPrice: Complimentary",
-   "days": [
-    1
-   ],
-   "start": "19:00",
-   "end": "20:40",
-   "location": "Colibri Garden",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-24"
-   ],
-   "migr": 2
-  },
-  {
    "id": "9gx4zcee",
    "name": "Thanksgiving Pool Party",
    "category": "Experience",
@@ -709,6 +683,58 @@
    ],
    "blackouts": [],
    "migr": 2
+  },
+  {
+   "id": "s6fhtf4n",
+   "name": "Thanksgiving Sandcastle Contest",
+   "category": "Experience",
+   "description": "Our annual Thanksgiving Sandcastle Contest returns to Turtle Beach on Friday, November 27 at 10:00 AM, a family morning of sun, sand and imagination. Only 10 spots are available, so reserve with your Host.",
+   "days": [
+    4
+   ],
+   "start": "10:00",
+   "end": "11:00",
+   "location": "Turtle Beach",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-27"
+   ],
+   "blackouts": []
+  },
+  {
+   "id": "oxfxxcy9",
+   "name": "KidsOnly Friendsgiving Party",
+   "category": "Experience",
+   "description": "Tonight belongs to the little ones. While grown-ups enjoy an evening of their own, our young guests gather for a Friendsgiving celebration full of friendship, laughter and festive fun.\n\nThe evening begins with a kid-favourite feast of mini burgers, chicken tenders, mac & cheese, and fries with ketchup, with apple juice, pink lemonade and still water to drink. Then come the treats: churros and donuts, cupcakes, and chocolate-dipped marshmallows and strawberries. Between bites there's a show, piñata breaking, games and plenty more.",
+   "days": [
+    2
+   ],
+   "start": "17:00",
+   "end": "20:00",
+   "location": "Bahias Ballrooms",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-25"
+   ],
+   "blackouts": []
   }
  ]
 }
