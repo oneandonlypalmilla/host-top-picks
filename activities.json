@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-24T22:40:45.583Z",
+ "publishedAt": "2026-11-25T00:04:54.845Z",
  "activities": [
   {
    "id": "qhdxwa4w",
@@ -572,7 +572,8 @@
    "blackouts": [],
    "_dates": [
     "2026-11-26"
-   ]
+   ],
+   "migr": 2
   },
   {
    "id": "xafnijw6",
@@ -598,7 +599,8 @@
    "dates": [
     "2026-11-26"
    ],
-   "blackouts": []
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "i9bh1lbz",
@@ -606,13 +608,7 @@
    "category": "Experience",
    "description": "Move with the rhythm of the morning. In this flowing practice, breath and movement link together, building gentle warmth and focus in the calm of the One&Only Spa. All levels are welcome.",
    "days": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
+    2
    ],
    "start": "07:00",
    "end": "08:00",
@@ -627,8 +623,11 @@
    },
    "active": true,
    "source": "manual",
-   "dates": [],
-   "blackouts": []
+   "dates": [
+    "2026-11-25"
+   ],
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "fpqkr3kk",
@@ -636,13 +635,7 @@
    "category": "Experience",
    "description": "Strength starts at the centre. This focused session builds stability, balance and posture through purposeful, energising movement, guided by our fitness team at the One&Only Spa.",
    "days": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
+    3
    ],
    "start": "07:00",
    "end": "08:00",
@@ -657,8 +650,11 @@
    },
    "active": true,
    "source": "manual",
-   "dates": [],
-   "blackouts": []
+   "dates": [
+    "2026-11-26"
+   ],
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "2f2xq4zy",
@@ -666,13 +662,7 @@
    "category": "Experience",
    "description": "Slow down and let go. Yin Yoga uses long, quiet holds to release deep tension and restore a sense of calm, an unhurried practice set in the tranquillity of the One&Only Spa.",
    "days": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
+    4
    ],
    "start": "07:00",
    "end": "08:00",
@@ -687,8 +677,11 @@
    },
    "active": true,
    "source": "manual",
-   "dates": [],
-   "blackouts": []
+   "dates": [
+    "2026-11-27"
+   ],
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "m6k2mpee",
@@ -714,7 +707,8 @@
    "dates": [
     "2026-11-28"
    ],
-   "blackouts": []
+   "blackouts": [],
+   "migr": 2
   }
  ]
 }
