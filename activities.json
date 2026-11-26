@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-26T17:21:08.693Z",
+ "publishedAt": "2026-11-26T19:13:36.770Z",
  "activities": [
   {
    "id": "qhdxwa4w",
@@ -712,7 +712,10 @@
     "2026-11-26"
    ],
    "blackouts": [],
-   "migr": 2
+   "migr": 2,
+   "_dates": [
+    "2026-11-26"
+   ]
   },
   {
    "id": "52st6vb4",
@@ -794,6 +797,32 @@
    ],
    "blackouts": [],
    "migr": 2
+  },
+  {
+   "id": "31m17rpo",
+   "name": "Thanksgiving Dinner at Il Pergolato",
+   "category": "Experience",
+   "description": "This Thanksgiving, gather around the table at Il Pergolato. The glow of the wood-fired grill sets a warm, convivial scene for an unhurried celebration with family and friends.\n\nOur signature à la carte menu brings the flavour of the open flame to every plate, alongside chef-crafted holiday specials and seasonal classics made for sharing. It's a festive meal with an Italian soul, celebrated the Palmilla way.",
+   "days": [
+    3
+   ],
+   "start": "17:30",
+   "end": "22:00",
+   "location": "Il Pergolato",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-26"
+   ],
+   "blackouts": []
   }
  ]
 }
