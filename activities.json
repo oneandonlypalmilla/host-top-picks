@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-26T01:39:35.823Z",
+ "publishedAt": "2026-11-26T17:02:05.067Z",
  "activities": [
   {
    "id": "qhdxwa4w",
@@ -35,7 +35,8 @@
    "migr": 2,
    "descriptionEs": "",
    "start": "09:00",
-   "end": "17:00"
+   "end": "17:00",
+   "_dates": []
   },
   {
    "id": "nd05z2oq",
@@ -579,33 +580,6 @@
    "migr": 2
   },
   {
-   "id": "i9bh1lbz",
-   "name": "Complimentary Fitness Class - Vinyasa Yoga",
-   "category": "Experience",
-   "description": "Move with the rhythm of the morning. In this flowing practice, breath and movement link together, building gentle warmth and focus in the calm of the One&Only Spa. All levels are welcome.",
-   "days": [
-    2
-   ],
-   "start": "07:00",
-   "end": "08:00",
-   "location": "One&Only Spa",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-25"
-   ],
-   "blackouts": [],
-   "migr": 2
-  },
-  {
    "id": "fpqkr3kk",
    "name": "Complimentary Fitness Class - Core Training",
    "category": "Experience",
@@ -714,33 +688,6 @@
    "migr": 2
   },
   {
-   "id": "oxfxxcy9",
-   "name": "KidsOnly Friendsgiving Party",
-   "category": "Experience",
-   "description": "Tonight belongs to the little ones. While grown-ups enjoy an evening of their own, our young guests gather for a Friendsgiving celebration full of friendship, laughter and festive fun.\n\nThe evening begins with a kid-favourite feast of mini burgers, chicken tenders, mac & cheese, and fries with ketchup, with apple juice, pink lemonade and still water to drink. Then come the treats: churros and donuts, cupcakes, and chocolate-dipped marshmallows and strawberries. Between bites there's a show, piñata breaking, games and plenty more.",
-   "days": [
-    2
-   ],
-   "start": "17:00",
-   "end": "20:00",
-   "location": "Bahias Ballrooms",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-25"
-   ],
-   "blackouts": [],
-   "migr": 2
-  },
-  {
    "id": "eebc437e",
    "name": "Fire & Embers Thanksgiving Dinner",
    "category": "Experience",
@@ -764,7 +711,8 @@
    "dates": [
     "2026-11-26"
    ],
-   "blackouts": []
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "52st6vb4",
@@ -790,7 +738,8 @@
    "dates": [
     "2026-11-26"
    ],
-   "blackouts": []
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "4qe35ib5",
@@ -816,7 +765,8 @@
    "dates": [
     "2026-11-26"
    ],
-   "blackouts": []
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "75qsc8xx",
@@ -842,7 +792,8 @@
    "dates": [
     "2026-11-27"
    ],
-   "blackouts": []
+   "blackouts": [],
+   "migr": 2
   }
  ]
 }
