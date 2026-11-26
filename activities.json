@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-26T17:02:05.067Z",
+ "publishedAt": "2026-11-26T17:21:08.693Z",
  "activities": [
   {
    "id": "qhdxwa4w",
@@ -533,7 +533,7 @@
    "days": [
     3
    ],
-   "start": "12:00",
+   "start": "11:00",
    "end": "16:00",
    "location": "Agua Pool",
    "dateFrom": "",
