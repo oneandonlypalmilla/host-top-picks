@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-25T19:56:17.358Z",
+ "publishedAt": "2026-11-26T01:39:35.823Z",
  "activities": [
   {
    "id": "qhdxwa4w",
@@ -335,7 +335,12 @@
    "start": "18:00",
    "end": "22:00",
    "migr": 2,
-   "blackouts": []
+   "blackouts": [
+    {
+     "from": "2026-11-26",
+     "to": "2026-11-26"
+    }
+   ]
   },
   {
    "id": "5mshy10j",
@@ -523,7 +528,7 @@
    "id": "9gx4zcee",
    "name": "Thanksgiving Pool Party",
    "category": "Experience",
-   "description": "Sunshine, the pool and a festive table by the sea. Celebrate Thanksgiving with us at Agua on Thursday, November 26, an afternoon of gratitude and family time.",
+   "description": "Spend Thanksgiving poolside with an afternoon of festive flavors, live cooking stations, handcrafted cocktails, and vibrant entertainment.",
    "days": [
     3
    ],
@@ -544,16 +549,13 @@
     "2026-11-26"
    ],
    "blackouts": [],
-   "_dates": [
-    "2026-11-26"
-   ],
    "migr": 2
   },
   {
    "id": "xafnijw6",
    "name": "Tree Lighting Ceremony",
    "category": "Experience",
-   "description": "A countdown, a sky full of stars and the first glow of the season. Join us for our Tree Lighting Ceremony on Thursday, November 26, as we welcome the holidays together.",
+   "description": "Join us as we officially welcome the holiday season with our annual Christmas Tree Lighting Ceremony. Gather with loved ones for an enchanting moment that marks the beginning of festive celebrations at Palmilla.",
    "days": [
     3
    ],
@@ -708,7 +710,8 @@
    "dates": [
     "2026-11-27"
    ],
-   "blackouts": []
+   "blackouts": [],
+   "migr": 2
   },
   {
    "id": "oxfxxcy9",
@@ -733,6 +736,111 @@
    "source": "manual",
    "dates": [
     "2026-11-25"
+   ],
+   "blackouts": [],
+   "migr": 2
+  },
+  {
+   "id": "eebc437e",
+   "name": "Fire & Embers Thanksgiving Dinner",
+   "category": "Experience",
+   "description": "Enjoy Thanksgiving with our signature à la carte woodfire grill menu, complemented by chef-crafted holiday specials and seasonal classics.",
+   "days": [
+    3
+   ],
+   "start": "17:30",
+   "end": "22:00",
+   "location": "Seared",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-26"
+   ],
+   "blackouts": []
+  },
+  {
+   "id": "52st6vb4",
+   "name": "Thanksgiving Dinner at Lucille's Kitchen",
+   "category": "Experience",
+   "description": "Join us at Palmilla Social Club for a feast rooted in Baja's seasonal flavors, warmth, and hospitality including à la carte favorites and a cornucopia of holiday delights.",
+   "days": [
+    3
+   ],
+   "start": "17:30",
+   "end": "22:00",
+   "location": "Lucille's Kitchen",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-26"
+   ],
+   "blackouts": []
+  },
+  {
+   "id": "4qe35ib5",
+   "name": "Family Feast Thanksgiving Dinner at Agua",
+   "category": "Experience",
+   "description": "Celebrate with a thoughtfully curated family-style dinner featuring seasonal favorites, warm hospitality, and  oceanfront views, creating a memorable gathering for family and friends.\n\nAdults: $4,160 MXN\nTeens (12-16 years old): $2,770 MXN \nKids: $1,380 MXN",
+   "days": [
+    3
+   ],
+   "start": "17:30",
+   "end": "22:00",
+   "location": "Agua Restaurant",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-26"
+   ],
+   "blackouts": []
+  },
+  {
+   "id": "75qsc8xx",
+   "name": "Bubble & Pearls",
+   "category": "Experience",
+   "description": "Indulge in fresh oysters and champagne, savor gourmet burgers, sip handcrafted cocktails, and unwind with breathtaking views of the Sea of Cortez at our adults-only Vista Pool.",
+   "days": [
+    4
+   ],
+   "start": "12:00",
+   "end": "16:00",
+   "location": "Breeze",
+   "dateFrom": "",
+   "dateTo": "",
+   "fit": {
+    "romantic": 1,
+    "family": 1,
+    "celebration": 1,
+    "relax": 1
+   },
+   "active": true,
+   "source": "manual",
+   "dates": [
+    "2026-11-27"
    ],
    "blackouts": []
   }
