@@ -2,7 +2,7 @@
  "app": "host-top-picks",
  "kind": "activities",
  "version": 4,
- "publishedAt": "2026-11-26T19:13:36.770Z",
+ "publishedAt": "2026-11-27T18:44:59.765Z",
  "activities": [
   {
    "id": "qhdxwa4w",
@@ -344,36 +344,6 @@
    ]
   },
   {
-   "id": "5mshy10j",
-   "name": "Cinthya Navarro Art Residence",
-   "category": "Culture",
-   "description": "Rooted in the landscapes and cultural heritage of Baja California Sur, Cinthya Navarro creates contemporary\nworks that blend painting, printmaking, and graphic arts. Through vibrant colors and expressive compositions, each piece offers a unique reflection on the connection between people, nature, and the spirit of Baja.",
-   "days": [
-    2,
-    3
-   ],
-   "dates": [
-    "2026-11-25",
-    "2026-11-26"
-   ],
-   "start": "14:00",
-   "end": "19:00",
-   "price": "",
-   "location": "Hacienda Building",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "Cinthya Navarro.pdf",
-   "addedAt": "2026-11-20T05:29:28.944Z",
-   "migr": 2
-  },
-  {
    "id": "fsh7vkf0",
    "name": "Corazón Playero",
    "category": "Experience",
@@ -403,36 +373,6 @@
    "active": true,
    "source": "Corazon Playero Noviembre.pdf",
    "addedAt": "2026-11-20T05:31:31.669Z",
-   "migr": 2
-  },
-  {
-   "id": "dyrvizzh",
-   "name": "Justyna Jewerly Trunk Show",
-   "category": "Experience",
-   "description": "Discover the distinctive world of Justyna Kaminska, where natural stones, artisanal craftsmanship, and refined design come together in a collection inspired by travel, culture, and personal expression. Each piece tells\na unique story, designed to complement every occasion with effortless elegance.",
-   "days": [
-    2,
-    3
-   ],
-   "dates": [
-    "2026-11-25",
-    "2026-11-26"
-   ],
-   "start": "13:00",
-   "end": "18:00",
-   "price": "",
-   "location": "Neo Boutique",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "Justyna Jewerly.pdf",
-   "addedAt": "2026-11-20T05:33:08.941Z",
    "migr": 2
   },
   {
@@ -526,87 +466,6 @@
    "migr": 2
   },
   {
-   "id": "9gx4zcee",
-   "name": "Thanksgiving Pool Party",
-   "category": "Experience",
-   "description": "Spend Thanksgiving poolside with an afternoon of festive flavors, live cooking stations, handcrafted cocktails, and vibrant entertainment.",
-   "days": [
-    3
-   ],
-   "start": "11:00",
-   "end": "16:00",
-   "location": "Agua Pool",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-26"
-   ],
-   "blackouts": [],
-   "migr": 2
-  },
-  {
-   "id": "xafnijw6",
-   "name": "Tree Lighting Ceremony",
-   "category": "Experience",
-   "description": "Join us as we officially welcome the holiday season with our annual Christmas Tree Lighting Ceremony. Gather with loved ones for an enchanting moment that marks the beginning of festive celebrations at Palmilla.",
-   "days": [
-    3
-   ],
-   "start": "20:00",
-   "end": "20:30",
-   "location": "Colibri Garden",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-26"
-   ],
-   "blackouts": [],
-   "migr": 2
-  },
-  {
-   "id": "fpqkr3kk",
-   "name": "Complimentary Fitness Class - Core Training",
-   "category": "Experience",
-   "description": "Strength starts at the centre. This focused session builds stability, balance and posture through purposeful, energising movement, guided by our fitness team at the One&Only Spa.",
-   "days": [
-    3
-   ],
-   "start": "07:00",
-   "end": "08:00",
-   "location": "One&Only Spa",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-26"
-   ],
-   "blackouts": [],
-   "migr": 2
-  },
-  {
    "id": "2f2xq4zy",
    "name": "Complimentary Fitness Class - Yin Yoga",
    "category": "Experience",
@@ -688,90 +547,6 @@
    "migr": 2
   },
   {
-   "id": "eebc437e",
-   "name": "Fire & Embers Thanksgiving Dinner",
-   "category": "Experience",
-   "description": "Enjoy Thanksgiving with our signature à la carte woodfire grill menu, complemented by chef-crafted holiday specials and seasonal classics.",
-   "days": [
-    3
-   ],
-   "start": "17:30",
-   "end": "22:00",
-   "location": "Seared",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-26"
-   ],
-   "blackouts": [],
-   "migr": 2,
-   "_dates": [
-    "2026-11-26"
-   ]
-  },
-  {
-   "id": "52st6vb4",
-   "name": "Thanksgiving Dinner at Lucille's Kitchen",
-   "category": "Experience",
-   "description": "Join us at Palmilla Social Club for a feast rooted in Baja's seasonal flavors, warmth, and hospitality including à la carte favorites and a cornucopia of holiday delights.",
-   "days": [
-    3
-   ],
-   "start": "17:30",
-   "end": "22:00",
-   "location": "Lucille's Kitchen",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-26"
-   ],
-   "blackouts": [],
-   "migr": 2
-  },
-  {
-   "id": "4qe35ib5",
-   "name": "Family Feast Thanksgiving Dinner at Agua",
-   "category": "Experience",
-   "description": "Celebrate with a thoughtfully curated family-style dinner featuring seasonal favorites, warm hospitality, and  oceanfront views, creating a memorable gathering for family and friends.\n\nAdults: $4,160 MXN\nTeens (12-16 years old): $2,770 MXN \nKids: $1,380 MXN",
-   "days": [
-    3
-   ],
-   "start": "17:30",
-   "end": "22:00",
-   "location": "Agua Restaurant",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-26"
-   ],
-   "blackouts": [],
-   "migr": 2
-  },
-  {
    "id": "75qsc8xx",
    "name": "Bubble & Pearls",
    "category": "Experience",
@@ -797,32 +572,6 @@
    ],
    "blackouts": [],
    "migr": 2
-  },
-  {
-   "id": "31m17rpo",
-   "name": "Thanksgiving Dinner at Il Pergolato",
-   "category": "Experience",
-   "description": "This Thanksgiving, gather around the table at Il Pergolato. The glow of the wood-fired grill sets a warm, convivial scene for an unhurried celebration with family and friends.\n\nOur signature à la carte menu brings the flavour of the open flame to every plate, alongside chef-crafted holiday specials and seasonal classics made for sharing. It's a festive meal with an Italian soul, celebrated the Palmilla way.",
-   "days": [
-    3
-   ],
-   "start": "17:30",
-   "end": "22:00",
-   "location": "Il Pergolato",
-   "dateFrom": "",
-   "dateTo": "",
-   "fit": {
-    "romantic": 1,
-    "family": 1,
-    "celebration": 1,
-    "relax": 1
-   },
-   "active": true,
-   "source": "manual",
-   "dates": [
-    "2026-11-26"
-   ],
-   "blackouts": []
   }
  ]
 }
